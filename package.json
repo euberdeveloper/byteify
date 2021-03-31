@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "An npm module that serializes or deserializes your native types to an array of bytes.",
   "main": "bundled/index",
+  "types": "bundled/index.d.ts",
   "scripts": {
     "clean": "shx rm -rf dist bundled",
     "pretranspile:source": "npm run clean",
@@ -21,7 +22,8 @@
     "docs:html-dev": "typedoc --options typedoc.dev.js",
     "docs": "npm run docs:html && npm run docs:html-dev",
     "commit": "git-cz",
-    "commit:sign": "git-cz -S"
+    "commit:sign": "git-cz -S",
+    "prepublishOnly": "npm run bundle"
   },
   "repository": {
     "type": "git",
