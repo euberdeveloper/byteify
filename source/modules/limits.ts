@@ -46,9 +46,9 @@ export const MIN: TypesDescription = Object.freeze({
     int8: -128,
     int16: -32768,
     int32: -2147483648,
-    int64: Number.MIN_VALUE, // Note: problem because max value in js has 53 precision and not 64,
-    float32: Number.MIN_VALUE, // TODO
-    float64: Number.MIN_VALUE // TODO
+    int64: -9007199254740991, // Note: problem because max value in js has 53 precision and not 64,
+    float32: -9007199254740991, // TODO
+    float64: -9007199254740991 // TODO
 });
 
 /**
