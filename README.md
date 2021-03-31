@@ -5,6 +5,7 @@
 [![codecov](https://codecov.io/gh/euberdeveloper/byteify/branch/main/graph/badge.svg?token=4YW49XC338)](https://codecov.io/gh/euberdeveloper/byteify)
 [![Known Vulnerabilities](https://snyk.io/test/github/euberdeveloper/byteify/badge.svg?targetFile=package.json)](https://snyk.io/test/github/euberdeveloper/byteify?targetFile=package.json)
 [![dependencies Status](https://david-dm.org/euberdeveloper/byteify/status.svg)](https://david-dm.org/euberdeveloper/byteify)
+[![devDependencies Status](https://status.david-dm.org/gh/euberdeveloper/byteify.svg?type=dev)](https://david-dm.org/euberdeveloper/byteify?type=dev)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 [![License](https://img.shields.io/npm/l/byteify.svg)](https://github.com/euberdeveloper/byteify/blob/master/LICENSE)
 [![GitHub issues](https://img.shields.io/github/issues/euberdeveloper/byteify.svg)](https://github.com/euberdeveloper/byteify/issues)
