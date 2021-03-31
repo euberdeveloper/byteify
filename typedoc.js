@@ -2,7 +2,7 @@ module.exports = {
     entryPoints: [
         './source/index.ts'
     ],
-    name: 'euberlog',
+    name: 'byteify',
     excludeExternals: true,
     includeVersion: true,
     tsconfig: 'source/tsconfig.json',
