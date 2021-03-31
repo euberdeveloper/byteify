@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "moduleResolution": "node",
+        "module": "commonjs",
+        "target": "es5",
+        "lib": [
+            "ES2020"
+        ],
+        "strictNullChecks": true,
+        "sourceMap": true,
+        "declaration": true,
+        "outDir": "../dist"
+    }
+}
