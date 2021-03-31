@@ -26,8 +26,7 @@ function serializeInteger(value: number, type: string): Uint8Array {
 
     const result = new Uint8Array(nOfBytes);
     const offsetBase = nOfBytes - 1;
-    console.log({offsetBase, nOfBytes, type});
-    [Array(nOfBytes)].forEach((_, index) => {
+    [...Array(nOfBytes)].forEach((_, index) => {
         result.set([(value >> (8 * (offsetBase - index))) & 0xff], index);
     });
     return result;
