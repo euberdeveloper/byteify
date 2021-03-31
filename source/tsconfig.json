@@ -4,7 +4,7 @@
         "module": "commonjs",
         "target": "es5",
         "lib": [
-            "ES2020"
+            "ES2015"
         ],
         "strictNullChecks": true,
         "sourceMap": true,

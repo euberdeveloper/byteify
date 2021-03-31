@@ -4,9 +4,13 @@
   "description": "An npm module that serializes or deserializes your native types to an array of bytes.",
   "main": "bundled/index",
   "scripts": {
+    "clean": "shx rm -rf dist bundled",
+    "pretranspile:source": "npm run clean",
     "transpile:source": "tsc -p source",
     "transpile:test": "tsc -p test",
     "transpile": "npm run transpile:source && npm run transpile:test",
+    "prebundle": "npm run clean",
+    "bundle": "webpack",
     "lint:source": "eslint source --ext ts --format codeframe",
     "lint:source:fix": "eslint source --ext ts --format codeframe --fix",
     "lint:test": "eslint test --ext ts --format codeframe",
@@ -40,12 +44,18 @@
     "@euberdeveloper/eslint-config-typescript": "^4.7.0",
     "commitizen": "^4.2.3",
     "cz-conventional-changelog": "^3.2.0",
+    "dts-bundle-webpack": "^1.0.2",
     "eslint": "^7.23.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-prettier": "^3.3.1",
     "prettier": "^2.2.1",
+    "shx": "^0.3.3",
+    "ts-loader": "^8.1.0",
     "typedoc": "^0.20.34",
-    "typescript": "^4.2.3"
+    "typescript": "^4.2.3",
+    "webpack": "^5.28.0",
+    "webpack-cli": "^4.6.0",
+    "webpack-node-externals": "^2.5.2"
   },
   "config": {
     "commitizen": {
