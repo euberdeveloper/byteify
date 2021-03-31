@@ -1,7 +1,7 @@
 /**
  * Interface of the description of a native type feature.
  */
-interface TypesDescription {
+export interface TypesDescription {
     BOOL: number;
     UINT8: number;
     UINT16: number;
