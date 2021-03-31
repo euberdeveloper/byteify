@@ -1,0 +1,26 @@
+{
+  "name": "byteify",
+  "version": "1.0.0",
+  "description": "An npm module that serializes or deserializes your native types to an array of bytes.",
+  "main": "bundled/index",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/euberdeveloper/byteify.git"
+  },
+  "keywords": [
+    "bytes",
+    "bytes-array",
+    "serialize",
+    "deserialize",
+    "deserialize-bytes"
+  ],
+  "author": "Eugenio Vinicio Berretta <euberdeveloper@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/euberdeveloper/byteify/issues"
+  },
+  "homepage": "https://github.com/euberdeveloper/byteify#readme"
+}
