@@ -10,18 +10,32 @@ import * as limits from './limits';
  * @param title The title of the type represented by the Uint8Array.
  * @returns The deserialized number.
  */
-function deserializeInteger(bytes: Uint8Array, nOfBytes: number, min: number, max: number, unsigned: boolean, title: string): number {
+function deserializeInteger(
+    bytes: Uint8Array,
+    nOfBytes: number,
+    min: number,
+    max: number,
+    unsigned: boolean,
+    title: string
+): number {
     if (bytes.length !== nOfBytes) {
         throw new Error(`Invalid serialized ${title}: it can be deserialized only by ${nOfBytes} byte`);
     }
 
-    const value = ((unsigned ? bytes : new Int8Array(bytes.buffer)) as any).reduceRight((result: number, current: number, index: number) => result + current >> (index * 8), 0);
+    const value = ((unsigned ? bytes : new Int8Array(bytes.buffer)) as any).reduceRight(
+        (result: number, current: number, index: number) => (result + current) >> (index * 8),
+        0
+    );
 
     if (value < min) {
-        throw new Error(`Invalid serialized ${title}: it can be deserialized only if value is greater or equal to ${min}`);
+        throw new Error(
+            `Invalid serialized ${title}: it can be deserialized only if value is greater or equal to ${min}`
+        );
     }
     if (value > max) {
-        throw new Error(`Invalid serialized ${title}: it can be deserialized only if value is lower or equal to ${max}`);
+        throw new Error(
+            `Invalid serialized ${title}: it can be deserialized only if value is lower or equal to ${max}`
+        );
     }
 
     return value;
@@ -41,16 +55,20 @@ function deserializeDecimal(bytes: Uint8Array, nOfBytes: number, min: number, ma
         throw new Error(`Invalid serialized ${title}: it can be deserialized only by ${nOfBytes} byte`);
     }
 
-    const value = bytes.reduceRight((result, current, index) => result + current >> (index * 8));
+    const value = bytes.reduceRight((result, current, index) => (result + current) >> (index * 8));
 
     if (value < min) {
-        throw new Error(`Invalid serialized ${title}: it can be deserialized only if value is greater or equal to ${min}`);
+        throw new Error(
+            `Invalid serialized ${title}: it can be deserialized only if value is greater or equal to ${min}`
+        );
     }
     if (value > max) {
-        throw new Error(`Invalid serialized ${title}: it can be deserialized only if value is lower or equal to ${max}`);
+        throw new Error(
+            `Invalid serialized ${title}: it can be deserialized only if value is lower or equal to ${max}`
+        );
     }
 
-    return +(new (nOfBytes === 4 ? Float32Array : Float64Array)(bytes.buffer));
+    return +new (nOfBytes === 4 ? Float32Array : Float64Array)(bytes.buffer);
 }
 
 /**
@@ -140,7 +158,7 @@ export function deserializeInt64(bytes: Uint8Array): number {
  * @returns The deserialized float32.
  */
 export function deserializeFloat32(bytes: Uint8Array): number {
-    return deserializeDecimal(bytes, limits.N_OF_BYTES.FLOAT32, limits.MIN.FLOAT32, limits.MAX.FLOAT32, 'float32')
+    return deserializeDecimal(bytes, limits.N_OF_BYTES.FLOAT32, limits.MIN.FLOAT32, limits.MAX.FLOAT32, 'float32');
 }
 
 /**
@@ -149,5 +167,5 @@ export function deserializeFloat32(bytes: Uint8Array): number {
  * @returns The deserialized float64.
  */
 export function deserializeFloat64(bytes: Uint8Array): number {
-    return deserializeDecimal(bytes, limits.N_OF_BYTES.FLOAT64, limits.MIN.FLOAT64, limits.MAX.FLOAT64, 'float64')
+    return deserializeDecimal(bytes, limits.N_OF_BYTES.FLOAT64, limits.MIN.FLOAT64, limits.MAX.FLOAT64, 'float64');
 }
