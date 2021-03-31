@@ -113,7 +113,7 @@ export function serializeUint64(value: number): Uint8Array {
  * @returns The int8 serialized in an Uint8Array.
  */
 export function serializeInt8(value: number): Uint8Array {
-    return serializeInteger(value, 'uint8');
+    return serializeInteger(value, 'int8');
 }
 
 /**
@@ -122,7 +122,7 @@ export function serializeInt8(value: number): Uint8Array {
  * @returns The int16 serialized in an Uint8Array.
  */
 export function serializeInt16(value: number): Uint8Array {
-    return serializeInteger(value, 'uint16');
+    return serializeInteger(value, 'int16');
 }
 
 /**
@@ -131,7 +131,7 @@ export function serializeInt16(value: number): Uint8Array {
  * @returns The int32 serialized in an Uint8Array.
  */
 export function serializeInt32(value: number): Uint8Array {
-    return serializeInteger(value, 'uint32');
+    return serializeInteger(value, 'int32');
 }
 
 /**
@@ -140,7 +140,7 @@ export function serializeInt32(value: number): Uint8Array {
  * @returns The int64 serialized in an Uint8Array.
  */
 export function serializeInt64(value: number): Uint8Array {
-    return serializeInteger(value, 'uint64');
+    return serializeInteger(value, 'int64');
 }
 
 /**
