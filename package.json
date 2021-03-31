@@ -9,7 +9,9 @@
     "transpile": "npm run transpile:source && npm run transpile:test",
     "docs:html": "typedoc",
     "docs:html-dev": "typedoc --options typedoc.dev.js",
-    "docs": "npm run docs:html && npm run docs:html-dev"
+    "docs": "npm run docs:html && npm run docs:html-dev",
+    "commit": "git-cz",
+    "commit:sign": "git-cz -S"
   },
   "repository": {
     "type": "git",
@@ -29,6 +31,13 @@
   },
   "homepage": "https://github.com/euberdeveloper/byteify#readme",
   "devDependencies": {
+    "commitizen": "^4.2.3",
+    "cz-conventional-changelog": "^3.2.0",
     "typedoc": "^0.20.34"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
