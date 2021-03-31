@@ -8,7 +8,7 @@ import * as limits from './limits';
  * @returns The deserialized number.
  */
 function deserializeInteger(bytes: Uint8Array, type: string, unsigned: boolean): number {
-    const nOfBytes: number = 'bool'[type];
+    const nOfBytes: number = limits.N_OF_BYTES[type];
     const max: number = limits.MAX[type];
     const min: number = limits.MIN[type];
 
@@ -40,7 +40,7 @@ function deserializeInteger(bytes: Uint8Array, type: string, unsigned: boolean):
  * @returns The deserialized number.
  */
 function deserializeDecimal(bytes: Uint8Array, type: string): number {
-    const nOfBytes: number = 'bool'[type];
+    const nOfBytes: number = limits.N_OF_BYTES[type];
     const max: number = limits.MAX[type];
     const min: number = limits.MIN[type];
 
