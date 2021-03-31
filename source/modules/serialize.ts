@@ -7,7 +7,7 @@ import * as limits from './limits';
  * @returns The serialized Uint8Array.
  */
 function serializeInteger(value: number, type: string): Uint8Array {
-    const nOfBytes: number = 'bool'[type];
+    const nOfBytes: number = limits.N_OF_BYTES[type];
     const max: number = limits.MAX[type];
     const min: number = limits.MIN[type];
 
@@ -26,6 +26,7 @@ function serializeInteger(value: number, type: string): Uint8Array {
 
     const result = new Uint8Array(nOfBytes);
     const offsetBase = nOfBytes - 1;
+    console.log({offsetBase, nOfBytes, type});
     [Array(nOfBytes)].forEach((_, index) => {
         result.set([(value >> (8 * (offsetBase - index))) & 0xff], index);
     });
@@ -39,7 +40,7 @@ function serializeInteger(value: number, type: string): Uint8Array {
  * @returns The serialized bytes of the Uint8Array.
  */
 function serializeDecimal(value: number, type: string): Uint8Array {
-    const nOfBytes: number = 'bool'[type];
+    const nOfBytes: number = limits.N_OF_BYTES[type];
     const max: number = limits.MAX[type];
     const min: number = limits.MIN[type];
 
