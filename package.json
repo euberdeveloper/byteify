@@ -4,7 +4,12 @@
   "description": "An npm module that serializes or deserializes your native types to an array of bytes.",
   "main": "bundled/index",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "transpile:source": "tsc -p source",
+    "transpile:test": "tsc -p test",
+    "transpile": "npm run transpile:source && npm run transpile:test",
+    "docs:html": "typedoc",
+    "docs:html-dev": "typedoc --options typedoc.dev.js",
+    "docs": "npm run docs:html && npm run docs:html-dev"
   },
   "repository": {
     "type": "git",
@@ -22,5 +27,8 @@
   "bugs": {
     "url": "https://github.com/euberdeveloper/byteify/issues"
   },
-  "homepage": "https://github.com/euberdeveloper/byteify#readme"
+  "homepage": "https://github.com/euberdeveloper/byteify#readme",
+  "devDependencies": {
+    "typedoc": "^0.20.34"
+  }
 }
