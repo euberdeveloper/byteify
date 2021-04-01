@@ -16,10 +16,16 @@ function deserializeInteger(bytes: Uint8Array, type: string, unsigned: boolean):
         throw new Error(`Invalid serialized ${type}: it can be deserialized only by ${nOfBytes} byte`);
     }
 
-    const value = ((unsigned ? bytes : new Int8Array(bytes.buffer)) as any).reduceRight(
-        (result: number, current: number, index: number) => (result + current) >> (index * 8),
-        0
-    );
+    const offsetBase = nOfBytes - 1;
+    const value = unsigned
+        ? bytes.reduce(
+              (result: number, current: number, index: number) => result + (current << ((offsetBase - index) * 8)),
+                0
+            )
+        : new Int8Array(bytes.buffer).reduce(
+              (result: number, current: number, index: number) => result + (current << ((offsetBase - index) * 8)),
+                0
+            );
 
     if (value < min) {
         throw new Error(

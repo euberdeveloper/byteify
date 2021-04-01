@@ -1,5 +1,5 @@
 import { assert } from 'chai';
-import testCases from './serializeTestCases.copy'
+import testCases from './test-cases'
 
 function serializeAndTest<T>(value: T, expected: number[], serializeFn: (x: T) => Uint8Array) {
     assert.deepEqual(serializeFn(value), new Uint8Array(expected));

@@ -1,5 +1,16 @@
 import * as limits from './limits';
 
+function serialize32BitInteger(value: number, nOfBytes: number): Uint8Array {
+    const result = new Uint8Array(nOfBytes);
+    const offsetBase = nOfBytes - 1;
+
+    [...Array(nOfBytes)].forEach((_, index) => {
+        result.set([(value >> (8 * (offsetBase - index))) & 0xff], index);
+    });
+
+    return result;
+}
+
 /**
  * Serializes an integer into an Uint8Array.
  * @param value The number to serialize.
@@ -8,6 +19,7 @@ import * as limits from './limits';
  */
 function serializeInteger(value: number, type: string): Uint8Array {
     const nOfBytes: number = limits.N_OF_BYTES[type];
+    
     const max: number = limits.MAX[type];
     const min: number = limits.MIN[type];
 
@@ -24,12 +36,17 @@ function serializeInteger(value: number, type: string): Uint8Array {
         throw new Error(`Invalid ${type}: value cannot be decimal`);
     }
 
-    const result = new Uint8Array(nOfBytes);
-    const offsetBase = nOfBytes - 1;
-    [...Array(nOfBytes)].forEach((_, index) => {
-        result.set([(value >> (8 * (offsetBase - index))) & 0xff], index);
-    });
-    return result;
+    const firstResult = serialize32BitInteger(value % (2**32), Math.min(nOfBytes, 4));
+    
+    if (nOfBytes <= 4) {
+        return firstResult;
+    } else {
+        const result = new Uint8Array(nOfBytes);
+        const secondResult = serialize32BitInteger(Math.floor(value / (2**32)), nOfBytes - 4);
+        result.set(secondResult);
+        result.set(firstResult, secondResult.length);
+        return result;
+    }
 }
 
 /**
