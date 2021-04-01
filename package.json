@@ -44,6 +44,7 @@
   "homepage": "https://github.com/euberdeveloper/byteify#readme",
   "devDependencies": {
     "@euberdeveloper/eslint-config-typescript": "^4.7.0",
+    "@types/node": "^14.14.37",
     "commitizen": "^4.2.3",
     "cz-conventional-changelog": "^3.2.0",
     "dts-bundle-webpack": "^1.0.2",
