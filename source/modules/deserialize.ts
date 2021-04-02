@@ -54,7 +54,7 @@ function deserializeDecimal(bytes: Uint8Array, type: string): number {
         throw new Error(`Invalid serialized ${type}: it can be deserialized only by ${nOfBytes} byte`);
     }
 
-    const value = bytes.reduceRight((result, current, index) => (result + current) >> (index * 8));
+    const value = +new (nOfBytes === 4 ? Float32Array : Float64Array)(bytes.buffer);
 
     if (value < min) {
         throw new Error(
@@ -64,8 +64,6 @@ function deserializeDecimal(bytes: Uint8Array, type: string): number {
     if (value > max) {
         throw new Error(`Invalid serialized ${type}: it can be deserialized only if value is lower or equal to ${max}`);
     }
-
-    return +new (nOfBytes === 4 ? Float32Array : Float64Array)(bytes.buffer);
 }
 
 /**
