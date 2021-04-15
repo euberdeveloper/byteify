@@ -1,12 +1,13 @@
 const path = require('path');
 
 module.exports = {
+    parser: '@typescript-eslint/parser',
     parserOptions: {
         project: path.join(__dirname, 'tsconfig.json') // The path to your tsconfig.json
     },
-    plugins: ['prettier'],
+    plugins: ['@euberdeveloper', 'prettier'],
     extends: [
-        '@euberdeveloper/typescript',
+        'plugin:@euberdeveloper/typescript',
         'plugin:prettier/recommended'
     ],
     rules: {

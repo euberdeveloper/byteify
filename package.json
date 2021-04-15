@@ -47,7 +47,7 @@
   },
   "homepage": "https://byteify.euber.dev",
   "devDependencies": {
-    "@euberdeveloper/eslint-config-typescript": "^5.3.0",
+    "@euberdeveloper/eslint-plugin": "^0.0.1",
     "@types/chai": "^4.2.15",
     "@types/mocha": "^8.2.2",
     "@types/node": "^14.14.37",
@@ -61,7 +61,9 @@
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-mocha": "^8.1.0",
     "eslint-plugin-prettier": "^3.3.1",
+    "install": "^0.13.0",
     "mocha": "^8.3.2",
+    "npm": "^7.10.0",
     "nyc": "^15.1.0",
     "prettier": "^2.2.1",
     "shx": "^0.3.3",
