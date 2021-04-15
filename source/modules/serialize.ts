@@ -69,10 +69,6 @@ function serializeDecimal(value: number, type: string): Uint8Array {
 
     const result = new Uint8Array(new (nOfBytes === 4 ? Float32Array : Float64Array)([value]).buffer);
 
-    if (result.length !== nOfBytes) {
-        throw new Error(`Invalid ${type}: value must be of ${nOfBytes} bytes`);
-    }
-
     return result;
 }
 
