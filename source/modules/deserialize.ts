@@ -9,8 +9,8 @@ import * as limits from './limits';
  */
 function deserializeInteger(bytes: Uint8Array, type: string, unsigned: boolean): number {
     const nOfBytes: number = limits.N_OF_BYTES[type];
-    // const max: number = limits.MAX[type];
-    // const min: number = limits.MIN[type];
+    const max: number = limits.MAX[type];
+    const min: number = limits.MIN[type];
 
     if (bytes.length !== nOfBytes) {
         throw new Error(`Invalid serialized ${type}: it can be deserialized only by ${nOfBytes} byte`);
@@ -22,34 +22,19 @@ function deserializeInteger(bytes: Uint8Array, type: string, unsigned: boolean):
 
     if (!unsigned) bits[0] *= -1;
 
-    return bits.reverse().reduce((a, b, i) => a + (b === 0 ? 0 : b * 2 ** i), 0);
+    // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+    const value = bits.reverse().reduce((a, b, i) => a + (b === 0 ? 0 : b * 2 ** i), 0);
 
-    // const offsetBase = nOfBytes - 1;
-    // const value = unsigned
-    //     ? bytes.reduce(
-    //           (result: number, current: number, index: number) => result + (current << ((offsetBase - index) * 8)),
-    //             0
-    //         )
-    //     : new Int8Array(bytes.buffer).reduce(
-    //           (result: number, current: number, index: number) => result + (current << ((offsetBase - index) * 8)),
-    //             0
-    //         );
+    if (value < min) {
+        throw new Error(
+            `Invalid serialized ${type}: it can be deserialized only if value is greater or equal to ${min}`
+        );
+    }
+    if (value > max) {
+        throw new Error(`Invalid serialized ${type}: it can be deserialized only if value is lower or equal to ${max}`);
+    }
 
-    // if (!unsigned && bits[0] === '1') {
-    //     Array.from(bits).map()
-    // }
-
-    // bytes[0].toString(2).split('')
-    // console.log(((~bytes[0]) << 8) | (~bytes[1]));
-
-    // if (value < min) {
-    //     throw new Error(
-    //         `Invalid serialized ${type}: it can be deserialized only if value is greater or equal to ${min}`
-    //     );
-    // }
-    // if (value > max) {
-    //     throw new Error(`Invalid serialized ${type}: it can be deserialized only if value is lower or equal to ${max}`);
-    // }
+    return value;
 }
 
 /**
@@ -77,6 +62,8 @@ function deserializeDecimal(bytes: Uint8Array, type: string): number {
     if (value > max) {
         throw new Error(`Invalid serialized ${type}: it can be deserialized only if value is lower or equal to ${max}`);
     }
+
+    return value;
 }
 
 /**
