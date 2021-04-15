@@ -21,6 +21,7 @@
     "docs:html-dev": "typedoc --options typedoc.dev.js",
     "docs": "npm run docs:html && npm run docs:html-dev",
     "test": "mocha ./dist/test/index.test.js",
+    "nyc": "nyc --extension=ts --reporter=html --reporter=text --reporter=lcov -x \"test\" npm test",
     "commit": "git-cz",
     "commit:sign": "git-cz -S",
     "prepublishOnly": "npm run bundle"
@@ -55,6 +56,7 @@
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-prettier": "^3.3.1",
     "mocha": "^8.3.2",
+    "nyc": "^15.1.0",
     "prettier": "^2.2.1",
     "shx": "^0.3.3",
     "ts-loader": "^8.1.0",
