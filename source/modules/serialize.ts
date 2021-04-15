@@ -60,12 +60,12 @@ function serializeDecimal(value: number, type: string): Uint8Array {
     if (typeof value !== 'number') {
         throw new Error(`Invalid ${type}: value must be a number`);
     }
+    /* istanbul ignore next */
     if (value < min) {
-        /* istanbul ignore next */
         throw new Error(`Invalid ${type}: value cannot be lower than ${min}`);
     }
+    /* istanbul ignore next */
     if (value > max) {
-        /* istanbul ignore next */
         throw new Error(`Invalid ${type}: value cannot be bigger than ${max}`);
     }
 
