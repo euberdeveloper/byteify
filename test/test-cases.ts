@@ -31,7 +31,7 @@ const testCases = [
             [127, [127]],
             [128, [128]],
             [192, [192]],
-            [255, [255]],
+            [255, [255]]
         ]
     } as ITestCase<number>,
     {
@@ -104,7 +104,7 @@ const testCases = [
             [255, [0, 255]],
             [256, [1, 0]],
             [1000, [3, 232]],
-            [32767, [127, 255]],
+            [32767, [127, 255]]
         ]
     } as ITestCase<number>,
     {
@@ -144,7 +144,6 @@ const testCases = [
             [0, [0, 0, 0, 0, 0, 0, 0, 0]]
         ]
     } as ITestCase<number>
-
 ];
 
 export default testCases;

@@ -4,7 +4,7 @@ module.exports = {
     parserOptions: {
         ecmaVersion: 2020,
         sourceType: 'module',
-        project: path.join(__dirname, 'source', 'tsconfig.json')
+        project: path.join(__dirname, 'tsconfig.json')
     },
     plugins: ['prettier'],
     extends: [
