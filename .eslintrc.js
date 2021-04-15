@@ -4,10 +4,10 @@ module.exports = {
     parserOptions: {
         project: path.join(__dirname, 'tsconfig.json') // The path to your tsconfig.json
     },
-    plugins: ['@euberdeveloper', 'prettier'],
+    plugins: ['@euberdeveloper'],
     extends: [
         'plugin:@euberdeveloper/typescript',
-        'plugin:prettier/recommended'
+        'plugin:@euberdeveloper/prettier'
     ],
     rules: {
         '@typescript-eslint/naming-convention': 'off'

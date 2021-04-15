@@ -47,7 +47,7 @@
   },
   "homepage": "https://byteify.euber.dev",
   "devDependencies": {
-    "@euberdeveloper/eslint-plugin": "^0.0.1",
+    "@euberdeveloper/eslint-plugin": "^1.0.0",
     "@types/chai": "^4.2.15",
     "@types/mocha": "^8.2.2",
     "@types/node": "^14.14.37",
