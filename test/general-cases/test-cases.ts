@@ -1,4 +1,4 @@
-import * as byteify from '../source';
+import * as byteify from '../../source';
 
 interface ITestCase<T> {
     name: string;
