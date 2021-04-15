@@ -2,9 +2,7 @@ const path = require('path');
 
 module.exports = {
     parserOptions: {
-        ecmaVersion: 2020,
-        sourceType: 'module',
-        project: path.join(__dirname, 'tsconfig.json')
+        project: path.join(__dirname, 'tsconfig.json') // The path to your tsconfig.json
     },
     plugins: ['prettier'],
     extends: [

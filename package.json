@@ -38,22 +38,26 @@
     "deserialize-bytes"
   ],
   "author": "Eugenio Vinicio Berretta <euberdeveloper@gmail.com>",
-  "contributors": ["Nicola Toscan <nicolatoscan99@gmail.com>"],
+  "contributors": [
+    "Nicola Toscan <nicolatoscan99@gmail.com>"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/euberdeveloper/byteify/issues"
   },
   "homepage": "https://byteify.euber.dev",
   "devDependencies": {
-    "@euberdeveloper/eslint-config-typescript": "^4.7.0",
+    "@euberdeveloper/eslint-config-typescript": "^5.1.0",
     "@types/chai": "^4.2.15",
     "@types/mocha": "^8.2.2",
     "@types/node": "^14.14.37",
+    "@typescript-eslint/eslint-plugin": "^4.22.0",
+    "@typescript-eslint/parser": "^4.22.0",
     "chai": "^4.3.4",
     "commitizen": "^4.2.3",
     "cz-conventional-changelog": "^3.2.0",
     "dts-bundle-webpack": "^1.0.2",
-    "eslint": "^7.23.0",
+    "eslint": "^7.24.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-prettier": "^3.3.1",
     "mocha": "^8.3.2",
