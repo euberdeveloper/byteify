@@ -7,9 +7,6 @@ interface ITestCase<T> {
     values: [T, number[]][];
 }
 
-const a = byteify.serializeInt32(-1);
-console.log(a);
-
 const testCases = [
     // ----- Bool
     {
@@ -100,7 +97,14 @@ const testCases = [
         values: [
             [0, [0, 0]],
             [1, [0, 1]],
-            [42, [0, 42]]
+            [42, [0, 42]],
+            [127, [0, 127]],
+            [128, [0, 128]],
+            [192, [0, 192]],
+            [255, [0, 255]],
+            [256, [1, 0]],
+            [1000, [3, 232]],
+            [32767, [127, 255]],
         ]
     } as ITestCase<number>,
     {
