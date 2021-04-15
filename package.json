@@ -38,6 +38,7 @@
     "deserialize-bytes"
   ],
   "author": "Eugenio Vinicio Berretta <euberdeveloper@gmail.com>",
+  "contributors": ["Nicola Toscan <nicolatoscan99@gmail.com>"],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/euberdeveloper/byteify/issues"
