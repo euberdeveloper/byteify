@@ -13,6 +13,12 @@ export default function (): void {
                 assert.throws(() => byteify.serializeUint8([] as any));
             });
 
+            it('should throw an error due to decimal value', function () {
+                assert.throws(() => byteify.serializeUint8(23.23));
+                assert.throws(() => byteify.serializeUint8(-23.23));
+                assert.throws(() => byteify.serializeUint8(0.0023));
+            });
+
             it('should throw an error due to value too small', function () {
                 assert.throws(() => byteify.serializeUint8(byteify.limits.MIN.uint8 - 1));
             });
@@ -28,6 +34,12 @@ export default function (): void {
                 assert.throws(() => byteify.serializeUint16('string' as any));
                 assert.throws(() => byteify.serializeUint16({} as any));
                 assert.throws(() => byteify.serializeUint16([] as any));
+            });
+
+            it('should throw an error due to decimal value', function () {
+                assert.throws(() => byteify.serializeUint16(23.23));
+                assert.throws(() => byteify.serializeUint16(-23.23));
+                assert.throws(() => byteify.serializeUint16(0.0023));
             });
 
             it('should throw an error due to value too small', function () {
@@ -47,6 +59,12 @@ export default function (): void {
                 assert.throws(() => byteify.serializeUint32([] as any));
             });
 
+            it('should throw an error due to decimal value', function () {
+                assert.throws(() => byteify.serializeUint32(23.23));
+                assert.throws(() => byteify.serializeUint32(-23.23));
+                assert.throws(() => byteify.serializeUint32(0.0023));
+            });
+
             it('should throw an error due to value too small', function () {
                 assert.throws(() => byteify.serializeUint32(byteify.limits.MIN.uint32 - 1));
             });
@@ -64,6 +82,12 @@ export default function (): void {
                 assert.throws(() => byteify.serializeUint64([] as any));
             });
 
+            it('should throw an error due to decimal value', function () {
+                assert.throws(() => byteify.serializeUint64(23.23));
+                assert.throws(() => byteify.serializeUint64(-23.23));
+                assert.throws(() => byteify.serializeUint64(0.0023));
+            });
+
             it('should throw an error due to value too small', function () {
                 assert.throws(() => byteify.serializeUint64(byteify.limits.MIN.uint64 - 1));
             });
@@ -77,6 +101,12 @@ export default function (): void {
                 assert.throws(() => byteify.serializeInt8('string' as any));
                 assert.throws(() => byteify.serializeInt8({} as any));
                 assert.throws(() => byteify.serializeInt8([] as any));
+            });
+
+            it('should throw an error due to decimal value', function () {
+                assert.throws(() => byteify.serializeInt8(23.23));
+                assert.throws(() => byteify.serializeInt8(-23.23));
+                assert.throws(() => byteify.serializeInt8(0.0023));
             });
 
             it('should throw an error due to value too small', function () {
@@ -96,6 +126,12 @@ export default function (): void {
                 assert.throws(() => byteify.serializeInt16([] as any));
             });
 
+            it('should throw an error due to decimal value', function () {
+                assert.throws(() => byteify.serializeInt16(23.23));
+                assert.throws(() => byteify.serializeInt16(-23.23));
+                assert.throws(() => byteify.serializeInt16(0.0023));
+            });
+
             it('should throw an error due to value too small', function () {
                 assert.throws(() => byteify.serializeInt16(byteify.limits.MIN.int16 - 1));
             });
@@ -113,6 +149,12 @@ export default function (): void {
                 assert.throws(() => byteify.serializeInt32([] as any));
             });
 
+            it('should throw an error due to decimal value', function () {
+                assert.throws(() => byteify.serializeInt32(23.23));
+                assert.throws(() => byteify.serializeInt32(-23.23));
+                assert.throws(() => byteify.serializeInt32(0.0023));
+            });
+
             it('should throw an error due to value too small', function () {
                 assert.throws(() => byteify.serializeInt32(byteify.limits.MIN.int32 - 1));
             });
@@ -128,6 +170,12 @@ export default function (): void {
                 assert.throws(() => byteify.serializeInt64('string' as any));
                 assert.throws(() => byteify.serializeInt64({} as any));
                 assert.throws(() => byteify.serializeInt64([] as any));
+            });
+
+            it('should throw an error due to decimal value', function () {
+                assert.throws(() => byteify.serializeInt64(23.23));
+                assert.throws(() => byteify.serializeInt64(-23.23));
+                assert.throws(() => byteify.serializeInt64(0.0023));
             });
         });
 
