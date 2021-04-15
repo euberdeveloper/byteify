@@ -67,3 +67,17 @@ export const N_OF_BYTES: TypesDescription = Object.freeze({
     float32: 4,
     float64: 8
 });
+
+export const TYPE_OF_ARRAY = Object.freeze({
+    bool: Uint8Array,
+    uint8: Uint8Array,
+    uint16: Uint16Array,
+    uint32: Uint8Array,
+    uint64: Uint8Array,
+    int8: Uint8Array,
+    int16: Uint8Array,
+    int32: Uint8Array,
+    int64: Uint8Array,
+    float32: Uint8Array,
+    float64: Uint8Array
+});
