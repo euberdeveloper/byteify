@@ -151,9 +151,9 @@ console.log(limits.N_OF_BYTES);
 ```
 ## API
 
-The documentation site is: [byteify documentation](https://byteify.vercel.app)
+The documentation site is: [byteify documentation](https://byteify.euber.dev)
 
-The documentation for development site is: [byteify dev documentation](https://byteify-dev.vercel.app)
+The documentation for development site is: [byteify dev documentation](https://byteify-dev.euber.dev)
 
 ## Development
 
