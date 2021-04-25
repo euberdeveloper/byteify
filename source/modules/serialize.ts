@@ -1,5 +1,13 @@
 import * as limits from './limits';
 
+/**
+ * Serializes a 32 bit integer into an Uint8Array.
+ * @notExported
+ * @category Helper
+ * @param value The number to serialize
+ * @param nOfBytes The resulting number of bytes
+ * @returns The serialized Uint8Array
+ */
 function serialize32BitInteger(value: number, nOfBytes: number): Uint8Array {
     const result = new Uint8Array(nOfBytes);
     const offsetBase = nOfBytes - 1;
@@ -7,11 +15,14 @@ function serialize32BitInteger(value: number, nOfBytes: number): Uint8Array {
     [...Array(nOfBytes)].forEach((_, index) => {
         result.set([(value >> (8 * (offsetBase - index))) & 0xff], index);
     });
+
     return result;
 }
 
 /**
  * Serializes an integer into an Uint8Array.
+ * @notExported
+ * @category Helper
  * @param value The number to serialize.
  * @param type The type that is being to be analyzed. It will be used also to take the limits.
  * @returns The serialized Uint8Array.
@@ -48,6 +59,8 @@ function serializeInteger(value: number, type: string): Uint8Array {
 
 /**
  * Serializes a decimal into an Uint8Array.
+ * @notExported
+ * @category Helper
  * @param value The number to serialize.
  * @param type The type that is being to be analyzed. It will be used also to take the limits.
  * @returns The serialized bytes of the Uint8Array.

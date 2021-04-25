@@ -2,6 +2,8 @@ import * as limits from './limits';
 
 /**
  * Deserializes an Uint8Array representing an integer into a number.
+ * @notExported
+ * @category Helper
  * @param bytes The Uint8Array containing the bytes representing an integer.
  * @param type The type that is being to be analyzed. It will be used also to take the limits.
  * @param unsigned If the Uint8Array is representing an unsigned integer.
@@ -41,6 +43,8 @@ function deserializeInteger(bytes: Uint8Array, type: string, unsigned: boolean):
 
 /**
  * Deserializes an Uint8Array representing a decimal into a number.
+ * @notExported * @category Helper * @category Helper * @category Helper
+ * @category Helper
  * @param bytes The Uint8Array containing the bytes representing a decimal.
  * @param type The type that is being to be analyzed. It will be used also to take the limits.
  * @returns The deserialized number.
