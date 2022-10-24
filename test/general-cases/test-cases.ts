@@ -132,7 +132,8 @@ const testCases = [
         deserializeFn: byteify.deserializeFloat32,
         values: [
             [1, [0, 0, 128, 63]],
-            [0, [0, 0, 0, 0]]
+            [0, [0, 0, 0, 0]],
+            [23.3, [102, 102, 186, 65]]
         ]
     } as ITestCase<number>,
     {
@@ -141,7 +142,8 @@ const testCases = [
         deserializeFn: byteify.deserializeFloat64,
         values: [
             [1, [0, 0, 0, 0, 0, 0, 240, 63]],
-            [0, [0, 0, 0, 0, 0, 0, 0, 0]]
+            [0, [0, 0, 0, 0, 0, 0, 0, 0]],
+            [23.3, [0, 0, 0, 0, 0, 0, 0]]
         ]
     } as ITestCase<number>
 ];
