@@ -1,12 +1,20 @@
 import { assert } from 'chai';
 import testCases from './test-cases';
 
+function isFloat(value: number) {
+    return Number(value) === value && Number(value) % 1 !== 0;
+}
+
 function serializeAndTest<T>(value: T, expected: number[], serializeFn: (x: T) => Uint8Array) {
     assert.deepEqual(serializeFn(value), new Uint8Array(expected));
 }
 
 function deserializeAndTest<T>(value: number[], expected: T, deserializeFn: (x: Uint8Array) => T) {
-    assert.deepEqual(deserializeFn(new Uint8Array(value)), expected);
+    if (isFloat(expected as any)) {
+        assert.approximately(deserializeFn(new Uint8Array(value)) as any, expected as any, 0.01)
+    } else {
+        assert.deepEqual(deserializeFn(new Uint8Array(value)), expected);
+    }
 }
 
 function serializeDeserializeAndTest<T>(
@@ -14,7 +22,11 @@ function serializeDeserializeAndTest<T>(
     serializeFn: (x: T) => Uint8Array,
     deserializeFn: (x: Uint8Array) => T
 ) {
-    assert.deepEqual(deserializeFn(serializeFn(value)), value);
+    if (isFloat(value as any)) {
+        assert.approximately(deserializeFn(serializeFn(value)) as any, value as any, 0.01)
+    } else {
+        assert.deepEqual(deserializeFn(serializeFn(value)), value);
+    }
 }
 
 function deserializeSerializeAndTest<T>(
