@@ -75,7 +75,7 @@ const testCases: TestCase<boolean | number>[] = [
             [49280, [0, 0, 192, 128]],
             [65535, [0, 0, 255, 255]],
             [65536, [0, 1, 0, 0]],
-            [1000000, [0, 15, 160, 64]],
+            [1000000, [0, 15, 66, 64]],
             [2147483647, [127, 255, 255, 255]],
             [2147483648, [128, 0, 0, 0]],
             [4294967295, [255, 255, 255, 255]]
@@ -87,8 +87,8 @@ const testCases: TestCase<boolean | number>[] = [
         serializeFn: byteify.serializeUint64,
         deserializeFn: byteify.deserializeUint64,
         values: [
-            [1, [0, 0, 0, 0, 0, 0, 0, 1]],
-            [0, [0, 0, 0, 0, 0, 0, 0, 0]]
+            [0, [0, 0, 0, 0, 0, 0, 0, 0]],
+            [1, [0, 0, 0, 0, 0, 0, 0, 1]]
         ],
         isFloatingPoint: false
     },
