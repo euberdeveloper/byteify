@@ -11,7 +11,7 @@ function serializeAndTest<T>(value: T, expected: number[], serializeFn: (x: T) =
 
 function deserializeAndTest<T>(value: number[], expected: T, deserializeFn: (x: Uint8Array) => T) {
     if (isFloat(expected as any)) {
-        assert.approximately(deserializeFn(new Uint8Array(value)) as any, expected as any, 0.01)
+        assert.approximately(deserializeFn(new Uint8Array(value)) as any, expected as any, 0.01);
     } else {
         assert.deepEqual(deserializeFn(new Uint8Array(value)), expected);
     }
@@ -23,7 +23,7 @@ function serializeDeserializeAndTest<T>(
     deserializeFn: (x: Uint8Array) => T
 ) {
     if (isFloat(value as any)) {
-        assert.approximately(deserializeFn(serializeFn(value)) as any, value as any, 0.01)
+        assert.approximately(deserializeFn(serializeFn(value)) as any, value as any, 0.01);
     } else {
         assert.deepEqual(deserializeFn(serializeFn(value)), value);
     }
