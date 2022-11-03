@@ -1,13 +1,14 @@
 import * as byteify from '../../source';
 
-interface TestCase<T> {
+export interface TestCase<T> {
     name: string;
     serializeFn: (x: T) => Uint8Array;
     deserializeFn: (x: Uint8Array) => T;
     values: [T, number[]][];
+    isFloatingPoint: boolean;
 }
 
-const testCases = [
+const testCases: TestCase<boolean | number>[] = [
     // ----- Bool
     {
         name: 'Bool',
@@ -16,8 +17,9 @@ const testCases = [
         values: [
             [true, [1]],
             [false, [0]]
-        ]
-    } as TestCase<boolean>,
+        ],
+        isFloatingPoint: false
+    },
     // ----- Uint
     {
         name: 'Uint8',
@@ -32,8 +34,9 @@ const testCases = [
             [128, [128]],
             [192, [192]],
             [255, [255]]
-        ]
-    } as TestCase<number>,
+        ],
+        isFloatingPoint: false
+    },
     {
         name: 'Uint16',
         serializeFn: byteify.serializeUint16,
@@ -51,8 +54,9 @@ const testCases = [
             [32896, [128, 128]],
             [49280, [192, 128]],
             [65535, [255, 255]]
-        ]
-    } as TestCase<number>,
+        ],
+        isFloatingPoint: false
+    },
     {
         name: 'Uint32',
         serializeFn: byteify.serializeUint32,
@@ -60,8 +64,9 @@ const testCases = [
         values: [
             [1, [0, 0, 0, 1]],
             [0, [0, 0, 0, 0]]
-        ]
-    } as TestCase<number>,
+        ],
+        isFloatingPoint: false
+    },
     {
         name: 'Uint64',
         serializeFn: byteify.serializeUint64,
@@ -69,8 +74,9 @@ const testCases = [
         values: [
             [1, [0, 0, 0, 0, 0, 0, 0, 1]],
             [0, [0, 0, 0, 0, 0, 0, 0, 0]]
-        ]
-    } as TestCase<number>,
+        ],
+        isFloatingPoint: false
+    },
     // ----- Int
     {
         name: 'Int8',
@@ -88,8 +94,9 @@ const testCases = [
             [-42, [-42]],
             [-96, [-96]],
             [-127, [-127]]
-        ]
-    } as TestCase<number>,
+        ],
+        isFloatingPoint: false
+    },
     {
         name: 'Int16',
         serializeFn: byteify.serializeInt16,
@@ -105,8 +112,9 @@ const testCases = [
             [256, [1, 0]],
             [1000, [3, 232]],
             [32767, [127, 255]]
-        ]
-    } as TestCase<number>,
+        ],
+        isFloatingPoint: false
+    },
     {
         name: 'Int32',
         serializeFn: byteify.serializeInt32,
@@ -114,8 +122,9 @@ const testCases = [
         values: [
             [1, [0, 0, 0, 1]],
             [0, [0, 0, 0, 0]]
-        ]
-    } as TestCase<number>,
+        ],
+        isFloatingPoint: false
+    },
     {
         name: 'Int64',
         serializeFn: byteify.serializeInt64,
@@ -123,8 +132,9 @@ const testCases = [
         values: [
             [1, [0, 0, 0, 0, 0, 0, 0, 1]],
             [0, [0, 0, 0, 0, 0, 0, 0, 0]]
-        ]
-    } as TestCase<number>,
+        ],
+        isFloatingPoint: false
+    },
     // ----- Float
     {
         name: 'Float32',
@@ -134,8 +144,9 @@ const testCases = [
             [1, [0, 0, 128, 63]],
             [0, [0, 0, 0, 0]],
             [23.3, [102, 102, 186, 65]]
-        ]
-    } as TestCase<number>,
+        ],
+        isFloatingPoint: true
+    },
     {
         name: 'Float64',
         serializeFn: byteify.serializeFloat64,
@@ -144,8 +155,9 @@ const testCases = [
             [1, [0, 0, 0, 0, 0, 0, 240, 63]],
             [0, [0, 0, 0, 0, 0, 0, 0, 0]],
             [23.3, [0, 0, 0, 0, 0, 0, 0]]
-        ]
-    } as TestCase<number>
+        ],
+        isFloatingPoint: true
+    }
 ];
 
 export default testCases;

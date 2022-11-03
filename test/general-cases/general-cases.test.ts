@@ -1,16 +1,17 @@
 import { assert } from 'chai';
 import testCases from './test-cases';
 
-function isFloat(value: number) {
-    return Number(value) === value && Number(value) % 1 !== 0;
-}
-
 function serializeAndTest<T>(value: T, expected: number[], serializeFn: (x: T) => Uint8Array) {
     assert.deepEqual(serializeFn(value), new Uint8Array(expected));
 }
 
-function deserializeAndTest<T>(value: number[], expected: T, deserializeFn: (x: Uint8Array) => T) {
-    if (isFloat(expected as any)) {
+function deserializeAndTest<T>(
+    value: number[],
+    expected: T,
+    deserializeFn: (x: Uint8Array) => T,
+    isFloatingPoint: boolean
+) {
+    if (isFloatingPoint) {
         assert.approximately(deserializeFn(new Uint8Array(value)) as any, expected as any, 0.01);
     } else {
         assert.deepEqual(deserializeFn(new Uint8Array(value)), expected);
@@ -20,9 +21,10 @@ function deserializeAndTest<T>(value: number[], expected: T, deserializeFn: (x: 
 function serializeDeserializeAndTest<T>(
     value: T,
     serializeFn: (x: T) => Uint8Array,
-    deserializeFn: (x: Uint8Array) => T
+    deserializeFn: (x: Uint8Array) => T,
+    isFloatingPoint: boolean
 ) {
-    if (isFloat(value as any)) {
+    if (isFloatingPoint) {
         assert.approximately(deserializeFn(serializeFn(value)) as any, value as any, 0.01);
     } else {
         assert.deepEqual(deserializeFn(serializeFn(value)), value);
@@ -50,13 +52,18 @@ export default function (): void {
 
                 it(`should deserialize`, function () {
                     for (const value of testCase.values) {
-                        deserializeAndTest(value[1], value[0], testCase.deserializeFn);
+                        deserializeAndTest(value[1], value[0], testCase.deserializeFn, testCase.isFloatingPoint);
                     }
                 });
 
                 it(`should serialize and deserialize`, function () {
                     for (const value of testCase.values) {
-                        serializeDeserializeAndTest(value[0], testCase.serializeFn, testCase.deserializeFn);
+                        serializeDeserializeAndTest(
+                            value[0],
+                            testCase.serializeFn,
+                            testCase.deserializeFn,
+                            testCase.isFloatingPoint
+                        );
                     }
                 });
 
