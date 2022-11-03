@@ -154,7 +154,7 @@ const testCases: TestCase<boolean | number>[] = [
         values: [
             [1, [0, 0, 0, 0, 0, 0, 240, 63]],
             [0, [0, 0, 0, 0, 0, 0, 0, 0]],
-            [23.3, [0, 0, 0, 0, 0, 0, 0]]
+            [23.3, [205, 204, 204, 204, 204, 76, 55, 64]]
         ],
         isFloatingPoint: true
     }
