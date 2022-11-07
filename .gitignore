@@ -4,3 +4,4 @@ bundled
 docs
 .nyc_output
 coverage
+.vscode
