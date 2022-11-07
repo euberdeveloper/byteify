@@ -1,6 +1,6 @@
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
-const DtsBundleWebpack = require('dts-bundle-webpack');
+const BundleDeclarationsWebpackPlugin = require('bundle-declarations-webpack-plugin');
 
 module.exports = {
     target: 'node',
@@ -21,14 +21,13 @@ module.exports = {
             }
         ]
     },
+    externals: [nodeExternals()],
     plugins: [
-        new DtsBundleWebpack({
-            name: 'byteify',
-            main: 'dist/index.d.ts',
-            out: '../bundled/index.d.ts'
+        new BundleDeclarationsWebpackPlugin({
+            entry: "./source/index.ts",
+            outFile: "./index.d.ts"
         })
     ],
-    externals: [nodeExternals()],
     output: {
         path: path.resolve(__dirname, './bundled'),
         filename: 'index.js',

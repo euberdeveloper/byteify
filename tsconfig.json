@@ -10,18 +10,6 @@
         "strictNullChecks": true,
         "sourceMap": true,
         "declaration": false,
-        "baseUrl": ".",
-        "paths": {
-            "@/*": [
-                "./source/*"
-            ],
-            "@src/*": [
-                "./source/*"
-            ],
-            "@test/*": [
-                "./test/*"
-            ]
-        },
         "outDir": "./dist"
     },
     "include": ["source", "test"]
