@@ -217,6 +217,8 @@ $ npm run bundle
 
 The `source` folder will be compiled in the `bundled` folder. It will contain the bundled `index.js` and `index.d.ts` files.
 
+## Notes
+
 ### Limitations
 
 The `int64`, `uint64` and `float64` are limited to the maximum value of `Number.MAX_VALUE` because of the precision of the `Number` type in javascript.
