@@ -126,7 +126,9 @@ describe('Test errored cases', function () {
                 expect(() => byteify.deserializeUint64(Uint8Array.from([]))).toThrowError();
             });
             it('should throw an error due to too long array', function () {
-                expect(byteify.deserializeUint64(Uint8Array.from([23, 23, 23, 23, 23, 23, 23, 23, 23]))).toThrowError();
+                expect(() =>
+                    byteify.deserializeUint64(Uint8Array.from([23, 23, 23, 23, 23, 23, 23, 23, 23]))
+                ).toThrowError();
             });
         });
     });
