@@ -23,7 +23,7 @@ jobs:
         run: npm run transpile
         
       - name: Test and generate coverage report
-        run: npm run nyc
+        run: npm run cover
       
       - name: Send coverage report to Coveralls
         uses: coverallsapp/github-action@master
@@ -34,8 +34,3 @@ jobs:
         uses: Atrox/codecov-action@v0.1.2
         env: 
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }} 
-      
-      - name: Send coverage report to Code Climate
-        uses: paambaati/codeclimate-action@v2.7.5
-        env:
-          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }} 
