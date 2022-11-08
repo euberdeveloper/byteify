@@ -106,8 +106,8 @@ const { limits } = require('byteify');
     int16: 32767,
     int32: 2147483647,
     int64: Number.MAX_VALUE, // Note: problem because max value in js has 53 precision and not 64,
-    float32: Number.MAX_VALUE, // TODO
-    float64: Number.MAX_VALUE // TODO
+    float32:  3.402823466e38,
+    float64: Number.MAX_VALUE
 }
 */
 console.log(limits.MAX);
@@ -123,8 +123,8 @@ console.log(limits.MAX);
     int16: -32768,
     int32: -2147483648,
     int64: -9007199254740991, // Note: problem because max value in js has 53 precision and not 64,
-    float32: -9007199254740991, // TODO
-    float64: -9007199254740991 // TODO
+    float32: -1.175494351e-38,
+    float64: -9007199254740991
 }
 */
 console.log(limits.MIN);
@@ -201,12 +201,12 @@ After having transpiled the code, run:
 $ npm test
 ```
 
-in order to run the tests with `mocha`.
+in order to run the tests with `jest`.
 
 If a coverage report is to be generated, run:
 
 ```bash
-$ npm run nyc
+$ npm run cover:generate
 ```
 
 ### Bundle
@@ -216,3 +216,7 @@ $ npm run bundle
 ```
 
 The `source` folder will be compiled in the `bundled` folder. It will contain the bundled `index.js` and `index.d.ts` files.
+
+### Limitations
+
+The `int64`, `uint64` and `float64` are limited to the maximum value of `Number.MAX_VALUE` because of the precision of the `Number` type in javascript.
