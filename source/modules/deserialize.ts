@@ -27,16 +27,16 @@ function deserializeInteger(bytes: Uint8Array, type: string, unsigned: boolean):
     // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
     const value = bits.reverse().reduce((a, b, i) => a + (b === 0 ? 0 : b * 2 ** i), 0);
 
-    /* istanbul ignore next */
+    /* c8 ignore start */
     if (value < min) {
         throw new Error(
             `Invalid serialized ${type}: it can be deserialized only if value is greater or equal to ${min}`
         );
     }
-    /* istanbul ignore next */
     if (value > max) {
         throw new Error(`Invalid serialized ${type}: it can be deserialized only if value is lower or equal to ${max}`);
     }
+    /* c8 ignore stop */
 
     return value;
 }
@@ -60,16 +60,16 @@ function deserializeDecimal(bytes: Uint8Array, type: string): number {
 
     const value = +new (nOfBytes === 4 ? Float32Array : Float64Array)(bytes.buffer);
 
-    /* istanbul ignore next */
+    /* c8 ignore start */
     if (value < min) {
         throw new Error(
             `Invalid serialized ${type}: it can be deserialized only if value is greater or equal to ${min}`
         );
     }
-    /* istanbul ignore next */
     if (value > max) {
         throw new Error(`Invalid serialized ${type}: it can be deserialized only if value is lower or equal to ${max}`);
     }
+    /* c8 ignore stop */
 
     return value;
 }
