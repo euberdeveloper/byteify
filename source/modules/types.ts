@@ -1,6 +1,6 @@
 export enum ByteifyCase {
-    BIG_ENDIAN,
-    LITTLE_ENDIAN
+    BIG_ENDIAN = 'BIG_ENDIAN',
+    LITTLE_ENDIAN = 'LITTLE_ENDIAN'
 }
 
 export interface ByteifyOptions {
