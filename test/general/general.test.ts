@@ -48,9 +48,25 @@ function deserializeSerializeAndTest<T>(
     expect(serializeFn(deserializeFn(uint8ArrayValue, { type }))).toStrictEqual(uint8ArrayValue);
 }
 
+function deserializeAndCheckUnmutability<T>(
+    serialized: number[],
+    deserializeFn: (x: Uint8Array, o: ByteifyOptions) => T
+) {
+    const toDeserialize = new Uint8Array(serialized);
+    const toDeserializeInitial = new Uint8Array(toDeserialize);
+    deserializeFn(toDeserialize, { type: ByteifyCase.LITTLE_ENDIAN });
+    expect(toDeserialize).toStrictEqual(toDeserializeInitial);
+}
+
 describe('Test general cases', function () {
     for (const testCase of testCases) {
         describe(testCase.name, function () {
+            it('Should keep unmutability of little endian deserialization', function () {
+                const size = testCase.values[0][1].length;
+                const serialized = new Array(size).fill(0).map((_, i) => i);
+                deserializeAndCheckUnmutability(serialized, testCase.deserializeFn);
+            });
+
             for (const type of Object.values(ByteifyCase) as ByteifyCase[]) {
                 describe(type, function () {
                     for (const tuple of testCase.values) {
