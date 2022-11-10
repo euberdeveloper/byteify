@@ -40,12 +40,12 @@ function serializeDeserializeAndTest<T>(
 
 function deserializeSerializeAndTest<T>(
     value: number[],
-    serializeFn: (x: T) => Uint8Array,
+    serializeFn: (x: T, o: ByteifyOptions) => Uint8Array,
     deserializeFn: (x: Uint8Array, o: ByteifyOptions) => T,
     type: ByteifyCase
 ) {
     const uint8ArrayValue = new Uint8Array(value);
-    expect(serializeFn(deserializeFn(uint8ArrayValue, { type }))).toStrictEqual(uint8ArrayValue);
+    expect(serializeFn(deserializeFn(uint8ArrayValue, { type }), { type })).toStrictEqual(uint8ArrayValue);
 }
 
 function deserializeAndCheckUnmutability<T>(
