@@ -21,6 +21,9 @@ jobs:
         
       - name: Transpile code
         run: npm run transpile
+
+      - name: Run tests with coverage
+        run: npm run cover
         
       - name: Send coverage report to Coveralls
         uses: coverallsapp/github-action@master

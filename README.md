@@ -90,6 +90,23 @@ const deserializedFloat32 = byteify.deserializeFloat32([ 10, 215, 185, 65 ]);
 const deserializedFloat64 = byteify.deserializeFloat64([ 123, 20, 174, 71, 225, 58,  55, 64 ]);
 ```
 
+## Little Endian
+
+By default, Big Endian is used. If you want to use Little Endian, you can pass it as an option
+
+```js
+const byteify = require('byteify');
+
+// The value will be: 1000000
+const deserializedUint64 = byteify.deserializeUint64([0, 0, 0, 0, 0, 15, 66, 64]);
+const deserializedUint64 = byteify.deserializeUint64([64, 66, 15, 0, 0, 0, 0, 0], { type: ByteifyCase.LITTLE_ENDIAN });
+
+// The value will be [0, 0, 0, 0, 0, 15, 66, 64]
+const serializedUint64 = byteify.serializeUint64(1000000);
+// The value will be [64, 66, 15, 0, 0, 0, 0, 0]
+const serializedUint64 = byteify.serializeUint64(1000000, { type: ByteifyCase.LITTLE_ENDIAN });
+```
+
 ## Limits
 
 ```js
