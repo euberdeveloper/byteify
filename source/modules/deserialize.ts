@@ -21,7 +21,7 @@ function deserializeInteger(bytes: Uint8Array, type: string, unsigned: boolean, 
     }
 
     if (options.type === ByteifyCase.LITTLE_ENDIAN) {
-        bytes.reverse();
+        bytes = bytes.slice().reverse();
     }
 
     let bits = Array.from(bytes)
@@ -66,7 +66,7 @@ function deserializeDecimal(bytes: Uint8Array, type: string, options: ByteifyOpt
     }
 
     if (options.type === ByteifyCase.LITTLE_ENDIAN) {
-        bytes.reverse();
+        bytes = bytes.slice().reverse();
     }
 
     const value = +new (nOfBytes === 4 ? Float32Array : Float64Array)(bytes.buffer);
