@@ -73,31 +73,33 @@ describe('Test general cases', function () {
                         const [v, e] = tuple;
                         const expected = type === ByteifyCase.LITTLE_ENDIAN ? e.slice().reverse() : e;
 
-                        it(`should serialize`, function () {
-                            serializeAndTest(v, expected, testCase.serializeFn, type);
-                        });
+                        describe(`Value ${v}`, function () {
+                            it(`should serialize`, function () {
+                                serializeAndTest(v, expected, testCase.serializeFn, type);
+                            });
 
-                        it(`should deserialize`, function () {
-                            deserializeAndTest(expected, v, testCase.deserializeFn, testCase.isFloatingPoint, type);
-                        });
+                            it(`should deserialize`, function () {
+                                deserializeAndTest(expected, v, testCase.deserializeFn, testCase.isFloatingPoint, type);
+                            });
 
-                        it(`should serialize and deserialize`, function () {
-                            serializeDeserializeAndTest(
-                                v,
-                                testCase.serializeFn,
-                                testCase.deserializeFn,
-                                testCase.isFloatingPoint,
-                                type
-                            );
-                        });
+                            it(`should serialize and deserialize`, function () {
+                                serializeDeserializeAndTest(
+                                    v,
+                                    testCase.serializeFn,
+                                    testCase.deserializeFn,
+                                    testCase.isFloatingPoint,
+                                    type
+                                );
+                            });
 
-                        it(`should deserialize and serialize`, function () {
-                            deserializeSerializeAndTest(
-                                expected,
-                                testCase.serializeFn as (x: any) => Uint8Array,
-                                testCase.deserializeFn,
-                                type
-                            );
+                            it(`should deserialize and serialize`, function () {
+                                deserializeSerializeAndTest(
+                                    expected,
+                                    testCase.serializeFn as (x: any) => Uint8Array,
+                                    testCase.deserializeFn,
+                                    type
+                                );
+                            });
                         });
                     }
                 });
