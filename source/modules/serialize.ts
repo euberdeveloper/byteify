@@ -65,6 +65,15 @@ function serializeInteger(value: number, numberType: string, options: ByteifyOpt
     return options.type === ByteifyCase.LITTLE_ENDIAN ? result : result.reverse();
 }
 
+/**
+ * Serializes a big integer or number into an Uint8Array.
+ * @notExported
+ * @category Helper
+ * @param value The big integer to serialize.
+ * @param numberType The type that is being to be analyzed. It will be used also to take the limits.
+ * @param options The [[ByteifyOptions]] to use to deserialize the Uint8Array.
+ * @returns The serialized Uint8Array.
+ */
 function serializeBigInteger(value: number | bigint, numberType: string, options: ByteifyOptions): Uint8Array {
     const max: number = limits.MAX[numberType];
     const min: number = limits.MIN[numberType];
@@ -86,7 +95,7 @@ function serializeBigInteger(value: number | bigint, numberType: string, options
         throw new Error(`Invalid ${numberType}: value cannot be bigger than ${max}`);
     }
 
-    const SerializationClass = numberType === 'bigint64' ? BigInt64Array : BigUint64Array;
+    const SerializationClass = numberType === 'uint64' ? BigUint64Array : BigInt64Array;
 
     const result = new Uint8Array(new SerializationClass([value]).buffer);
     return options.type === ByteifyCase.LITTLE_ENDIAN ? result : result.reverse();
