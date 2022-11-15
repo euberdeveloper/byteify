@@ -27,7 +27,7 @@ describe('Test errored cases', function () {
             });
         });
         describe('deserialize', function () {
-            it('should throw an error due to too empty array', function () {
+            it('should throw an error due to empty array', function () {
                 expect(() => byteify.deserializeUint8(Uint8Array.from([]))).toThrowError();
             });
             it('should throw an error due to too long array', function () {
@@ -60,7 +60,7 @@ describe('Test errored cases', function () {
             });
         });
         describe('deserialize', function () {
-            it('should throw an error due to too empty array', function () {
+            it('should throw an error due to empty array', function () {
                 expect(() => byteify.deserializeUint16(Uint8Array.from([]))).toThrowError();
             });
             it('should throw an error due to too long array', function () {
@@ -93,7 +93,7 @@ describe('Test errored cases', function () {
             });
         });
         describe('deserialize', function () {
-            it('should throw an error due to too empty array', function () {
+            it('should throw an error due to empty array', function () {
                 expect(() => byteify.deserializeUint32(Uint8Array.from([]))).toThrowError();
             });
             it('should throw an error due to too long array', function () {
@@ -122,7 +122,7 @@ describe('Test errored cases', function () {
             });
         });
         describe('deserialize', function () {
-            it('should throw an error due to too empty array', function () {
+            it('should throw an error due to empty array', function () {
                 expect(() => byteify.deserializeUint64(Uint8Array.from([]))).toThrowError();
             });
             it('should throw an error due to too long array', function () {
@@ -159,7 +159,7 @@ describe('Test errored cases', function () {
             });
         });
         describe('deserialize', function () {
-            it('should throw an error due to too empty array', function () {
+            it('should throw an error due to empty array', function () {
                 expect(() => byteify.deserializeInt8(Uint8Array.from([]))).toThrowError();
             });
             it('should throw an error due to too long array', function () {
@@ -192,7 +192,7 @@ describe('Test errored cases', function () {
             });
         });
         describe('deserialize', function () {
-            it('should throw an error due to too empty array', function () {
+            it('should throw an error due to empty array', function () {
                 expect(() => byteify.deserializeInt16(Uint8Array.from([]))).toThrowError();
             });
             it('should throw an error due to too long array', function () {
@@ -225,7 +225,7 @@ describe('Test errored cases', function () {
             });
         });
         describe('deserialize', function () {
-            it('should throw an error due to too empty array', function () {
+            it('should throw an error due to empty array', function () {
                 expect(() => byteify.deserializeInt32(Uint8Array.from([]))).toThrowError();
             });
             it('should throw an error due to too long array', function () {
@@ -250,7 +250,7 @@ describe('Test errored cases', function () {
             });
         });
         describe('deserialize', function () {
-            it('should throw an error due to too empty array', function () {
+            it('should throw an error due to empty array', function () {
                 expect(() => byteify.deserializeInt64(Uint8Array.from([]))).toThrowError();
             });
             it('should throw an error due to too long array', function () {
@@ -281,7 +281,7 @@ describe('Test errored cases', function () {
             });
         });
         describe('deserialize', function () {
-            it('should throw an error due to too empty array', function () {
+            it('should throw an error due to empty array', function () {
                 expect(() => byteify.deserializeFloat32(Uint8Array.from([]))).toThrowError();
             });
             it('should throw an error due to too long array', function () {
@@ -300,7 +300,7 @@ describe('Test errored cases', function () {
             });
         });
         describe('deserialize', function () {
-            it('should throw an error due to too empty array', function () {
+            it('should throw an error due to empty array', function () {
                 expect(() => byteify.deserializeFloat64(Uint8Array.from([]))).toThrowError();
             });
             it('should throw an error due to too long array', function () {
