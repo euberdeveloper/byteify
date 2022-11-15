@@ -17,10 +17,11 @@ function deserializeAndTest<T>(
     isFloatingPoint: boolean,
     type: ByteifyCase
 ) {
+    const result = deserializeFn(new Uint8Array(value), { type });
     if (isFloatingPoint) {
-        expect(deserializeFn(new Uint8Array(value), { type }) as any).toBeCloseTo(expected as any, 0.01);
+        expect(result as any).toBeCloseTo(expected as any, 0.01);
     } else {
-        expect(deserializeFn(new Uint8Array(value), { type })).toStrictEqual(expected);
+        expect(result === expected).toBeTruthy();
     }
 }
 
@@ -31,10 +32,11 @@ function serializeDeserializeAndTest<T>(
     isFloatingPoint: boolean,
     type: ByteifyCase
 ) {
+    const result = deserializeFn(serializeFn(value, { type }), { type });
     if (isFloatingPoint) {
-        expect(deserializeFn(serializeFn(value, { type }), { type }) as any).toBeCloseTo(value as any, 0.01);
+        expect(result as any).toBeCloseTo(value as any, 0.01);
     } else {
-        expect(deserializeFn(serializeFn(value, { type }), { type })).toStrictEqual(value);
+        expect(result === value).toBeTruthy();
     }
 }
 
@@ -44,9 +46,6 @@ function deserializeSerializeAndTest<T>(
     deserializeFn: (x: Uint8Array, o: ByteifyOptions) => T,
     type: ByteifyCase
 ) {
-    if (typeof value === 'bigint') {
-        console.log('beccat');
-    }
     const uint8ArrayValue = new Uint8Array(value);
     expect(serializeFn(deserializeFn(uint8ArrayValue, { type }), { type })).toStrictEqual(uint8ArrayValue);
 }
