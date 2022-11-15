@@ -8,7 +8,7 @@ export interface TestCase<T> {
     isFloatingPoint: boolean;
 }
 
-const testCases: TestCase<boolean | number>[] = [
+const testCases: TestCase<boolean | number | bigint>[] = [
     // ----- Bool
     {
         name: 'Bool',
@@ -111,10 +111,7 @@ const testCases: TestCase<boolean | number>[] = [
             [10000000000000000, [0, 35, 134, 242, 111, 193, 0, 0]],
             [9007199254740991, [0, 31, 255, 255, 255, 255, 255, 255]],
             [9007199254740992, [0, 32, 0, 0, 0, 0, 0, 0]],
-            [18446744073709549568, [255, 255, 255, 255, 255, 255, 248, 0]],
-            // Because of the limitations of JavaScript, we can't test the full range of Uint64
-            // eslint-disable-next-line @typescript-eslint/no-loss-of-precision
-            [18446744073709549569, [255, 255, 255, 255, 255, 255, 248, 0]]
+            [18446744073709549568, [255, 255, 255, 255, 255, 255, 248, 0]]
         ],
         isFloatingPoint: false
     },

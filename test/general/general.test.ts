@@ -44,6 +44,9 @@ function deserializeSerializeAndTest<T>(
     deserializeFn: (x: Uint8Array, o: ByteifyOptions) => T,
     type: ByteifyCase
 ) {
+    if (typeof value === 'bigint') {
+        console.log('beccat');
+    }
     const uint8ArrayValue = new Uint8Array(value);
     expect(serializeFn(deserializeFn(uint8ArrayValue, { type }), { type })).toStrictEqual(uint8ArrayValue);
 }

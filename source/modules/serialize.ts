@@ -2,68 +2,94 @@ import * as limits from './limits';
 import { ByteifyCase, ByteifyOptions } from './types';
 
 /**
- * Serializes a 32 bit integer into an Uint8Array.
- * @notExported
- * @category Helper
- * @param value The number to serialize
- * @param nOfBytes The resulting number of bytes
- * @returns The serialized Uint8Array
+ * A type aliasing the general class of the relative indexables.
  */
-function serialize32BitInteger(value: number, nOfBytes: number): Uint8Array {
-    const result = new Uint8Array(nOfBytes);
-    const offsetBase = nOfBytes - 1;
-
-    [...Array(nOfBytes)].forEach((_, index) => {
-        result.set([(value >> (8 * (offsetBase - index))) & 0xff], index);
-    });
-
-    return result;
-}
+type RelativeIndexableClass<T> = {
+    new (arr?: T[]): RelativeIndexable<T> & {
+        buffer: ArrayBufferLike;
+    };
+};
 
 /**
  * Serializes an integer into an Uint8Array.
  * @notExported
  * @category Helper
  * @param value The number to serialize.
- * @param type The type that is being to be analyzed. It will be used also to take the limits.
+ * @param numberType The type that is being to be analyzed. It will be used also to take the limits.
  * @param options The [[ByteifyOptions]] to use to deserialize the Uint8Array.
  * @returns The serialized Uint8Array.
  */
-function serializeInteger(value: number, type: string, options: ByteifyOptions): Uint8Array {
-    const nOfBytes: number = limits.N_OF_BYTES[type];
-    const max: number = limits.MAX[type];
-    const min: number = limits.MIN[type];
+function serializeInteger(value: number, numberType: string, options: ByteifyOptions): Uint8Array {
+    const max: number = limits.MAX[numberType];
+    const min: number = limits.MIN[numberType];
 
     if (typeof value !== 'number') {
-        throw new Error(`Invalid ${type}: value must be a number`);
+        throw new Error(`Invalid ${numberType}: value must be a number`);
     }
     if (value < min) {
-        throw new Error(`Invalid ${type}: value cannot be lower than ${min}`);
+        throw new Error(`Invalid ${numberType}: value cannot be lower than ${min}`);
     }
     if (value > max) {
-        throw new Error(`Invalid ${type}: value cannot be bigger than ${max}`);
+        throw new Error(`Invalid ${numberType}: value cannot be bigger than ${max}`);
     }
     if (value % 1 !== 0) {
-        throw new Error(`Invalid ${type}: value cannot be decimal`);
+        throw new Error(`Invalid ${numberType}: value cannot be decimal`);
     }
 
-    let result: Uint8Array;
-
-    const firstResult = serialize32BitInteger(value % 2 ** 32, Math.min(nOfBytes, 4));
-    if (nOfBytes <= 4) {
-        result = firstResult;
-    } else {
-        result = new Uint8Array(nOfBytes);
-        const secondResult = serialize32BitInteger(Math.floor(value / 2 ** 32), nOfBytes - 4);
-        result.set(secondResult);
-        result.set(firstResult, secondResult.length);
+    let SerializationClass: RelativeIndexableClass<number>;
+    switch (numberType) {
+        case 'bool':
+        case 'uint8':
+            SerializationClass = Uint8Array;
+            break;
+        case 'uint16':
+            SerializationClass = Uint16Array;
+            break;
+        case 'uint32':
+            SerializationClass = Uint32Array;
+            break;
+        case 'int8':
+            SerializationClass = Int8Array;
+            break;
+        case 'int16':
+            SerializationClass = Int16Array;
+            break;
+        case 'int32':
+            SerializationClass = Int32Array;
+            break;
+        default:
+            throw new Error(`Invalid ${numberType}: type not supported`);
     }
 
-    if (options.type === ByteifyCase.LITTLE_ENDIAN) {
-        result.reverse();
+    const result = new Uint8Array(new SerializationClass([value]).buffer);
+    return options.type === ByteifyCase.LITTLE_ENDIAN ? result : result.reverse();
+}
+
+function serializeBigInteger(value: number | bigint, numberType: string, options: ByteifyOptions): Uint8Array {
+    const max: number = limits.MAX[numberType];
+    const min: number = limits.MIN[numberType];
+
+    if (typeof value === 'number') {
+        if (value % 1 !== 0) {
+            throw new Error(`Invalid ${numberType}: value cannot be decimal`);
+        }
+        value = BigInt(value);
     }
 
-    return result;
+    if (typeof value !== 'bigint') {
+        throw new Error(`Invalid ${numberType}: value must be a number`);
+    }
+    if (value < min) {
+        throw new Error(`Invalid ${numberType}: value cannot be lower than ${min}`);
+    }
+    if (value > max) {
+        throw new Error(`Invalid ${numberType}: value cannot be bigger than ${max}`);
+    }
+
+    const SerializationClass = numberType === 'bigint64' ? BigInt64Array : BigUint64Array;
+
+    const result = new Uint8Array(new SerializationClass([value]).buffer);
+    return options.type === ByteifyCase.LITTLE_ENDIAN ? result : result.reverse();
 }
 
 /**
@@ -147,8 +173,11 @@ export function serializeUint32(value: number, options: ByteifyOptions = { type:
  * @param options The [[ByteifyOptions]] to use to deserialize the Uint8Array.
  * @returns The uint64 serialized in an Uint8Array.
  */
-export function serializeUint64(value: number, options: ByteifyOptions = { type: ByteifyCase.BIG_ENDIAN }): Uint8Array {
-    return serializeInteger(value, 'uint64', options);
+export function serializeUint64(
+    value: number | bigint,
+    options: ByteifyOptions = { type: ByteifyCase.BIG_ENDIAN }
+): Uint8Array {
+    return serializeBigInteger(value, 'uint64', options);
 }
 
 /**
@@ -187,8 +216,11 @@ export function serializeInt32(value: number, options: ByteifyOptions = { type: 
  * @param options The [[ByteifyOptions]] to use to deserialize the Uint8Array.
  * @returns The int64 serialized in an Uint8Array.
  */
-export function serializeInt64(value: number, options: ByteifyOptions = { type: ByteifyCase.BIG_ENDIAN }): Uint8Array {
-    return serializeInteger(value, 'int64', options);
+export function serializeInt64(
+    value: number | bigint,
+    options: ByteifyOptions = { type: ByteifyCase.BIG_ENDIAN }
+): Uint8Array {
+    return serializeBigInteger(value, 'int64', options);
 }
 
 /**
