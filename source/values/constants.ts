@@ -1,4 +1,4 @@
-import { Essence, NaiveType } from '../types';
+import { Essence, NativeType } from '../types';
 
 /**
  * The max value that a certain native type can assume
@@ -54,7 +54,7 @@ export const N_OF_BYTES = {
 /**
  * The class that handles a certain native type.
  */
-export const HANDLER: Record<NaiveType, any> = {
+export const HANDLER: Record<NativeType, any> = {
     bool: Uint8Array,
     uint8: Uint8Array,
     uint16: Uint16Array,

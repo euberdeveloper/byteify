@@ -1,8 +1,8 @@
 import * as byteify from '../../source';
-import { Essence, NaiveType } from '../../source/types';
+import { Essence, NativeType } from '../../source/types';
 import { ESSENCE, MAX, MIN, N_OF_BYTES } from '../../source/values/constants';
 
-function testErrorDueToWrongType(serializingFunction: (value: any) => Uint8Array, nativeType: NaiveType) {
+function testErrorDueToWrongType(serializingFunction: (value: any) => Uint8Array, nativeType: NativeType) {
     const essence = ESSENCE[nativeType];
 
     const assertConditionally = (value: any) => {
@@ -17,7 +17,7 @@ function testErrorDueToWrongType(serializingFunction: (value: any) => Uint8Array
     assertConditionally(() => serializingFunction(1n));
 }
 
-function testErrorDueToDecimalValue(serializingFunction: (value: any) => Uint8Array, nativeType: NaiveType) {
+function testErrorDueToDecimalValue(serializingFunction: (value: any) => Uint8Array, nativeType: NativeType) {
     const essence = ESSENCE[nativeType];
 
     const assertConditionally = (value: any) => {
@@ -29,7 +29,7 @@ function testErrorDueToDecimalValue(serializingFunction: (value: any) => Uint8Ar
     assertConditionally(() => serializingFunction(0.0023));
 }
 
-function testErrorDueToSmallValue(serializingFunction: (value: any) => Uint8Array, nativeType: NaiveType) {
+function testErrorDueToSmallValue(serializingFunction: (value: any) => Uint8Array, nativeType: NativeType) {
     const min = MIN[nativeType];
     const essence = ESSENCE[nativeType];
 
@@ -44,7 +44,7 @@ function testErrorDueToSmallValue(serializingFunction: (value: any) => Uint8Arra
     }
 }
 
-function testErrorDueToLargeValue(serializingFunction: (value: any) => Uint8Array, nativeType: NaiveType) {
+function testErrorDueToLargeValue(serializingFunction: (value: any) => Uint8Array, nativeType: NativeType) {
     const max = MAX[nativeType];
     const essence = ESSENCE[nativeType];
 
@@ -63,7 +63,7 @@ function testErrorDueToEmptyArray(deserializingFunction: (value: Uint8Array) => 
     expect(() => deserializingFunction(Uint8Array.from([]))).toThrowError();
 }
 
-function testErrorDueToWrongArrayLength(deserializingFunction: (value: Uint8Array) => any, nativeType: NaiveType) {
+function testErrorDueToWrongArrayLength(deserializingFunction: (value: Uint8Array) => any, nativeType: NativeType) {
     const length = N_OF_BYTES[nativeType];
 
     expect(() => deserializingFunction(new Uint8Array(length - 1))).toThrowError();
@@ -72,54 +72,54 @@ function testErrorDueToWrongArrayLength(deserializingFunction: (value: Uint8Arra
 
 const testCases = [
     {
-        nativeType: NaiveType.UINT8,
+        nativeType: NativeType.UINT8,
         serialize: byteify.serializeUint8,
         deserialize: byteify.deserializeUint8
     },
     {
-        nativeType: NaiveType.UINT16,
+        nativeType: NativeType.UINT16,
         serialize: byteify.serializeUint16,
         deserialize: byteify.deserializeUint16
     },
     {
-        nativeType: NaiveType.UINT32,
+        nativeType: NativeType.UINT32,
         serialize: byteify.serializeUint32,
         deserialize: byteify.deserializeUint32
     },
     {
-        nativeType: NaiveType.UINT64,
+        nativeType: NativeType.UINT64,
         serialize: byteify.serializeUint64,
         deserialize: byteify.deserializeUint64
     },
     {
-        nativeType: NaiveType.INT8,
+        nativeType: NativeType.INT8,
         serialize: byteify.serializeInt8,
 
         deserialize: byteify.deserializeInt8
     },
     {
-        nativeType: NaiveType.INT16,
+        nativeType: NativeType.INT16,
         serialize: byteify.serializeInt16,
         deserialize: byteify.deserializeInt16
     },
     {
-        nativeType: NaiveType.INT32,
+        nativeType: NativeType.INT32,
         serialize: byteify.serializeInt32,
 
         deserialize: byteify.deserializeInt32
     },
     {
-        nativeType: NaiveType.INT64,
+        nativeType: NativeType.INT64,
         serialize: byteify.serializeInt64,
         deserialize: byteify.deserializeInt64
     },
     {
-        nativeType: NaiveType.FLOAT32,
+        nativeType: NativeType.FLOAT32,
         serialize: byteify.serializeFloat32,
         deserialize: byteify.deserializeFloat32
     },
     {
-        nativeType: NaiveType.FLOAT64,
+        nativeType: NativeType.FLOAT64,
         serialize: byteify.serializeFloat64,
         deserialize: byteify.deserializeFloat64
     }

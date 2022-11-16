@@ -1,7 +1,7 @@
 /**
  * Enum containing all the possible types that can be serialized or deserialized
  */
-export enum NaiveType {
+export enum NativeType {
     BOOL = 'bool',
     UINT8 = 'uint8',
     UINT16 = 'uint16',
