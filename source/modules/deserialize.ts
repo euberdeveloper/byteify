@@ -12,7 +12,6 @@ import { ByteifyCase, ByteifyOptions } from './types';
  * @returns The deserialized number.
  */
 function deserialize(bytes: Uint8Array, nativeType: NativeType, options: ByteifyOptions): number | bigint {
-    const essence = ESSENCE[nativeType];
     const nOfBytes = N_OF_BYTES[nativeType];
 
     if (bytes.length !== nOfBytes) {
@@ -23,7 +22,7 @@ function deserialize(bytes: Uint8Array, nativeType: NativeType, options: Byteify
         bytes = bytes.slice().reverse();
     }
 
-    const DeserializationClass = HANDLER[essence];
+    const DeserializationClass = HANDLER[nativeType];
     const result = new DeserializationClass(bytes.buffer)[0];
 
     if (nativeType === NativeType.BOOL && result !== 0 && result !== 1) {
