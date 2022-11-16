@@ -12,7 +12,7 @@ export const MAX = {
     int8: 127,
     int16: 32767,
     int32: 2147483647,
-    int64: Number.MAX_SAFE_INTEGER,
+    int64: 9223372036854775807n,
     float32: Number.MAX_VALUE,
     float64: Number.MAX_VALUE
 };
@@ -29,7 +29,7 @@ export const MIN = {
     int8: -128,
     int16: -32768,
     int32: -2147483648,
-    int64: Number.MIN_SAFE_INTEGER,
+    int64: -9223372036854775808n,
     float32: -Number.MAX_VALUE,
     float64: -Number.MAX_VALUE
 };
