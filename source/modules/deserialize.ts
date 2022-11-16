@@ -18,7 +18,7 @@ function deserialize(bytes: Uint8Array, nativeType: NativeType, options: Byteify
         throw new Error(`Invalid serialized ${nativeType}: it can be deserialized only by ${nOfBytes} byte`);
     }
 
-    if (options.type === ByteifyCase.LITTLE_ENDIAN) {
+    if (options.type === ByteifyCase.BIG_ENDIAN) {
         bytes = bytes.slice().reverse();
     }
 
