@@ -212,6 +212,28 @@ const testCases: TestCase<boolean | number | bigint>[] = [
             { value: 9223372036854775807n, serialized: [127, 255, 255, 255, 255, 255, 255, 255] },
             { value: -9223372036854775808n, serialized: [128, 0, 0, 0, 0, 0, 0, 0] }
         ]
+    },
+    {
+        nativeType: NativeType.FLOAT32,
+        serializeFn: byteify.serializeFloat32,
+        deserializeFn: byteify.deserializeFloat32,
+        tests: [
+            { value: 0, serialized: [0, 0, 0, 0] },
+            { value: 1, serialized: [63, 128, 0, 0] },
+            { value: 23.23, serialized: [65, 185, 215, 10] },
+            { value: -23.23, serialized: [193, 185, 215, 10] }
+        ]
+    },
+    {
+        nativeType: NativeType.FLOAT64,
+        serializeFn: byteify.serializeFloat64,
+        deserializeFn: byteify.deserializeFloat64,
+        tests: [
+            { value: 0, serialized: [0, 0, 0, 0, 0, 0, 0, 0] },
+            { value: 1, serialized: [63, 240, 0, 0, 0, 0, 0, 0] },
+            { value: 23.23, serialized: [64, 55, 58, 225, 71, 174, 20, 123] },
+            { value: -23.23, serialized: [192, 55, 58, 225, 71, 174, 20, 123] }
+        ]
     }
 ];
 
