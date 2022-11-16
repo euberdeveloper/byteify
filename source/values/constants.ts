@@ -37,7 +37,7 @@ export const MIN: Record<NaiveType, number | bigint> = {
 /**
  * The number of bytes that a certain native type has.
  */
-export const N_OF_BYTES: Record<NaiveType, number | bigint> = {
+export const N_OF_BYTES: Record<NaiveType, number> = {
     bool: 1,
     uint8: 1,
     uint16: 2,
