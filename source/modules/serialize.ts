@@ -34,7 +34,7 @@ function serialize(value: number | bigint, nativeType: NativeType, options: Byte
     }
 
     const SerializationClass = HANDLER[nativeType];
-    const result = new Uint8Array(new SerializationClass([value]).buffer);
+    const result = new Uint8Array(new SerializationClass([essence === Essence.BIGINT ? BigInt(value) : value]).buffer);
     return options.type === ByteifyCase.LITTLE_ENDIAN ? result : result.reverse();
 }
 
