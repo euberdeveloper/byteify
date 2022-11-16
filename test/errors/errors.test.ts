@@ -1,276 +1,159 @@
 import * as byteify from '../../source';
+import { Essence, NaiveType } from '../../source/types';
+import { ESSENCE, MAX, MIN, N_OF_BYTES } from '../../source/values/constants';
 
-function testErrorDueToWrongType(serializingFunction: (value: any) => Uint8Array) {
-    expect(() => serializingFunction('test' as any)).toThrowError();
-    expect(() => serializingFunction('string' as any)).toThrowError();
-    expect(() => serializingFunction({} as any)).toThrowError();
-    expect(() => serializingFunction([] as any)).toThrowError();
+function testErrorDueToWrongType(serializingFunction: (value: any) => Uint8Array, nativeType: NaiveType) {
+    const essence = ESSENCE[nativeType];
+
+    const assertConditionally = (value: any) => {
+        essence === Essence.BIGINT ? expect(value).not.toThrowError() : expect(value).toThrowError();
+    };
+
+    expect(() => serializingFunction('test')).toThrowError();
+    expect(() => serializingFunction('string')).toThrowError();
+    expect(() => serializingFunction({})).toThrowError();
+    expect(() => serializingFunction([])).toThrowError();
+
+    assertConditionally(() => serializingFunction(1n));
 }
 
-function testErrorDueToDecimalValue(serializingFunction: (value: any) => Uint8Array) {
-    expect(() => serializingFunction(23.23)).toThrowError();
-    expect(() => serializingFunction(-23.23)).toThrowError();
-    expect(() => serializingFunction(0.0023)).toThrowError();
+function testErrorDueToDecimalValue(serializingFunction: (value: any) => Uint8Array, nativeType: NaiveType) {
+    const essence = ESSENCE[nativeType];
+
+    const assertConditionally = (value: any) => {
+        essence === Essence.DECIMAL ? expect(value).not.toThrowError() : expect(value).toThrowError();
+    };
+
+    assertConditionally(() => serializingFunction(23.23));
+    assertConditionally(() => serializingFunction(-23.23));
+    assertConditionally(() => serializingFunction(0.0023));
 }
+
+function testErrorDueToSmallValue(serializingFunction: (value: any) => Uint8Array, nativeType: NaiveType) {
+    const min = MIN[nativeType];
+    const essence = ESSENCE[nativeType];
+
+    const assertConditionally = (value: any) => {
+        essence === Essence.DECIMAL ? expect(value).not.toThrowError() : expect(value).toThrowError();
+    };
+
+    if (typeof min === 'number') {
+        assertConditionally(() => serializingFunction(min - 1));
+    } else {
+        assertConditionally(() => serializingFunction(min - 1n));
+    }
+}
+
+function testErrorDueToLargeValue(serializingFunction: (value: any) => Uint8Array, nativeType: NaiveType) {
+    const max = MAX[nativeType];
+    const essence = ESSENCE[nativeType];
+
+    const assertConditionally = (value: any) => {
+        essence === Essence.DECIMAL ? expect(value).not.toThrowError() : expect(value).toThrowError();
+    };
+
+    if (typeof max === 'number') {
+        assertConditionally(() => serializingFunction(max + 1));
+    } else {
+        assertConditionally(() => serializingFunction(max + 1n));
+    }
+}
+
+function testErrorDueToEmptyArray(deserializingFunction: (value: Uint8Array) => any) {
+    expect(() => deserializingFunction(Uint8Array.from([]))).toThrowError();
+}
+
+function testErrorDueToWrongArrayLength(deserializingFunction: (value: Uint8Array) => any, nativeType: NaiveType) {
+    const length = N_OF_BYTES[nativeType];
+
+    expect(() => deserializingFunction(new Uint8Array(length - 1))).toThrowError();
+    expect(() => deserializingFunction(new Uint8Array(length + 1))).toThrowError();
+}
+
+const testCases = [
+    {
+        nativeType: NaiveType.UINT8,
+        serialize: byteify.serializeUint8,
+        deserialize: byteify.deserializeUint8
+    },
+    {
+        nativeType: NaiveType.UINT16,
+        serialize: byteify.serializeUint16,
+        deserialize: byteify.deserializeUint16
+    },
+    {
+        nativeType: NaiveType.UINT32,
+        serialize: byteify.serializeUint32,
+        deserialize: byteify.deserializeUint32
+    },
+    {
+        nativeType: NaiveType.UINT64,
+        serialize: byteify.serializeUint64,
+        deserialize: byteify.deserializeUint64
+    },
+    {
+        nativeType: NaiveType.INT8,
+        serialize: byteify.serializeInt8,
+
+        deserialize: byteify.deserializeInt8
+    },
+    {
+        nativeType: NaiveType.INT16,
+        serialize: byteify.serializeInt16,
+        deserialize: byteify.deserializeInt16
+    },
+    {
+        nativeType: NaiveType.INT32,
+        serialize: byteify.serializeInt32,
+
+        deserialize: byteify.deserializeInt32
+    },
+    {
+        nativeType: NaiveType.INT64,
+        serialize: byteify.serializeInt64,
+        deserialize: byteify.deserializeInt64
+    },
+    {
+        nativeType: NaiveType.FLOAT32,
+        serialize: byteify.serializeFloat32,
+        deserialize: byteify.deserializeFloat32
+    },
+    {
+        nativeType: NaiveType.FLOAT64,
+        serialize: byteify.serializeFloat64,
+        deserialize: byteify.deserializeFloat64
+    }
+];
 
 describe('Test errored cases', function () {
-    describe('Uint8', function () {
-        describe('serialize', function () {
-            it('Should throw an error due to wrong type', function () {
-                testErrorDueToWrongType(byteify.serializeUint8);
+    for (const testCase of testCases) {
+        describe(testCase.nativeType, function () {
+            describe('Serialize', function () {
+                it('should throw an error due to wrong type', function () {
+                    testErrorDueToWrongType(testCase.serialize, testCase.nativeType);
+                });
+
+                it('should throw an error due to decimal value', function () {
+                    testErrorDueToDecimalValue(testCase.serialize, testCase.nativeType);
+                });
+
+                it('should throw an error due to small value', function () {
+                    testErrorDueToSmallValue(testCase.serialize, testCase.nativeType);
+                });
+
+                it('Should throw an error due to value too big', function () {
+                    testErrorDueToLargeValue(testCase.serialize, testCase.nativeType);
+                });
             });
 
-            it('Should throw an error due to decimal value', function () {
-                testErrorDueToDecimalValue(byteify.serializeUint8);
-            });
-
-            it('Should throw an error due to value too small', function () {
-                expect(() => byteify.serializeUint8(byteify.limits.MIN.uint8 - 1)).toThrowError();
-            });
-
-            it('Should throw an error due to value too big', function () {
-                expect(() => byteify.serializeUint8(byteify.limits.MAX.uint8 + 1)).toThrowError();
+            describe('Deserialize', function () {
+                it('Should throw an error due to empty array', function () {
+                    testErrorDueToEmptyArray(testCase.deserialize);
+                });
+                it('Should throw an error due to wrong array length', function () {
+                    testErrorDueToWrongArrayLength(testCase.deserialize, testCase.nativeType);
+                });
             });
         });
-        describe('deserialize', function () {
-            it('Should throw an error due to empty array', function () {
-                expect(() => byteify.deserializeUint8(Uint8Array.from([]))).toThrowError();
-            });
-            it('Should throw an error due to too long array', function () {
-                expect(() => byteify.deserializeUint8(Uint8Array.from([23, 23]))).toThrowError();
-            });
-        });
-    });
-
-    describe('Uint16', function () {
-        describe('serialize', function () {
-            it('Should throw an error due to wrong type', function () {
-                testErrorDueToWrongType(byteify.serializeUint16);
-            });
-
-            it('Should throw an error due to decimal value', function () {
-                testErrorDueToDecimalValue(byteify.serializeUint16);
-            });
-
-            it('Should throw an error due to value too small', function () {
-                expect(() => byteify.serializeUint16(byteify.limits.MIN.uint16 - 1)).toThrowError();
-            });
-
-            it('Should throw an error due to value too big', function () {
-                expect(() => byteify.serializeUint16(byteify.limits.MAX.uint16 + 1)).toThrowError();
-            });
-        });
-        describe('deserialize', function () {
-            it('Should throw an error due to empty array', function () {
-                expect(() => byteify.deserializeUint16(Uint8Array.from([]))).toThrowError();
-            });
-            it('Should throw an error due to too long array', function () {
-                expect(() => byteify.deserializeUint16(Uint8Array.from([23, 23, 23]))).toThrowError();
-            });
-        });
-    });
-
-    describe('Uint32', function () {
-        describe('serialize', function () {
-            it('Should throw an error due to wrong type', function () {
-                testErrorDueToWrongType(byteify.serializeUint32);
-            });
-
-            it('Should throw an error due to decimal value', function () {
-                testErrorDueToDecimalValue(byteify.serializeUint32);
-            });
-
-            it('Should throw an error due to value too small', function () {
-                expect(() => byteify.serializeUint32(byteify.limits.MIN.uint32 - 1)).toThrowError();
-            });
-
-            it('Should throw an error due to value too big', function () {
-                expect(() => byteify.serializeUint32(byteify.limits.MAX.uint32 + 1)).toThrowError();
-            });
-        });
-        describe('deserialize', function () {
-            it('Should throw an error due to empty array', function () {
-                expect(() => byteify.deserializeUint32(Uint8Array.from([]))).toThrowError();
-            });
-            it('Should throw an error due to too long array', function () {
-                expect(() => byteify.deserializeUint32(Uint8Array.from([23, 23, 23, 23, 23]))).toThrowError();
-            });
-        });
-    });
-
-    describe('Uint64', function () {
-        describe('serialize', function () {
-            it('Should throw an error due to wrong type', function () {
-                testErrorDueToWrongType(byteify.serializeUint64);
-            });
-
-            it('Should throw an error due to decimal value', function () {
-                testErrorDueToDecimalValue(byteify.serializeUint64);
-            });
-
-            it('Should throw an error due to value too small', function () {
-                expect(() => byteify.serializeUint64(byteify.limits.MIN.uint64 - 1)).toThrowError();
-            });
-        });
-        describe('deserialize', function () {
-            it('Should throw an error due to empty array', function () {
-                expect(() => byteify.deserializeUint64(Uint8Array.from([]))).toThrowError();
-            });
-            it('Should throw an error due to too long array', function () {
-                expect(() =>
-                    byteify.deserializeUint64(Uint8Array.from([23, 23, 23, 23, 23, 23, 23, 23, 23]))
-                ).toThrowError();
-            });
-        });
-    });
-
-    /* INT */
-
-    describe('Int8', function () {
-        describe('serialize', function () {
-            it('Should throw an error due to wrong type', function () {
-                testErrorDueToWrongType(byteify.serializeInt8);
-            });
-
-            it('Should throw an error due to decimal value', function () {
-                testErrorDueToDecimalValue(byteify.serializeInt8);
-            });
-
-            it('Should throw an error due to value too small', function () {
-                expect(() => byteify.serializeInt8(byteify.limits.MIN.int8 - 1)).toThrowError();
-            });
-
-            it('Should throw an error due to value too big', function () {
-                expect(() => byteify.serializeInt8(byteify.limits.MAX.int8 + 1)).toThrowError();
-            });
-        });
-        describe('deserialize', function () {
-            it('Should throw an error due to empty array', function () {
-                expect(() => byteify.deserializeInt8(Uint8Array.from([]))).toThrowError();
-            });
-            it('Should throw an error due to too long array', function () {
-                expect(() => byteify.deserializeInt8(Uint8Array.from([23, 23]))).toThrowError();
-            });
-        });
-    });
-
-    describe('Int16', function () {
-        describe('serialize', function () {
-            it('Should throw an error due to wrong type', function () {
-                testErrorDueToWrongType(byteify.serializeInt16);
-            });
-
-            it('Should throw an error due to decimal value', function () {
-                testErrorDueToDecimalValue(byteify.serializeInt16);
-            });
-
-            it('Should throw an error due to value too small', function () {
-                expect(() => byteify.serializeInt16(byteify.limits.MIN.int16 - 1)).toThrowError();
-            });
-
-            it('Should throw an error due to value too big', function () {
-                expect(() => byteify.serializeInt16(byteify.limits.MAX.int16 + 1)).toThrowError();
-            });
-        });
-        describe('deserialize', function () {
-            it('Should throw an error due to empty array', function () {
-                expect(() => byteify.deserializeInt16(Uint8Array.from([]))).toThrowError();
-            });
-            it('Should throw an error due to too long array', function () {
-                expect(() => byteify.deserializeInt16(Uint8Array.from([23, 23, 23]))).toThrowError();
-            });
-        });
-    });
-
-    describe('Int32', function () {
-        describe('serialize', function () {
-            it('Should throw an error due to wrong type', function () {
-                testErrorDueToWrongType(byteify.serializeInt32);
-            });
-
-            it('Should throw an error due to decimal value', function () {
-                testErrorDueToDecimalValue(byteify.serializeInt32);
-            });
-
-            it('Should throw an error due to value too small', function () {
-                expect(() => byteify.serializeInt32(byteify.limits.MIN.int32 - 1)).toThrowError();
-            });
-
-            it('Should throw an error due to value too big', function () {
-                expect(() => byteify.serializeInt32(byteify.limits.MAX.int32 + 1)).toThrowError();
-            });
-        });
-        describe('deserialize', function () {
-            it('Should throw an error due to empty array', function () {
-                expect(() => byteify.deserializeInt32(Uint8Array.from([]))).toThrowError();
-            });
-            it('Should throw an error due to too long array', function () {
-                expect(() => byteify.deserializeInt32(Uint8Array.from([23, 23, 23, 23, 23]))).toThrowError();
-            });
-        });
-    });
-
-    describe('Int64', function () {
-        describe('serialize', function () {
-            it('Should throw an error due to wrong type', function () {
-                testErrorDueToWrongType(byteify.serializeInt64);
-            });
-
-            it('Should throw an error due to decimal value', function () {
-                testErrorDueToDecimalValue(byteify.serializeInt64);
-            });
-        });
-        describe('deserialize', function () {
-            it('Should throw an error due to empty array', function () {
-                expect(() => byteify.deserializeInt64(Uint8Array.from([]))).toThrowError();
-            });
-            it('Should throw an error due to too long array', function () {
-                expect(() =>
-                    byteify.deserializeInt64(Uint8Array.from([23, 23, 23, 23, 23, 23, 23, 23, 23]))
-                ).toThrowError();
-            });
-        });
-    });
-
-    describe('Float32', function () {
-        describe('serialize', function () {
-            it('Should throw an error due to wrong type', function () {
-                testErrorDueToWrongType(byteify.serializeFloat32);
-            });
-
-            it('Should throw an error due to value too small', function () {
-                expect(() => byteify.serializeFloat32(byteify.limits.MIN.float32 - 0.1)).toThrowError();
-            });
-
-            it('Should throw an error due to value too big', function () {
-                expect(() => byteify.serializeFloat32(byteify.limits.MAX.float32 * 10)).toThrowError();
-            });
-        });
-        describe('deserialize', function () {
-            it('Should throw an error due to empty array', function () {
-                expect(() => byteify.deserializeFloat32(Uint8Array.from([]))).toThrowError();
-            });
-            it('Should throw an error due to too long array', function () {
-                expect(() => byteify.deserializeFloat32(Uint8Array.from([23, 23, 23, 23, 23]))).toThrowError();
-            });
-        });
-    });
-
-    describe('Float64', function () {
-        describe('serialize', function () {
-            it('Should throw an error due to wrong type', function () {
-                testErrorDueToWrongType(byteify.serializeFloat64);
-            });
-        });
-        describe('deserialize', function () {
-            it('Should throw an error due to empty array', function () {
-                expect(() => byteify.deserializeFloat64(Uint8Array.from([]))).toThrowError();
-            });
-            it('Should throw an error due to too long array', function () {
-                expect(() =>
-                    byteify.deserializeFloat64(Uint8Array.from([23, 23, 23, 23, 23, 23, 23, 23, 23]))
-                ).toThrowError();
-            });
-        });
-    });
+    }
 });
