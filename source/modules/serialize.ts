@@ -24,13 +24,13 @@ function serialize(value: number | bigint, nativeType: NaiveType, options: Bytei
         if ((typeof value === 'number' && value % 1 !== 0) || (typeof value === 'bigint' && value % 1n !== 0n)) {
             throw new Error(`Invalid ${nativeType}: value cannot be decimal`);
         }
-    }
 
-    if (value < min) {
-        throw new Error(`Invalid ${nativeType}: value cannot be lower than ${min}`);
-    }
-    if (value > max) {
-        throw new Error(`Invalid ${nativeType}: value cannot be bigger than ${max}`);
+        if (value < min) {
+            throw new Error(`Invalid ${nativeType}: value cannot be lower than ${min}`);
+        }
+        if (value > max) {
+            throw new Error(`Invalid ${nativeType}: value cannot be bigger than ${max}`);
+        }
     }
 
     const SerializationClass = HANDLER[nativeType];
