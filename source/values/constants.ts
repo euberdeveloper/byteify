@@ -88,8 +88,8 @@ export const ESSENCE = {
 /**
  * The supported types for a certain essence.
  */
-export const SUPPORTED_TYPES = {
-    int: ['number'],
-    bigint: ['number', 'bigint'],
-    decimal: ['number']
+export const SUPPORTED_TYPE = {
+    int: 'number',
+    bigint: 'bigint',
+    decimal: 'number'
 };

@@ -1,5 +1,5 @@
 import { Essence, NativeType } from '../types';
-import { ESSENCE, HANDLER, MAX, MIN, SUPPORTED_TYPES } from '../values/constants';
+import { ESSENCE, HANDLER, MAX, MIN, SUPPORTED_TYPE } from '../values/constants';
 import { ByteifyCase, ByteifyOptions } from './types';
 
 /**
@@ -16,8 +16,8 @@ function serialize(value: number | bigint, nativeType: NativeType, options: Byte
     const max = MAX[nativeType];
     const min = MIN[nativeType];
 
-    if (!SUPPORTED_TYPES[essence].includes(typeof value)) {
-        throw new Error(`Invalid ${nativeType}: value must be a ${SUPPORTED_TYPES[essence].join()}`);
+    if (SUPPORTED_TYPE[essence] !== typeof value) {
+        throw new Error(`Invalid ${nativeType}: value must be a ${SUPPORTED_TYPE[essence]}`);
     }
 
     if (essence !== Essence.DECIMAL) {

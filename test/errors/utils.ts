@@ -4,8 +4,11 @@ import { ESSENCE, MAX, MIN, N_OF_BYTES } from '../../source/values/constants';
 export function testErrorDueToWrongType(serializingFunction: (value: any) => Uint8Array, nativeType: NativeType): void {
     const essence = ESSENCE[nativeType];
 
-    const assertConditionally = (value: any) => {
+    const assertConditionallyBigInt = (value: any) => {
         essence === Essence.BIGINT ? expect(value).not.toThrowError() : expect(value).toThrowError();
+    };
+    const assertConditionallyNumber = (value: any) => {
+        essence !== Essence.BIGINT ? expect(value).not.toThrowError() : expect(value).toThrowError();
     };
 
     expect(() => serializingFunction('test')).toThrowError();
@@ -13,7 +16,8 @@ export function testErrorDueToWrongType(serializingFunction: (value: any) => Uin
     expect(() => serializingFunction({})).toThrowError();
     expect(() => serializingFunction([])).toThrowError();
 
-    assertConditionally(() => serializingFunction(1n));
+    assertConditionallyBigInt(() => serializingFunction(1n));
+    assertConditionallyNumber(() => serializingFunction(1));
 }
 
 export function testErrorDueToDecimalValue(
