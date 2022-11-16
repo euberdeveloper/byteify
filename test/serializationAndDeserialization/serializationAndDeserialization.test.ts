@@ -35,12 +35,16 @@ function serializeDeserializeAndTest<T>(
     value: T,
     serializeFn: (x: T, o: ByteifyOptions) => Uint8Array,
     deserializeFn: (x: Uint8Array, o: ByteifyOptions) => T,
-    isFloatingPoint: boolean,
+    nativeType: NativeType,
     type: ByteifyCase
 ) {
+    const essence = ESSENCE[nativeType];
     const result = deserializeFn(serializeFn(value, { type }), { type });
-    if (isFloatingPoint) {
-        expect(result as any).toBeCloseTo(value as any, 0.01);
+
+    if (essence === Essence.DECIMAL) {
+        expect(result).toBeCloseTo(value as any, 0.01);
+    } else if (essence === Essence.INT) {
+        expect(result).toStrictEqual(value);
     } else {
         expect(result === value).toBeTruthy();
     }
@@ -81,24 +85,24 @@ describe('Test serialization and deserialization', function () {
                                 );
                             });
 
-                            // it(`Should serialize and deserialize correctly`, function () {
-                            //     serializeDeserializeAndTest(
-                            //         value,
-                            //         testCase.serializeFn,
-                            //         testCase.deserializeFn,
-                            //         testCase.isFloatingPoint,
-                            //         endianess
-                            //     );
-                            // });
+                            it(`Should serialize and deserialize correctly`, function () {
+                                serializeDeserializeAndTest(
+                                    value,
+                                    testCase.serializeFn,
+                                    testCase.deserializeFn,
+                                    testCase.nativeType,
+                                    endianess
+                                );
+                            });
 
-                            // it(`Should deserialize and serialize correctly`, function () {
-                            //     deserializeSerializeAndTest(
-                            //         expectedSerialized,
-                            //         testCase.serializeFn as (x: any) => Uint8Array,
-                            //         testCase.deserializeFn,
-                            //         endianess
-                            //     );
-                            // });
+                            it(`Should deserialize and serialize correctly`, function () {
+                                deserializeSerializeAndTest(
+                                    expectedSerialized,
+                                    testCase.serializeFn as (x: any) => Uint8Array,
+                                    testCase.deserializeFn,
+                                    endianess
+                                );
+                            });
                         });
                     }
                 });
