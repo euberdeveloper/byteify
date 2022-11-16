@@ -64,7 +64,7 @@ function testErrorDueToEmptyArray(deserializingFunction: (value: Uint8Array) => 
 }
 
 function testErrorDueToWrongArrayLength(deserializingFunction: (value: Uint8Array) => any, nativeType: NativeType) {
-    const length = N_OF_BYTES[nativeType];
+    const length: number = N_OF_BYTES[nativeType];
 
     expect(() => deserializingFunction(new Uint8Array(length - 1))).toThrowError();
     expect(() => deserializingFunction(new Uint8Array(length + 1))).toThrowError();
