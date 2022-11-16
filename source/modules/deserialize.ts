@@ -1,5 +1,5 @@
 import { NativeType } from '../types';
-import { ESSENCE, HANDLER, N_OF_BYTES } from '../values/constants';
+import { HANDLER, N_OF_BYTES } from '../values/constants';
 import { ByteifyCase, ByteifyOptions } from './types';
 
 /**
