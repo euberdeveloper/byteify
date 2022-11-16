@@ -7,6 +7,12 @@ function testErrorDueToWrongType(serializingFunction: (value: any) => Uint8Array
     expect(() => serializingFunction([] as any)).toThrowError();
 }
 
+function testErrorDueToDecimalValue(serializingFunction: (value: any) => Uint8Array) {
+    expect(() => serializingFunction(23.23)).toThrowError();
+    expect(() => serializingFunction(-23.23)).toThrowError();
+    expect(() => serializingFunction(0.0023)).toThrowError();
+}
+
 describe('Test errored cases', function () {
     describe('Uint8', function () {
         describe('serialize', function () {
@@ -15,9 +21,7 @@ describe('Test errored cases', function () {
             });
 
             it('Should throw an error due to decimal value', function () {
-                expect(() => byteify.serializeUint8(23.23)).toThrowError();
-                expect(() => byteify.serializeUint8(-23.23)).toThrowError();
-                expect(() => byteify.serializeUint8(0.0023)).toThrowError();
+                testErrorDueToDecimalValue(byteify.serializeUint8);
             });
 
             it('Should throw an error due to value too small', function () {
@@ -45,9 +49,7 @@ describe('Test errored cases', function () {
             });
 
             it('Should throw an error due to decimal value', function () {
-                expect(() => byteify.serializeUint16(23.23)).toThrowError();
-                expect(() => byteify.serializeUint16(-23.23)).toThrowError();
-                expect(() => byteify.serializeUint16(0.0023)).toThrowError();
+                testErrorDueToDecimalValue(byteify.serializeUint16);
             });
 
             it('Should throw an error due to value too small', function () {
@@ -75,9 +77,7 @@ describe('Test errored cases', function () {
             });
 
             it('Should throw an error due to decimal value', function () {
-                expect(() => byteify.serializeUint32(23.23)).toThrowError();
-                expect(() => byteify.serializeUint32(-23.23)).toThrowError();
-                expect(() => byteify.serializeUint32(0.0023)).toThrowError();
+                testErrorDueToDecimalValue(byteify.serializeUint32);
             });
 
             it('Should throw an error due to value too small', function () {
@@ -105,9 +105,7 @@ describe('Test errored cases', function () {
             });
 
             it('Should throw an error due to decimal value', function () {
-                expect(() => byteify.serializeUint64(23.23)).toThrowError();
-                expect(() => byteify.serializeUint64(-23.23)).toThrowError();
-                expect(() => byteify.serializeUint64(0.0023)).toThrowError();
+                testErrorDueToDecimalValue(byteify.serializeUint64);
             });
 
             it('Should throw an error due to value too small', function () {
@@ -135,9 +133,7 @@ describe('Test errored cases', function () {
             });
 
             it('Should throw an error due to decimal value', function () {
-                expect(() => byteify.serializeInt8(23.23)).toThrowError();
-                expect(() => byteify.serializeInt8(-23.23)).toThrowError();
-                expect(() => byteify.serializeInt8(0.0023)).toThrowError();
+                testErrorDueToDecimalValue(byteify.serializeInt8);
             });
 
             it('Should throw an error due to value too small', function () {
@@ -165,9 +161,7 @@ describe('Test errored cases', function () {
             });
 
             it('Should throw an error due to decimal value', function () {
-                expect(() => byteify.serializeInt16(23.23)).toThrowError();
-                expect(() => byteify.serializeInt16(-23.23)).toThrowError();
-                expect(() => byteify.serializeInt16(0.0023)).toThrowError();
+                testErrorDueToDecimalValue(byteify.serializeInt16);
             });
 
             it('Should throw an error due to value too small', function () {
@@ -195,9 +189,7 @@ describe('Test errored cases', function () {
             });
 
             it('Should throw an error due to decimal value', function () {
-                expect(() => byteify.serializeInt32(23.23)).toThrowError();
-                expect(() => byteify.serializeInt32(-23.23)).toThrowError();
-                expect(() => byteify.serializeInt32(0.0023)).toThrowError();
+                testErrorDueToDecimalValue(byteify.serializeInt32);
             });
 
             it('Should throw an error due to value too small', function () {
@@ -225,9 +217,7 @@ describe('Test errored cases', function () {
             });
 
             it('Should throw an error due to decimal value', function () {
-                expect(() => byteify.serializeInt64(23.23)).toThrowError();
-                expect(() => byteify.serializeInt64(-23.23)).toThrowError();
-                expect(() => byteify.serializeInt64(0.0023)).toThrowError();
+                testErrorDueToDecimalValue(byteify.serializeInt64);
             });
         });
         describe('deserialize', function () {
@@ -241,8 +231,6 @@ describe('Test errored cases', function () {
             });
         });
     });
-
-    /* FLOAT */
 
     describe('Float32', function () {
         describe('serialize', function () {
