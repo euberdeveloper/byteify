@@ -1,9 +1,9 @@
-import { NaiveType, Essence } from '../types';
+import { Essence, NaiveType } from '../types';
 
 /**
  * The max value that a certain native type can assume
  */
-export const MAX: Record<NaiveType, number | bigint> = {
+export const MAX = {
     bool: 1,
     uint8: 255,
     uint16: 65535,
@@ -20,7 +20,7 @@ export const MAX: Record<NaiveType, number | bigint> = {
 /**
  * The min value that a certain native type can assume.
  */
-export const MIN: Record<NaiveType, number | bigint> = {
+export const MIN = {
     bool: 0,
     uint8: 0,
     uint16: 0,
@@ -37,7 +37,7 @@ export const MIN: Record<NaiveType, number | bigint> = {
 /**
  * The number of bytes that a certain native type has.
  */
-export const N_OF_BYTES: Record<NaiveType, number> = {
+export const N_OF_BYTES = {
     bool: 1,
     uint8: 1,
     uint16: 2,
@@ -71,7 +71,7 @@ export const HANDLER: Record<NaiveType, any> = {
 /**
  * The base type that a certain native type consists in.
  */
-export const ESSENCE: Record<NaiveType, Essence> = {
+export const ESSENCE = {
     bool: Essence.INT,
     uint8: Essence.INT,
     uint16: Essence.INT,
@@ -88,7 +88,7 @@ export const ESSENCE: Record<NaiveType, Essence> = {
 /**
  * The supported types for a certain essence.
  */
-export const SUPPORTED_TYPES: Record<Essence, string[]> = {
+export const SUPPORTED_TYPES = {
     int: ['number'],
     bigint: ['number', 'bigint'],
     decimal: ['number']
