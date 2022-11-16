@@ -27,7 +27,7 @@ function deserializeAndTest<T>(
     } else if (essence === Essence.INT) {
         expect(result).toStrictEqual(expected);
     } else {
-        expect(result === expected).toBeTruthy();
+        expect(result == expected).toBeTruthy();
     }
 }
 
@@ -46,7 +46,7 @@ function serializeDeserializeAndTest<T>(
     } else if (essence === Essence.INT) {
         expect(result).toStrictEqual(value);
     } else {
-        expect(result === value).toBeTruthy();
+        expect(result == value).toBeTruthy();
     }
 }
 
