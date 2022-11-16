@@ -93,8 +93,8 @@ export function deserializeUint32(
 export function deserializeUint64(
     bytes: Uint8Array,
     options: ByteifyOptions = { type: ByteifyCase.BIG_ENDIAN }
-): number | bigint {
-    return deserialize(bytes, NativeType.UINT64, options);
+): bigint {
+    return deserialize(bytes, NativeType.UINT64, options) as bigint;
 }
 
 /**
@@ -142,8 +142,8 @@ export function deserializeInt32(
 export function deserializeInt64(
     bytes: Uint8Array,
     options: ByteifyOptions = { type: ByteifyCase.BIG_ENDIAN }
-): number {
-    return deserialize(bytes, NativeType.INT64, options) as number;
+): bigint {
+    return deserialize(bytes, NativeType.INT64, options) as bigint;
 }
 
 /**

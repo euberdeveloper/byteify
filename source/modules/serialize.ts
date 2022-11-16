@@ -34,7 +34,7 @@ function serialize(value: number | bigint, nativeType: NativeType, options: Byte
     }
 
     const SerializationClass = HANDLER[nativeType];
-    const result = new Uint8Array(new SerializationClass([essence === Essence.BIGINT ? BigInt(value) : value]).buffer);
+    const result = new Uint8Array(new SerializationClass([value]).buffer);
     return options.type === ByteifyCase.LITTLE_ENDIAN ? result : result.reverse();
 }
 
@@ -84,10 +84,7 @@ export function serializeUint32(value: number, options: ByteifyOptions = { type:
  * @param options The [[ByteifyOptions]] to use to deserialize the Uint8Array.
  * @returns The uint64 serialized in an Uint8Array.
  */
-export function serializeUint64(
-    value: number | bigint,
-    options: ByteifyOptions = { type: ByteifyCase.BIG_ENDIAN }
-): Uint8Array {
+export function serializeUint64(value: bigint, options: ByteifyOptions = { type: ByteifyCase.BIG_ENDIAN }): Uint8Array {
     return serialize(value, NativeType.UINT64, options);
 }
 
@@ -127,10 +124,7 @@ export function serializeInt32(value: number, options: ByteifyOptions = { type: 
  * @param options The [[ByteifyOptions]] to use to deserialize the Uint8Array.
  * @returns The int64 serialized in an Uint8Array.
  */
-export function serializeInt64(
-    value: number | bigint,
-    options: ByteifyOptions = { type: ByteifyCase.BIG_ENDIAN }
-): Uint8Array {
+export function serializeInt64(value: bigint, options: ByteifyOptions = { type: ByteifyCase.BIG_ENDIAN }): Uint8Array {
     return serialize(value, NativeType.INT64, options);
 }
 
