@@ -1,4 +1,4 @@
-import * as limits from './limits';
+import * as limits from '../values/constants';
 import { ByteifyCase, ByteifyOptions } from './types';
 
 /**

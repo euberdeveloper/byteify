@@ -1,3 +1,3 @@
-export * as limits from './modules/limits';
+export * as limits from './values/constants';
 export * from './modules/deserialize';
 export * from './modules/serialize';
