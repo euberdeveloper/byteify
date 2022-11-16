@@ -91,6 +91,7 @@ const testCases: TestCase<boolean | number | bigint>[] = [
             { value: 255, serialized: [0, 0, 0, 0, 0, 0, 0, 255] },
             { value: 256, serialized: [0, 0, 0, 0, 0, 0, 1, 0] },
             { value: 1000, serialized: [0, 0, 0, 0, 0, 0, 3, 232] },
+            { value: 32896n, serialized: [0, 0, 0, 0, 0, 0, 128, 128] },
             { value: 32896, serialized: [0, 0, 0, 0, 0, 0, 128, 128] },
             { value: 49280, serialized: [0, 0, 0, 0, 0, 0, 192, 128] },
             { value: 65535, serialized: [0, 0, 0, 0, 0, 0, 255, 255] },
@@ -103,10 +104,10 @@ const testCases: TestCase<boolean | number | bigint>[] = [
             { value: 10000000000, serialized: [0, 0, 0, 2, 84, 11, 228, 0] },
             { value: 281474976710655, serialized: [0, 0, 255, 255, 255, 255, 255, 255] },
             { value: 281474976710656, serialized: [0, 1, 0, 0, 0, 0, 0, 0] },
-            { value: 10000000000000000, serialized: [0, 35, 134, 242, 111, 193, 0, 0] },
+            { value: 10000000000000000n, serialized: [0, 35, 134, 242, 111, 193, 0, 0] },
             { value: 9007199254740991, serialized: [0, 31, 255, 255, 255, 255, 255, 255] },
-            { value: 9007199254740992, serialized: [0, 32, 0, 0, 0, 0, 0, 0] },
-            { value: 18446744073709549568, serialized: [255, 255, 255, 255, 255, 255, 248, 0] },
+            { value: 9007199254740992n, serialized: [0, 32, 0, 0, 0, 0, 0, 0] },
+            { value: 18446744073709549568n, serialized: [255, 255, 255, 255, 255, 255, 248, 0] },
             { value: 18446744073709549569n, serialized: [255, 255, 255, 255, 255, 255, 248, 1] }
         ]
     }
