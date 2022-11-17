@@ -21,7 +21,7 @@ describe('Test errored cases', function () {
                     testErrorDueToDecimalValue(testCase.serialize, testCase.nativeType);
                 });
 
-                it('should throw an error due to small value', function () {
+                it('should throw an error due to value too small', function () {
                     testErrorDueToSmallValue(testCase.serialize, testCase.nativeType);
                 });
 
