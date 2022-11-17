@@ -3,6 +3,7 @@ import { ESSENCE, MAX, MIN, N_OF_BYTES } from '../../source/values/constants';
 import { ByteifySerializationCannotBeDecimalError, ByteifySerializationWrongTypeError } from '../../source/errors';
 import { ByteifySerializationInputTooSmallError } from '../../source/errors/InputTooSmallError';
 import { ByteifySerializationInputTooBigError } from '../../source/errors/InputTooBigError';
+import { ByteifyDeserializationInvalidLengthError } from '../../source/errors/InvalidLengthError';
 
 export function testErrorDueToWrongType(serializingFunction: (value: any) => Uint8Array, nativeType: NativeType): void {
     const essence = ESSENCE[nativeType];
@@ -99,6 +100,10 @@ export function testErrorDueToWrongArrayLength(
 ): void {
     const length: number = N_OF_BYTES[nativeType];
 
-    expect(() => deserializingFunction(new Uint8Array(length - 1))).toThrowError();
-    expect(() => deserializingFunction(new Uint8Array(length + 1))).toThrowError();
+    expect(() => deserializingFunction(new Uint8Array(length - 1))).toThrowError(
+        ByteifyDeserializationInvalidLengthError
+    );
+    expect(() => deserializingFunction(new Uint8Array(length + 1))).toThrowError(
+        ByteifyDeserializationInvalidLengthError
+    );
 }
