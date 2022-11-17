@@ -4,9 +4,8 @@ import {
     ByteifySerializationInputTooSmallError,
     ByteifySerializationInputTooBigError
 } from '../errors';
-import { Essence, NativeType } from '../types';
+import { Essence, NativeType, ByteifyEndianess, ByteifyOptions } from '../types';
 import { ESSENCE, HANDLER, MAX, MIN, NEGATIVE_SHOULD_BE_ADJUSTED, SUPPORTED_TYPE } from '../values';
-import { ByteifyEndianess, ByteifyOptions } from './types';
 
 /**
  * Adjusts the result of the serialization for negative numbers

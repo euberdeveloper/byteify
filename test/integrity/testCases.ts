@@ -1,6 +1,5 @@
-import { NativeType } from '../../source/types';
+import { NativeType, ByteifyOptions } from '../../source/types';
 import * as byteify from '../../source';
-import { ByteifyOptions } from '../../source/modules/types';
 
 export interface TestCase {
     nativeType: NativeType;

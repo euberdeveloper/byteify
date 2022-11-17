@@ -1,5 +1,4 @@
-import { ByteifyEndianess } from '../modules/types';
-import { NativeType } from '../types';
+import { NativeType, ByteifyEndianess } from '../types';
 import { ByteifyError } from './ByteifyError';
 
 /**

@@ -1,5 +1,4 @@
-import { ByteifyEndianess, ByteifyOptions } from '../../source/modules/types';
-import { Essence, NativeType } from '../../source/types';
+import { Essence, NativeType, ByteifyEndianess, ByteifyOptions } from '../../source/types';
 import { ESSENCE } from '../../source/values/constants';
 import testCases from './testCases';
 

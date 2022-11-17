@@ -1,8 +1,7 @@
 import { N_OF_BYTES } from '../../source/values';
-import { ByteifyEndianess, ByteifyOptions } from '../../source/modules/types';
+import { ByteifyEndianess, ByteifyOptions, NativeType } from '../../source/types';
 
 import testCases from './testCases';
-import { NativeType } from '../../source/types';
 
 function testImmutabilityOfDeserializationInput(
     nativeType: NativeType,

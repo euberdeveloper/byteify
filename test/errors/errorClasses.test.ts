@@ -8,9 +8,9 @@ import {
     ByteifySerializationInputTooBigError,
     ByteifySerializationInputTooSmallError,
     ByteifySerializationWrongTypeError,
-    NativeType
+    NativeType,
+    ByteifyEndianess
 } from '../../source';
-import { ByteifyEndianess } from '../../source/modules/types';
 
 describe('Test error classes', function () {
     describe('Test hierarchy', function () {
