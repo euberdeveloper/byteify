@@ -1,4 +1,4 @@
-import { N_OF_BYTES } from '../../source/values/constants';
+import { N_OF_BYTES } from '../../source/values';
 import { ByteifyEndianess, ByteifyOptions } from '../../source/modules/types';
 
 import testCases from './testCases';

@@ -5,7 +5,7 @@ import {
     ByteifySerializationInputTooBigError
 } from '../errors';
 import { Essence, NativeType } from '../types';
-import { ESSENCE, HANDLER, MAX, MIN, SUPPORTED_TYPE } from '../values/constants';
+import { ESSENCE, HANDLER, MAX, MIN, SUPPORTED_TYPE } from '../values';
 import { ByteifyEndianess, ByteifyOptions } from './types';
 
 /**

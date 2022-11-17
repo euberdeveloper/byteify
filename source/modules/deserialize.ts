@@ -1,6 +1,6 @@
 import { ByteifyDeserializationInvalidLengthError, ByteifyDeserializationWrongResultError } from '../errors';
 import { NativeType } from '../types';
-import { HANDLER, N_OF_BYTES } from '../values/constants';
+import { HANDLER, N_OF_BYTES } from '../values';
 import { ByteifyEndianess, ByteifyOptions } from './types';
 
 /**

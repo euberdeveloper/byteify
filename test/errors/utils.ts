@@ -1,5 +1,5 @@
 import { Essence, NativeType } from '../../source/types';
-import { ESSENCE, MAX, MIN, N_OF_BYTES } from '../../source/values/constants';
+import { ESSENCE, MAX, MIN, N_OF_BYTES } from '../../source/values';
 import {
     ByteifyDeserializationInvalidLengthError,
     ByteifyDeserializationWrongResultError,
