@@ -6,13 +6,13 @@ import { Essence, NativeType } from '../types';
 export const MAX = {
     bool: 1,
     uint8: 255,
-    uint16: 65535,
-    uint32: 4294967295,
-    uint64: 18446744073709551616n,
+    uint16: 65_535,
+    uint32: 4_294_967_295,
+    uint64: 18_446_744_073_709_551_616n,
     int8: 127,
-    int16: 32767,
-    int32: 2147483647,
-    int64: 9223372036854775807n,
+    int16: 32_767,
+    int32: 2_147_483_647,
+    int64: 9_223_372_036_854_775_807n,
     float32: Number.MAX_VALUE,
     float64: Number.MAX_VALUE
 };
@@ -27,9 +27,9 @@ export const MIN = {
     uint32: 0,
     uint64: 0,
     int8: -128,
-    int16: -32768,
-    int32: -2147483648,
-    int64: -9223372036854775808n,
+    int16: -32_768,
+    int32: -2_147_483_648,
+    int64: -9_223_372_036_854_775_808n,
     float32: -Number.MAX_VALUE,
     float64: -Number.MAX_VALUE
 };

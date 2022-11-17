@@ -1,6 +1,6 @@
 import { NativeType } from '../types';
 import { HANDLER, N_OF_BYTES } from '../values/constants';
-import { ByteifyCase, ByteifyOptions } from './types';
+import { ByteifyEndianess, ByteifyOptions } from './types';
 
 /**
  * Deserializes an Uint8Array representing a number.
@@ -18,8 +18,8 @@ function deserialize(bytes: Uint8Array, nativeType: NativeType, options: Byteify
         throw new Error(`Invalid serialized ${nativeType}: it can be deserialized only by ${nOfBytes} byte`);
     }
 
-    if (options.type === ByteifyCase.BIG_ENDIAN) {
-        bytes = bytes.slice().reverse();
+    if (options.endianess === ByteifyEndianess.BIG_ENDIAN) {
+        bytes = [...bytes].reverse();
     }
 
     const DeserializationClass = HANDLER[nativeType];
@@ -40,7 +40,7 @@ function deserialize(bytes: Uint8Array, nativeType: NativeType, options: Byteify
  */
 export function deserializeBool(
     bytes: Uint8Array,
-    options: ByteifyOptions = { type: ByteifyCase.BIG_ENDIAN }
+    options: ByteifyOptions = { endianess: ByteifyEndianess.BIG_ENDIAN }
 ): boolean {
     return deserialize(bytes, NativeType.BOOL, options) === 1;
 }
@@ -53,7 +53,7 @@ export function deserializeBool(
  */
 export function deserializeUint8(
     bytes: Uint8Array,
-    options: ByteifyOptions = { type: ByteifyCase.BIG_ENDIAN }
+    options: ByteifyOptions = { endianess: ByteifyEndianess.BIG_ENDIAN }
 ): number {
     return deserialize(bytes, NativeType.UINT8, options) as number;
 }
@@ -66,7 +66,7 @@ export function deserializeUint8(
  */
 export function deserializeUint16(
     bytes: Uint8Array,
-    options: ByteifyOptions = { type: ByteifyCase.BIG_ENDIAN }
+    options: ByteifyOptions = { endianess: ByteifyEndianess.BIG_ENDIAN }
 ): number {
     return deserialize(bytes, NativeType.UINT16, options) as number;
 }
@@ -79,7 +79,7 @@ export function deserializeUint16(
  */
 export function deserializeUint32(
     bytes: Uint8Array,
-    options: ByteifyOptions = { type: ByteifyCase.BIG_ENDIAN }
+    options: ByteifyOptions = { endianess: ByteifyEndianess.BIG_ENDIAN }
 ): number {
     return deserialize(bytes, NativeType.UINT32, options) as number;
 }
@@ -92,7 +92,7 @@ export function deserializeUint32(
  */
 export function deserializeUint64(
     bytes: Uint8Array,
-    options: ByteifyOptions = { type: ByteifyCase.BIG_ENDIAN }
+    options: ByteifyOptions = { endianess: ByteifyEndianess.BIG_ENDIAN }
 ): bigint {
     return deserialize(bytes, NativeType.UINT64, options) as bigint;
 }
@@ -103,7 +103,10 @@ export function deserializeUint64(
  * @param options The [[ByteifyOptions]] to use to deserialize the Uint8Array.
  * @returns The deserialized int8.
  */
-export function deserializeInt8(bytes: Uint8Array, options: ByteifyOptions = { type: ByteifyCase.BIG_ENDIAN }): number {
+export function deserializeInt8(
+    bytes: Uint8Array,
+    options: ByteifyOptions = { endianess: ByteifyEndianess.BIG_ENDIAN }
+): number {
     return deserialize(bytes, NativeType.INT8, options) as number;
 }
 
@@ -115,7 +118,7 @@ export function deserializeInt8(bytes: Uint8Array, options: ByteifyOptions = { t
  */
 export function deserializeInt16(
     bytes: Uint8Array,
-    options: ByteifyOptions = { type: ByteifyCase.BIG_ENDIAN }
+    options: ByteifyOptions = { endianess: ByteifyEndianess.BIG_ENDIAN }
 ): number {
     return deserialize(bytes, NativeType.INT16, options) as number;
 }
@@ -128,7 +131,7 @@ export function deserializeInt16(
  */
 export function deserializeInt32(
     bytes: Uint8Array,
-    options: ByteifyOptions = { type: ByteifyCase.BIG_ENDIAN }
+    options: ByteifyOptions = { endianess: ByteifyEndianess.BIG_ENDIAN }
 ): number {
     return deserialize(bytes, NativeType.INT32, options) as number;
 }
@@ -141,7 +144,7 @@ export function deserializeInt32(
  */
 export function deserializeInt64(
     bytes: Uint8Array,
-    options: ByteifyOptions = { type: ByteifyCase.BIG_ENDIAN }
+    options: ByteifyOptions = { endianess: ByteifyEndianess.BIG_ENDIAN }
 ): bigint {
     return deserialize(bytes, NativeType.INT64, options) as bigint;
 }
@@ -154,7 +157,7 @@ export function deserializeInt64(
  */
 export function deserializeFloat32(
     bytes: Uint8Array,
-    options: ByteifyOptions = { type: ByteifyCase.BIG_ENDIAN }
+    options: ByteifyOptions = { endianess: ByteifyEndianess.BIG_ENDIAN }
 ): number {
     return deserialize(bytes, NativeType.FLOAT32, options) as number;
 }
@@ -167,7 +170,7 @@ export function deserializeFloat32(
  */
 export function deserializeFloat64(
     bytes: Uint8Array,
-    options: ByteifyOptions = { type: ByteifyCase.BIG_ENDIAN }
+    options: ByteifyOptions = { endianess: ByteifyEndianess.BIG_ENDIAN }
 ): number | bigint {
     return deserialize(bytes, NativeType.FLOAT64, options);
 }

@@ -1,20 +1,25 @@
 import { Essence, NativeType } from '../../source/types';
 import { ESSENCE, MAX, MIN, N_OF_BYTES } from '../../source/values/constants';
+import { ByteifySerializationWrongTypeError } from '../../source/errors';
 
 export function testErrorDueToWrongType(serializingFunction: (value: any) => Uint8Array, nativeType: NativeType): void {
     const essence = ESSENCE[nativeType];
 
     const assertConditionallyBigInt = (value: any) => {
-        essence === Essence.BIGINT ? expect(value).not.toThrowError() : expect(value).toThrowError();
+        essence === Essence.BIGINT
+            ? expect(value).not.toThrowError()
+            : expect(value).toThrowError(ByteifySerializationWrongTypeError);
     };
     const assertConditionallyNumber = (value: any) => {
-        essence !== Essence.BIGINT ? expect(value).not.toThrowError() : expect(value).toThrowError();
+        essence !== Essence.BIGINT
+            ? expect(value).not.toThrowError(ByteifySerializationWrongTypeError)
+            : expect(value).toThrowError(ByteifySerializationWrongTypeError);
     };
 
-    expect(() => serializingFunction('test')).toThrowError();
-    expect(() => serializingFunction('string')).toThrowError();
-    expect(() => serializingFunction({})).toThrowError();
-    expect(() => serializingFunction([])).toThrowError();
+    expect(() => serializingFunction('test')).toThrowError(ByteifySerializationWrongTypeError);
+    expect(() => serializingFunction('string')).toThrowError(ByteifySerializationWrongTypeError);
+    expect(() => serializingFunction({})).toThrowError(ByteifySerializationWrongTypeError);
+    expect(() => serializingFunction([])).toThrowError(ByteifySerializationWrongTypeError);
 
     assertConditionallyBigInt(() => serializingFunction(1n));
     assertConditionallyNumber(() => serializingFunction(1));

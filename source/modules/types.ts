@@ -1,8 +1,8 @@
-export enum ByteifyCase {
+export enum ByteifyEndianess {
     BIG_ENDIAN = 'BIG_ENDIAN',
     LITTLE_ENDIAN = 'LITTLE_ENDIAN'
 }
 
 export interface ByteifyOptions {
-    type: ByteifyCase;
+    endianess: ByteifyEndianess;
 }

@@ -1,6 +1,7 @@
+import { ByteifySerializationWrongTypeError } from '../errors';
 import { Essence, NativeType } from '../types';
 import { ESSENCE, HANDLER, MAX, MIN, SUPPORTED_TYPE } from '../values/constants';
-import { ByteifyCase, ByteifyOptions } from './types';
+import { ByteifyEndianess, ByteifyOptions } from './types';
 
 /**
  * Serializes a number into an Uint8Array.
@@ -17,7 +18,15 @@ function serialize(value: number | bigint, nativeType: NativeType, options: Byte
     const min = MIN[nativeType];
 
     if (SUPPORTED_TYPE[essence] !== typeof value) {
-        throw new Error(`Invalid ${nativeType}: value must be a ${SUPPORTED_TYPE[essence]}`);
+        throw new ByteifySerializationWrongTypeError(
+            `Invalid ${nativeType}: value must be a ${SUPPORTED_TYPE[essence]}`,
+            nativeType,
+            options.endianess,
+            value,
+            undefined,
+            typeof value,
+            SUPPORTED_TYPE[essence]
+        );
     }
 
     if (essence !== Essence.DECIMAL) {
@@ -35,7 +44,7 @@ function serialize(value: number | bigint, nativeType: NativeType, options: Byte
 
     const SerializationClass = HANDLER[nativeType];
     const result = new Uint8Array(new SerializationClass([value]).buffer);
-    return options.type === ByteifyCase.LITTLE_ENDIAN ? result : result.reverse();
+    return options.endianess === ByteifyEndianess.LITTLE_ENDIAN ? result : result.reverse();
 }
 
 /**
@@ -44,7 +53,10 @@ function serialize(value: number | bigint, nativeType: NativeType, options: Byte
  * @param options The [[ByteifyOptions]] to use to deserialize the Uint8Array.
  * @returns The boolean serialized in an Uint8Array.
  */
-export function serializeBool(value: boolean, options: ByteifyOptions = { type: ByteifyCase.BIG_ENDIAN }): Uint8Array {
+export function serializeBool(
+    value: boolean,
+    options: ByteifyOptions = { endianess: ByteifyEndianess.BIG_ENDIAN }
+): Uint8Array {
     return serialize(+value, NativeType.BOOL, options);
 }
 
@@ -54,7 +66,10 @@ export function serializeBool(value: boolean, options: ByteifyOptions = { type: 
  * @param options The [[ByteifyOptions]] to use to deserialize the Uint8Array.
  * @returns The uint8 serialized in an Uint8Array.
  */
-export function serializeUint8(value: number, options: ByteifyOptions = { type: ByteifyCase.BIG_ENDIAN }): Uint8Array {
+export function serializeUint8(
+    value: number,
+    options: ByteifyOptions = { endianess: ByteifyEndianess.BIG_ENDIAN }
+): Uint8Array {
     return serialize(value, NativeType.UINT8, options);
 }
 
@@ -64,7 +79,10 @@ export function serializeUint8(value: number, options: ByteifyOptions = { type: 
  * @param options The [[ByteifyOptions]] to use to deserialize the Uint8Array.
  * @returns The uint16 serialized in an Uint8Array.
  */
-export function serializeUint16(value: number, options: ByteifyOptions = { type: ByteifyCase.BIG_ENDIAN }): Uint8Array {
+export function serializeUint16(
+    value: number,
+    options: ByteifyOptions = { endianess: ByteifyEndianess.BIG_ENDIAN }
+): Uint8Array {
     return serialize(value, NativeType.UINT16, options);
 }
 
@@ -74,7 +92,10 @@ export function serializeUint16(value: number, options: ByteifyOptions = { type:
  * @param options The [[ByteifyOptions]] to use to deserialize the Uint8Array.
  * @returns The uint32 serialized in an Uint8Array.
  */
-export function serializeUint32(value: number, options: ByteifyOptions = { type: ByteifyCase.BIG_ENDIAN }): Uint8Array {
+export function serializeUint32(
+    value: number,
+    options: ByteifyOptions = { endianess: ByteifyEndianess.BIG_ENDIAN }
+): Uint8Array {
     return serialize(value, NativeType.UINT32, options);
 }
 
@@ -84,7 +105,10 @@ export function serializeUint32(value: number, options: ByteifyOptions = { type:
  * @param options The [[ByteifyOptions]] to use to deserialize the Uint8Array.
  * @returns The uint64 serialized in an Uint8Array.
  */
-export function serializeUint64(value: bigint, options: ByteifyOptions = { type: ByteifyCase.BIG_ENDIAN }): Uint8Array {
+export function serializeUint64(
+    value: bigint,
+    options: ByteifyOptions = { endianess: ByteifyEndianess.BIG_ENDIAN }
+): Uint8Array {
     return serialize(value, NativeType.UINT64, options);
 }
 
@@ -94,7 +118,10 @@ export function serializeUint64(value: bigint, options: ByteifyOptions = { type:
  * @param options The [[ByteifyOptions]] to use to deserialize the Uint8Array.
  * @returns The int8 serialized in an Uint8Array.
  */
-export function serializeInt8(value: number, options: ByteifyOptions = { type: ByteifyCase.BIG_ENDIAN }): Uint8Array {
+export function serializeInt8(
+    value: number,
+    options: ByteifyOptions = { endianess: ByteifyEndianess.BIG_ENDIAN }
+): Uint8Array {
     return serialize(value, NativeType.INT8, options);
 }
 
@@ -104,7 +131,10 @@ export function serializeInt8(value: number, options: ByteifyOptions = { type: B
  * @param options The [[ByteifyOptions]] to use to deserialize the Uint8Array.
  * @returns The int16 serialized in an Uint8Array.
  */
-export function serializeInt16(value: number, options: ByteifyOptions = { type: ByteifyCase.BIG_ENDIAN }): Uint8Array {
+export function serializeInt16(
+    value: number,
+    options: ByteifyOptions = { endianess: ByteifyEndianess.BIG_ENDIAN }
+): Uint8Array {
     return serialize(value, NativeType.INT16, options);
 }
 
@@ -114,7 +144,10 @@ export function serializeInt16(value: number, options: ByteifyOptions = { type: 
  * @param options The [[ByteifyOptions]] to use to deserialize the Uint8Array.
  * @returns The int32 serialized in an Uint8Array.
  */
-export function serializeInt32(value: number, options: ByteifyOptions = { type: ByteifyCase.BIG_ENDIAN }): Uint8Array {
+export function serializeInt32(
+    value: number,
+    options: ByteifyOptions = { endianess: ByteifyEndianess.BIG_ENDIAN }
+): Uint8Array {
     return serialize(value, NativeType.INT32, options);
 }
 
@@ -124,7 +157,10 @@ export function serializeInt32(value: number, options: ByteifyOptions = { type: 
  * @param options The [[ByteifyOptions]] to use to deserialize the Uint8Array.
  * @returns The int64 serialized in an Uint8Array.
  */
-export function serializeInt64(value: bigint, options: ByteifyOptions = { type: ByteifyCase.BIG_ENDIAN }): Uint8Array {
+export function serializeInt64(
+    value: bigint,
+    options: ByteifyOptions = { endianess: ByteifyEndianess.BIG_ENDIAN }
+): Uint8Array {
     return serialize(value, NativeType.INT64, options);
 }
 
@@ -136,7 +172,7 @@ export function serializeInt64(value: bigint, options: ByteifyOptions = { type: 
  */
 export function serializeFloat32(
     value: number,
-    options: ByteifyOptions = { type: ByteifyCase.BIG_ENDIAN }
+    options: ByteifyOptions = { endianess: ByteifyEndianess.BIG_ENDIAN }
 ): Uint8Array {
     return serialize(value, NativeType.FLOAT32, options);
 }
@@ -149,7 +185,7 @@ export function serializeFloat32(
  */
 export function serializeFloat64(
     value: number,
-    options: ByteifyOptions = { type: ByteifyCase.BIG_ENDIAN }
+    options: ByteifyOptions = { endianess: ByteifyEndianess.BIG_ENDIAN }
 ): Uint8Array {
     return serialize(value, NativeType.FLOAT64, options);
 }

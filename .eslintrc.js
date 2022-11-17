@@ -7,7 +7,8 @@ module.exports = {
     plugins: ['@euberdeveloper'],
     extends: [
         'plugin:@euberdeveloper/typescript',
-        'plugin:@euberdeveloper/prettier'
+        'plugin:@euberdeveloper/prettier',
+        'plugin:@euberdeveloper/unicorn'
     ],
     rules: {
         '@typescript-eslint/naming-convention': 'off'
