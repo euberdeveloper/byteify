@@ -1,15 +1,15 @@
 import { ByteifyEndianess } from '../modules/types';
 import { NativeType } from '../types';
-import { ByteifySerializationError } from './serializationError';
+import { ByteifySerializationError } from './SerializationError';
 
 /**
- * The [[ByteifySerializationError]] that happens because of an error with the serialization
+ * The [[ByteifySerializationError]] that happens because the input is too big
  */
-export class ByteifySerializationWrongTypeError extends ByteifySerializationError {
+export class ByteifySerializationInputTooBigError extends ByteifySerializationError {
     /**
      * The default message of the error
      */
-    protected static readonly DEFAULT_MESSAGE: string = 'Error in byteify serialization due to input type';
+    protected static readonly DEFAULT_MESSAGE: string = 'Error in byteify serialization due to too big input';
 
     /**
      * The given type of the value that was to be serialized
@@ -21,7 +21,7 @@ export class ByteifySerializationWrongTypeError extends ByteifySerializationErro
     public expectedType: string | null;
 
     /**
-     * The constructor of the [[ByteifySerializationWrongTypeError]] class.
+     * The constructor of the [[ByteifySerializationInputTooBigError]] class.
      * @param message The message of the error
      * @param nativeType The native type of the value that was to be serialized
      * @param endianess The byteify endianess that was to be used
@@ -29,7 +29,7 @@ export class ByteifySerializationWrongTypeError extends ByteifySerializationErro
      * @param serializedResult The serialized value
      */
     constructor(
-        message = ByteifySerializationWrongTypeError.DEFAULT_MESSAGE,
+        message = ByteifySerializationInputTooBigError.DEFAULT_MESSAGE,
         nativeType?: NativeType,
         endianess?: ByteifyEndianess,
         valueToSerialize?: number | bigint,
@@ -38,7 +38,7 @@ export class ByteifySerializationWrongTypeError extends ByteifySerializationErro
         expectedType?: string
     ) {
         super(message);
-        this.name = 'ByteifySerializationWrongTypeError';
+        this.name = 'ByteifySerializationInputTooBigError';
         this.nativeType = nativeType ?? null;
         this.endianess = endianess ?? null;
         this.valueToSerialize = valueToSerialize ?? null;

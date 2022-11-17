@@ -1,6 +1,6 @@
 import { ByteifyEndianess } from '../modules/types';
 import { NativeType } from '../types';
-import { ByteifyError } from './byteifyError';
+import { ByteifyError } from './ByteifyError';
 
 /**
  * The [[ByteifyError]] that happens because of an error with the serialization

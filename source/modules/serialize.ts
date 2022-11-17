@@ -1,4 +1,5 @@
-import { ByteifySerializationWrongTypeError } from '../errors';
+import { ByteifySerializationCannotBeDecimalError, ByteifySerializationWrongTypeError } from '../errors';
+import { ByteifySerializationInputTooSmallError } from '../errors/InputTooSmall';
 import { Essence, NativeType } from '../types';
 import { ESSENCE, HANDLER, MAX, MIN, SUPPORTED_TYPE } from '../values/constants';
 import { ByteifyEndianess, ByteifyOptions } from './types';
@@ -31,14 +32,38 @@ function serialize(value: number | bigint, nativeType: NativeType, options: Byte
 
     if (essence !== Essence.DECIMAL) {
         if ((typeof value === 'number' && value % 1 !== 0) || (typeof value === 'bigint' && value % 1n !== 0n)) {
-            throw new Error(`Invalid ${nativeType}: value cannot be decimal`);
+            throw new ByteifySerializationCannotBeDecimalError(
+                `Invalid ${nativeType}: value cannot be decimal`,
+                nativeType,
+                options.endianess,
+                value,
+                undefined,
+                typeof value,
+                'integer'
+            );
         }
 
         if (value < min) {
-            throw new Error(`Invalid ${nativeType}: value cannot be lower than ${min}`);
+            throw new ByteifySerializationInputTooSmallError(
+                `Invalid ${nativeType}: value cannot be lower than ${min}`,
+                nativeType,
+                options.endianess,
+                value,
+                undefined,
+                typeof value,
+                'integer'
+            );
         }
         if (value > max) {
-            throw new Error(`Invalid ${nativeType}: value cannot be bigger than ${max}`);
+            throw new ByteifySerializationInputTooSmallError(
+                `Invalid ${nativeType}: value cannot be higher than ${max}`,
+                nativeType,
+                options.endianess,
+                value,
+                undefined,
+                typeof value,
+                'integer'
+            );
         }
     }
 

@@ -1,3 +1,4 @@
-export * from './byteifyError';
-export * from './serializationError';
-export * from './wrongTypeError';
+export * from './ByteifyError';
+export * from './SerializationError';
+export * from './WrongTypeError';
+export * from './CannotBeDecimalError';
