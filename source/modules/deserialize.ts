@@ -1,5 +1,4 @@
-import { ByteifyDeserializationInvalidLengthError } from '../errors/InvalidLengthError';
-import { ByteifyDeserializationWrongResultError } from '../errors/WrongResultError';
+import { ByteifyDeserializationInvalidLengthError, ByteifyDeserializationWrongResultError } from '../errors';
 import { NativeType } from '../types';
 import { HANDLER, N_OF_BYTES } from '../values/constants';
 import { ByteifyEndianess, ByteifyOptions } from './types';

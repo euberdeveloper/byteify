@@ -1,6 +1,9 @@
-import { ByteifySerializationCannotBeDecimalError, ByteifySerializationWrongTypeError } from '../errors';
-import { ByteifySerializationInputTooBigError } from '../errors/InputTooBigError';
-import { ByteifySerializationInputTooSmallError } from '../errors/InputTooSmallError';
+import {
+    ByteifySerializationCannotBeDecimalError,
+    ByteifySerializationWrongTypeError,
+    ByteifySerializationInputTooSmallError,
+    ByteifySerializationInputTooBigError
+} from '../errors';
 import { Essence, NativeType } from '../types';
 import { ESSENCE, HANDLER, MAX, MIN, SUPPORTED_TYPE } from '../values/constants';
 import { ByteifyEndianess, ByteifyOptions } from './types';

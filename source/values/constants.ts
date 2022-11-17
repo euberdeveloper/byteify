@@ -52,6 +52,15 @@ export const N_OF_BYTES = {
 };
 
 /**
+ * The limits (max, min, n. of bytes) of a certain native type.
+ */
+export const limits = {
+    MAX,
+    MIN,
+    N_OF_BYTES
+};
+
+/**
  * The class that handles a certain native type.
  */
 export const HANDLER: Record<NativeType, any> = {
