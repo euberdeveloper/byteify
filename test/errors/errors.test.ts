@@ -4,6 +4,7 @@ import {
     testErrorDueToLargeValue,
     testErrorDueToSmallValue,
     testErrorDueToWrongArrayLength,
+    testErrorDueToWrongResult,
     testErrorDueToWrongType
 } from './utils';
 
@@ -36,6 +37,9 @@ describe('Test errored cases', function () {
                 });
                 it('Should throw an error due to wrong array length', function () {
                     testErrorDueToWrongArrayLength(testCase.deserialize, testCase.nativeType);
+                });
+                it('Should throw an error due to wrong result (boolean case)', function () {
+                    testErrorDueToWrongResult(testCase.deserialize, testCase.nativeType);
                 });
             });
         });

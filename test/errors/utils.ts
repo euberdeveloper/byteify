@@ -4,6 +4,7 @@ import { ByteifySerializationCannotBeDecimalError, ByteifySerializationWrongType
 import { ByteifySerializationInputTooSmallError } from '../../source/errors/InputTooSmallError';
 import { ByteifySerializationInputTooBigError } from '../../source/errors/InputTooBigError';
 import { ByteifyDeserializationInvalidLengthError } from '../../source/errors/InvalidLengthError';
+import { ByteifyDeserializationWrongResultError } from '../../source/errors/WrongResultError';
 
 export function testErrorDueToWrongType(serializingFunction: (value: any) => Uint8Array, nativeType: NativeType): void {
     const essence = ESSENCE[nativeType];
@@ -92,6 +93,19 @@ export function testErrorDueToLargeValue(
 
 export function testErrorDueToEmptyArray(deserializingFunction: (value: Uint8Array) => any): void {
     expect(() => deserializingFunction(Uint8Array.from([]))).toThrowError();
+}
+
+export function testErrorDueToWrongResult(
+    deserializingFunction: (value: Uint8Array) => any,
+    nativeType: NativeType
+): void {
+    const assertConditionally = (value: any) => {
+        nativeType === NativeType.BOOL
+            ? expect(value).toThrowError(ByteifyDeserializationWrongResultError)
+            : expect(value).not.toThrowError(ByteifyDeserializationWrongResultError);
+    };
+
+    assertConditionally(() => deserializingFunction(Uint8Array.from[15]));
 }
 
 export function testErrorDueToWrongArrayLength(
