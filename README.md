@@ -31,31 +31,31 @@ $ npm install byteify
 ```js
 const byteify = require('byteify');
 
-// The value will be: Uint8Array(1) [ 1 ]
+// The value will be: [1]
 const serializedBool = byteify.serializeBool(true);
 
-// The value will be: Uint8Array(1) [ 10 ] 
+// The value will be: [10]
 const serializedUint8 = byteify.serializeUint8(10); 
-// The value will be: Uint8Array(1) [ 1, 0 ]
-const serializedUint16 = byteify.serializeUint16(256); 
-// The value will be: Uint8Array(1) [ 0, 15, 66, 64 ]
-const serializedUint32 = byteify.serializeUint32(1000000); 
-// The value will be: Uint8Array(1) [ 5, 245, 225, 0, 5, 245, 225, 0 ]
-const serializedUint64 = byteify.serializeUint64(100000000); 
+// The value will be: [1, 0]
+const serializedUint16 = byteify.serializeUint16(256, { endianess: ByteifyCase.BIG_ENDIAN }); 
+// The value will be: [0, 15, 66, 64]
+const serializedUint32 = byteify.serializeUint32(1000000, { endianess: ByteifyCase.BIG_ENDIAN });
+// The value will be: [5, 245, 225, 0, 5, 245, 225, 0]
+const serializedUint64 = byteify.serializeUint64(100000000n, { endianess: ByteifyCase.BIG_ENDIAN }); 
 
-// The value will be: Uint8Array(1) [ 255 ] 
-const serializedInt8 = byteify.serializeInt8(-1); 
-// The value will be: Uint8Array(1) [ 252, 24 ]
-const serializedInt16 = byteify.serializeInt16(-1000); 
-// The value will be: Uint8Array(1) [ 255, 254, 121, 96 ]
-const serializedInt32 = byteify.serializeInt32(-100000); 
-// The value will be: Uint8Array(1) [ 255, 255, 255, 255, 255, 255, 255, 255 ]
-const serializedInt64 = byteify.serializeInt64(-1); 
+// The value will be: [255]
+const serializedInt8 = byteify.serializeInt8(-1);
+// The value will be: [252, 24]
+const serializedInt16 = byteify.serializeInt16(-1000, { endianess: ByteifyCase.BIG_ENDIAN });
+// The value will be: [255, 254, 121, 96]
+const serializedInt32 = byteify.serializeInt32(-100000, { endianess: ByteifyCase.BIG_ENDIAN });
+// The value will be: [255, 255, 255, 255, 255, 255, 255, 255]
+const serializedInt64 = byteify.serializeInt64(-1n, { endianess: ByteifyCase.BIG_ENDIAN });
 
-// The value will be: Uint8Array(1) [ 10, 215, 185, 65 ] 
-const serializedFloat32 = byteify.serializeFloat32(23.23); 
-// The value will be: Uint8Array(1) [ 123, 20, 174, 71, 225, 58,  55, 64 ]
-const serializedFloat64 = byteify.serializeFloat64(23.23);
+// The value will be: [10, 215, 185, 65]  
+const serializedFloat32 = byteify.serializeFloat32(23.23, { endianess: ByteifyCase.LITTLE_ENDIAN });
+// The value will be: [123, 20, 174, 71, 225, 58, 55, 64]
+const serializedFloat64 = byteify.serializeFloat64(23.23, { endianess: ByteifyCase.LITTLE_ENDIAN });
 ```
 
 ## Deserialize
@@ -63,48 +63,49 @@ const serializedFloat64 = byteify.serializeFloat64(23.23);
 ```js
 const byteify = require('byteify');
 
-// The value will be: Uint8Array(1) [ 1 ]
-const deserializedBool = byteify.deserializeBool([ 1 ]);
+// The value will be: true
+const deserializedBool = byteify.deserializeBool([1]);
 
 // The value will be: 10
-const deserializedUint8 = byteify.deserializeUint8([ 10 ]);
+const deserializedUint8 = byteify.deserializeUint8([10]);
 // The value will be: 1
-const deserializedUint16 = byteify.deserializeUint16([ 1, 0 ]);
+const deserializedUint16 = byteify.deserializeUint16([1, 0], { endianess: ByteifyCase.BIG_ENDIAN });
 // The value will be: 0
-const deserializedUint32 = byteify.deserializeUint32([ 0, 15, 66, 64 ]);
-// The value will be: 5
-const deserializedUint64 = byteify.deserializeUint64([ 5, 245, 225, 0, 5, 245, 225, 0 ]);
+const deserializedUint32 = byteify.deserializeUint32([0, 15, 66, 64], { endianess: ByteifyCase.BIG_ENDIAN });
+// The value will be: 100000000nn
+const deserializedUint64 = byteify.deserializeUint64([5, 245, 225, 0, 5, 245, 225, 0], { endianess: ByteifyCase.BIG_ENDIAN });
 
 // The value will be: -1
-const deserializedInt8 = byteify.deserializeInt8([ 255 ]);
+const deserializedInt8 = byteify.deserializeInt8([255]);
 // The value will be: -1000
-const deserializedInt16 = byteify.deserializeInt16([ 252, 24 ]);
+const deserializedInt16 = byteify.deserializeInt16([252, 24], { endianess: ByteifyCase.BIG_ENDIAN });
 // The value will be: -100000
-const deserializedInt32 = byteify.deserializeInt32([ 255, 254, 121, 96 ]);
-// The value will be: -1
-const deserializedInt64 = byteify.deserializeInt64([ 255, 255, 255, 255, 255, 255, 255, 255 ]);
+const deserializedInt32 = byteify.deserializeInt32([255, 254, 121, 96], { endianess: ByteifyCase.BIG_ENDIAN });
+// The value will be: -1n
+const deserializedInt64 = byteify.deserializeInt64([255, 255, 255, 255, 255, 255, 255, 255], { endianess: ByteifyCase.BIG_ENDIAN });
 
 // The value will be: 23.23
-const deserializedFloat32 = byteify.deserializeFloat32([ 10, 215, 185, 65 ]);
+const deserializedFloat32 = byteify.deserializeFloat32([10, 215, 185, 65], { endianess: ByteifyCase.LITTLE_ENDIAN });
 // The value will be: 23.23
-const deserializedFloat64 = byteify.deserializeFloat64([ 123, 20, 174, 71, 225, 58,  55, 64 ]);
+const deserializedFloat64 = byteify.deserializeFloat64([123, 20, 174, 71, 225, 58,  55, 64], { endianess: ByteifyCase.LITTLE_ENDIAN });
 ```
 
-## Little Endian
+## Endianess
 
-By default, Big Endian is used. If you want to use Little Endian, you can pass it as an option
+By default, Little Endian is used. If you want to use Big Endian, you can pass it as an option
 
 ```js
 const byteify = require('byteify');
 
 // The value will be: 1000000
-const deserializedUint64 = byteify.deserializeUint64([0, 0, 0, 0, 0, 15, 66, 64]);
-const deserializedUint64 = byteify.deserializeUint64([64, 66, 15, 0, 0, 0, 0, 0], { type: ByteifyCase.LITTLE_ENDIAN });
+const deserializedUint64 = byteify.deserializeUint64([64, 66, 15, 0, 0, 0, 0, 0]);
+const deserializedUint64 = byteify.deserializeUint64([64, 66, 15, 0, 0, 0, 0, 0], { endianess: ByteifyCase.LITTLE_ENDIAN });
+const deserializedUint64 = byteify.deserializeUint64([0, 0, 0, 0, 0, 15, 66, 64], { endianess: ByteifyCase.BIG_ENDIAN });
 
-// The value will be [0, 0, 0, 0, 0, 15, 66, 64]
-const serializedUint64 = byteify.serializeUint64(1000000);
 // The value will be [64, 66, 15, 0, 0, 0, 0, 0]
-const serializedUint64 = byteify.serializeUint64(1000000, { type: ByteifyCase.LITTLE_ENDIAN });
+const serializedUint64 = byteify.serializeUint64(1000000, { endianess: ByteifyCase.LITTLE_ENDIAN });
+// The value will be [0, 0, 0, 0, 0, 15, 66, 64]
+const serializedUint64 = byteify.serializeUint64(1000000, { endianess: ByteifyCase.BIG_ENDIAN });
 ```
 
 ## Limits
@@ -116,14 +117,14 @@ const { limits } = require('byteify');
 {
     bool: 1,
     uint8: 255,
-    uint16: 65535,
-    uint32: 4294967295,
-    uint64: Number.MAX_VALUE, // Note: problem because max value in js has 53 precision and not 64
+    uint16: 65_535,
+    uint32: 4_294_967_295,
+    uint64: 18_446_744_073_709_551_616n,
     int8: 127,
-    int16: 32767,
-    int32: 2147483647,
-    int64: Number.MAX_VALUE, // Note: problem because max value in js has 53 precision and not 64,
-    float32:  3.402823466e38,
+    int16: 32_767,
+    int32: 2_147_483_647,
+    int64: 9_223_372_036_854_775_807n,
+    float32: Number.MAX_VALUE,
     float64: Number.MAX_VALUE
 }
 */
@@ -135,13 +136,13 @@ console.log(limits.MAX);
     uint8: 0,
     uint16: 0,
     uint32: 0,
-    uint64: 0,
+    uint64: 0n,
     int8: -128,
-    int16: -32768,
-    int32: -2147483648,
-    int64: -9007199254740991, // Note: problem because max value in js has 53 precision and not 64,
-    float32: -1.175494351e-38,
-    float64: -9007199254740991
+    int16: -32_768,
+    int32: -2_147_483_648,
+    int64: -9_223_372_036_854_775_808n,
+    float32: -Number.MAX_VALUE,
+    float64: -Number.MAX_VALUE
 }
 */
 console.log(limits.MIN);
@@ -173,7 +174,7 @@ The documentation for development site is: [byteify dev documentation](https://b
 
 To build the module make sure you have the dev dependencies installed.
 
-The project is written in `Typescript`, bundled with `Webpack` and linted with `ESLint`.
+The project is written in `Typescript`, bundled with `Webpack`, linted with `ESLint` and tested with `Jest`.
 
 ### Lint
 
@@ -234,8 +235,7 @@ $ npm run bundle
 
 The `source` folder will be compiled in the `bundled` folder. It will contain the bundled `index.js` and `index.d.ts` files.
 
-## Notes
+### Notes
 
-### Limitations
-
-The `int64`, `uint64` and `float64` are limited to the maximum value of `Number.MAX_VALUE` because of the precision of the `Number` type in javascript.
+* For simplicity, the limits for the floating point numbers are always `Number.MAX_VALUE` and `-Number.MAX_VALUE`. For `float32` this means that the result is not guaranteed for too precise inputs.
+* For `uint64` and `int64`, the `BigInt` type is used.
