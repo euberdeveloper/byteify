@@ -1,7 +1,7 @@
 import { Essence, NativeType } from '../../source/types';
 import { ESSENCE, MAX, MIN, N_OF_BYTES } from '../../source/values/constants';
 import { ByteifySerializationCannotBeDecimalError, ByteifySerializationWrongTypeError } from '../../source/errors';
-import { ByteifySerializationInputTooSmallError } from '../../source/errors/InputTooSmall';
+import { ByteifySerializationInputTooSmallError } from '../../source/errors/InputTooSmallError';
 import { ByteifySerializationInputTooBigError } from '../../source/errors/InputTooBigError';
 
 export function testErrorDueToWrongType(serializingFunction: (value: any) => Uint8Array, nativeType: NativeType): void {

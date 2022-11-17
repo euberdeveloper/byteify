@@ -13,15 +13,6 @@ export class ByteifySerializationCannotBeDecimalError extends ByteifySerializati
         'Error in byteify serialization because input cannot be decimal';
 
     /**
-     * The given type of the value that was to be serialized
-     */
-    public givenType: string | null;
-    /**
-     * The expected type of the value that was to be serialized
-     */
-    public expectedType: string | null;
-
-    /**
      * The constructor of the [[ByteifySerializationCannotBeDecimalError]] class.
      * @param message The message of the error
      * @param nativeType The native type of the value that was to be serialized
@@ -34,17 +25,9 @@ export class ByteifySerializationCannotBeDecimalError extends ByteifySerializati
         nativeType?: NativeType,
         endianess?: ByteifyEndianess,
         valueToSerialize?: number | bigint,
-        serializedResult?: Uint8Array,
-        givenType?: string,
-        expectedType?: string
+        serializedResult?: Uint8Array
     ) {
-        super(message);
+        super(message, nativeType, endianess, valueToSerialize, serializedResult);
         this.name = 'ByteifySerializationCannotBeDecimalError';
-        this.nativeType = nativeType ?? null;
-        this.endianess = endianess ?? null;
-        this.valueToSerialize = valueToSerialize ?? null;
-        this.serializedResult = serializedResult ?? null;
-        this.givenType = givenType ?? null;
-        this.expectedType = expectedType ?? null;
     }
 }

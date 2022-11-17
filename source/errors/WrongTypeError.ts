@@ -27,6 +27,8 @@ export class ByteifySerializationWrongTypeError extends ByteifySerializationErro
      * @param endianess The byteify endianess that was to be used
      * @param valueToSerialize The value that was to be serialized
      * @param serializedResult The serialized value
+     * @param givenType The given type of the value that was to be serialized
+     * @param expectedType The expected type of the value that was to be serialized
      */
     constructor(
         message = ByteifySerializationWrongTypeError.DEFAULT_MESSAGE,
@@ -37,12 +39,8 @@ export class ByteifySerializationWrongTypeError extends ByteifySerializationErro
         givenType?: string,
         expectedType?: string
     ) {
-        super(message);
+        super(message, nativeType, endianess, valueToSerialize, serializedResult);
         this.name = 'ByteifySerializationWrongTypeError';
-        this.nativeType = nativeType ?? null;
-        this.endianess = endianess ?? null;
-        this.valueToSerialize = valueToSerialize ?? null;
-        this.serializedResult = serializedResult ?? null;
         this.givenType = givenType ?? null;
         this.expectedType = expectedType ?? null;
     }
