@@ -11,6 +11,7 @@ module.exports = {
         'plugin:@euberdeveloper/unicorn'
     ],
     rules: {
-        '@typescript-eslint/naming-convention': 'off'
+        '@typescript-eslint/naming-convention': 'off',
+        'unicorn/prefer-spread': 'off'
     }
 };

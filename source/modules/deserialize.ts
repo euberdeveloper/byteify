@@ -19,7 +19,7 @@ function deserialize(bytes: Uint8Array, nativeType: NativeType, options: Byteify
     }
 
     if (options.endianess === ByteifyEndianess.BIG_ENDIAN) {
-        bytes = [...bytes].reverse();
+        bytes = bytes.slice().reverse();
     }
 
     const DeserializationClass = HANDLER[nativeType];
