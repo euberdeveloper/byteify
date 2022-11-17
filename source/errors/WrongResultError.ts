@@ -24,7 +24,7 @@ export class ByteifyDeserializationWrongResultError extends ByteifyDeserializati
         message = ByteifyDeserializationWrongResultError.DEFAULT_MESSAGE,
         nativeType?: NativeType,
         endianess?: ByteifyEndianess,
-        valueToDeserialize?: Uint8Array,
+        valueToDeserialize?: number[],
         deserializedResult?: number | bigint
     ) {
         super(message, nativeType, endianess, valueToDeserialize, deserializedResult);

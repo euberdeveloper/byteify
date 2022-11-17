@@ -35,7 +35,7 @@ export class ByteifySerializationWrongTypeError extends ByteifySerializationErro
         nativeType?: NativeType,
         endianess?: ByteifyEndianess,
         valueToSerialize?: number | bigint,
-        serializedResult?: Uint8Array,
+        serializedResult?: number[],
         givenType?: string,
         expectedType?: string
     ) {

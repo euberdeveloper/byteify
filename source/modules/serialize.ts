@@ -5,19 +5,31 @@ import {
     ByteifySerializationInputTooBigError
 } from '../errors';
 import { Essence, NativeType } from '../types';
-import { ESSENCE, HANDLER, MAX, MIN, SUPPORTED_TYPE } from '../values';
+import { ESSENCE, HANDLER, MAX, MIN, NEGATIVE_SHOULD_BE_ADJUSTED, SUPPORTED_TYPE } from '../values';
 import { ByteifyEndianess, ByteifyOptions } from './types';
 
 /**
- * Serializes a number into an Uint8Array.
+ * Adjusts the result of the serialization for negative numbers
+ * @notExported
+ * @category Helper
+ * @param bytes The result of the serialization to be adjusted. It will be modified.
+ */
+function adjustNegative(bytes: number[]): void {
+    for (let i = 0; i < bytes.length; i++) {
+        bytes[i] = (bytes[i] + 256) % 256;
+    }
+}
+
+/**
+ * Serializes a number into an array of bytes.
  * @notExported
  * @category Helper
  * @param value The number to serialize.
  * @param nativeType The type that is being to be analyzed. It will be used also to take the limits.
- * @param options The [[ByteifyOptions]] to use to deserialize the Uint8Array.
- * @returns The serialized Uint8Array.
+ * @param options The [[ByteifyOptions]] to use to deserialize the array.
+ * @returns The serialized array.
  */
-function serialize(value: number | bigint, nativeType: NativeType, options: ByteifyOptions): Uint8Array {
+function serialize(value: number | bigint, nativeType: NativeType, options: ByteifyOptions): number[] {
     const essence: Essence = ESSENCE[nativeType];
     const max = MAX[nativeType];
     const min = MIN[nativeType];
@@ -66,12 +78,15 @@ function serialize(value: number | bigint, nativeType: NativeType, options: Byte
     }
 
     const SerializationClass = HANDLER[nativeType];
-    const result = new Uint8Array(new SerializationClass([value]).buffer);
+    const result = Array.from(new Uint8Array(new SerializationClass([value]).buffer));
+    if (NEGATIVE_SHOULD_BE_ADJUSTED[nativeType]) {
+        adjustNegative(result);
+    }
     return options.endianess === ByteifyEndianess.LITTLE_ENDIAN ? result : result.reverse();
 }
 
 /**
- * Validates and converts a boolean into a number to be serialized.
+ * Validates and converts a boolean into a number[... to be serialized.
  * @notExported
  * @category Helper
  * @param value The boolean to serialize.
@@ -94,144 +109,144 @@ function purgeBoolean(value: boolean | number): number {
 }
 
 /**
- * Serializes a boolean into an Uint8Array.
+ * Serializes a boolean into an array of bytes.
  * @param value The boolean to serialize.
- * @param options The [[ByteifyOptions]] to use to deserialize the Uint8Array.
- * @returns The boolean serialized in an Uint8Array.
+ * @param options The [[ByteifyOptions]] to use to deserialize the array.
+ * @returns The boolean serialized in an array of bytes.
  */
 export function serializeBool(
     value: boolean,
     options: ByteifyOptions = { endianess: ByteifyEndianess.BIG_ENDIAN }
-): Uint8Array {
+): number[] {
     return serialize(purgeBoolean(value), NativeType.BOOL, options);
 }
 
 /**
- * Serializes an uint8 into an Uint8Array.
+ * Serializes an uint8 into an array of bytes.
  * @param value The uint8 to serialize.
- * @param options The [[ByteifyOptions]] to use to deserialize the Uint8Array.
- * @returns The uint8 serialized in an Uint8Array.
+ * @param options The [[ByteifyOptions]] to use to deserialize the array.
+ * @returns The uint8 serialized in an array of bytes.
  */
 export function serializeUint8(
     value: number,
     options: ByteifyOptions = { endianess: ByteifyEndianess.BIG_ENDIAN }
-): Uint8Array {
+): number[] {
     return serialize(value, NativeType.UINT8, options);
 }
 
 /**
- * Serializes an uint16 into an Uint8Array.
+ * Serializes an uint16 into an array of bytes.
  * @param value The uint16 to serialize.
- * @param options The [[ByteifyOptions]] to use to deserialize the Uint8Array.
- * @returns The uint16 serialized in an Uint8Array.
+ * @param options The [[ByteifyOptions]] to use to deserialize the array.
+ * @returns The uint16 serialized in an array of bytes.
  */
 export function serializeUint16(
     value: number,
     options: ByteifyOptions = { endianess: ByteifyEndianess.BIG_ENDIAN }
-): Uint8Array {
+): number[] {
     return serialize(value, NativeType.UINT16, options);
 }
 
 /**
- * Serializes an uint32 into an Uint8Array.
+ * Serializes an uint32 into an array of bytes.
  * @param value The uint32 to serialize.
- * @param options The [[ByteifyOptions]] to use to deserialize the Uint8Array.
- * @returns The uint32 serialized in an Uint8Array.
+ * @param options The [[ByteifyOptions]] to use to deserialize the array.
+ * @returns The uint32 serialized in an array of bytes.
  */
 export function serializeUint32(
     value: number,
     options: ByteifyOptions = { endianess: ByteifyEndianess.BIG_ENDIAN }
-): Uint8Array {
+): number[] {
     return serialize(value, NativeType.UINT32, options);
 }
 
 /**
- * Serializes an uint64 into an Uint8Array.
+ * Serializes an uint64 into an array of bytes.
  * @param value The uint64 to serialize.
- * @param options The [[ByteifyOptions]] to use to deserialize the Uint8Array.
- * @returns The uint64 serialized in an Uint8Array.
+ * @param options The [[ByteifyOptions]] to use to deserialize the array.
+ * @returns The uint64 serialized in an array of bytes.
  */
 export function serializeUint64(
     value: bigint,
     options: ByteifyOptions = { endianess: ByteifyEndianess.BIG_ENDIAN }
-): Uint8Array {
+): number[] {
     return serialize(value, NativeType.UINT64, options);
 }
 
 /**
- * Serializes an int8 into an Uint8Array.
+ * Serializes an int8 into an array of bytes.
  * @param value The int8 to serialize.
- * @param options The [[ByteifyOptions]] to use to deserialize the Uint8Array.
- * @returns The int8 serialized in an Uint8Array.
+ * @param options The [[ByteifyOptions]] to use to deserialize the array.
+ * @returns The int8 serialized in an array of bytes.
  */
 export function serializeInt8(
     value: number,
     options: ByteifyOptions = { endianess: ByteifyEndianess.BIG_ENDIAN }
-): Uint8Array {
+): number[] {
     return serialize(value, NativeType.INT8, options);
 }
 
 /**
- * Serializes an int16 into an Uint8Array.
+ * Serializes an int16 into an array of bytes.
  * @param value The int16 to serialize.
- * @param options The [[ByteifyOptions]] to use to deserialize the Uint8Array.
- * @returns The int16 serialized in an Uint8Array.
+ * @param options The [[ByteifyOptions]] to use to deserialize the array.
+ * @returns The int16 serialized in an array of bytes.
  */
 export function serializeInt16(
     value: number,
     options: ByteifyOptions = { endianess: ByteifyEndianess.BIG_ENDIAN }
-): Uint8Array {
+): number[] {
     return serialize(value, NativeType.INT16, options);
 }
 
 /**
- * Serializes an int32 into an Uint8Array.
+ * Serializes an int32 into an array of bytes.
  * @param value The int32 to serialize.
- * @param options The [[ByteifyOptions]] to use to deserialize the Uint8Array.
- * @returns The int32 serialized in an Uint8Array.
+ * @param options The [[ByteifyOptions]] to use to deserialize the array.
+ * @returns The int32 serialized in an array of bytes.
  */
 export function serializeInt32(
     value: number,
     options: ByteifyOptions = { endianess: ByteifyEndianess.BIG_ENDIAN }
-): Uint8Array {
+): number[] {
     return serialize(value, NativeType.INT32, options);
 }
 
 /**
- * Serializes an int64 into an Uint8Array.
+ * Serializes an int64 into an array of bytes.
  * @param value The int64 to serialize.
- * @param options The [[ByteifyOptions]] to use to deserialize the Uint8Array.
- * @returns The int64 serialized in an Uint8Array.
+ * @param options The [[ByteifyOptions]] to use to deserialize the array.
+ * @returns The int64 serialized in an array of bytes.
  */
 export function serializeInt64(
     value: bigint,
     options: ByteifyOptions = { endianess: ByteifyEndianess.BIG_ENDIAN }
-): Uint8Array {
+): number[] {
     return serialize(value, NativeType.INT64, options);
 }
 
 /**
- * Serializes a float32 into an Uint8Array.
+ * Serializes a float32 into an array of bytes.
  * @param value The float32 to serialize.
- * @param options The [[ByteifyOptions]] to use to deserialize the Uint8Array.
- * @returns The float32 serialized in an Uint8Array.
+ * @param options The [[ByteifyOptions]] to use to deserialize the array.
+ * @returns The float32 serialized in an array of bytes.
  */
 export function serializeFloat32(
     value: number,
     options: ByteifyOptions = { endianess: ByteifyEndianess.BIG_ENDIAN }
-): Uint8Array {
+): number[] {
     return serialize(value, NativeType.FLOAT32, options);
 }
 
 /**
- * Serializes a float64 into an Uint8Array.
+ * Serializes a float64 into an array of bytes.
  * @param value The float64 to serialize.
- * @param options The [[ByteifyOptions]] to use to deserialize the Uint8Array.
- * @returns The float64 serialized in an Uint8Array.
+ * @param options The [[ByteifyOptions]] to use to deserialize the array.
+ * @returns The float64 serialized in an array of bytes.
  */
 export function serializeFloat64(
     value: number,
     options: ByteifyOptions = { endianess: ByteifyEndianess.BIG_ENDIAN }
-): Uint8Array {
+): number[] {
     return serialize(value, NativeType.FLOAT64, options);
 }

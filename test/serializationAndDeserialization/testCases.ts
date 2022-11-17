@@ -3,8 +3,8 @@ import { NativeType } from '../../source/types';
 
 export interface TestCase<T> {
     nativeType: NativeType;
-    serializeFn: (x: T) => Uint8Array;
-    deserializeFn: (x: Uint8Array) => T;
+    serializeFn: (x: T) => number[];
+    deserializeFn: (x: number[]) => T;
     tests: { value: T; serialized: number[] }[];
 }
 
@@ -120,11 +120,11 @@ const testCases: TestCase<boolean | number | bigint>[] = [
             { value: 42, serialized: [42] },
             { value: 96, serialized: [96] },
             { value: 127, serialized: [127] },
-            { value: -1, serialized: [-1] },
-            { value: -12, serialized: [-12] },
-            { value: -42, serialized: [-42] },
-            { value: -96, serialized: [-96] },
-            { value: -127, serialized: [-127] }
+            { value: -1, serialized: [255] },
+            { value: -12, serialized: [244] },
+            { value: -42, serialized: [214] },
+            { value: -96, serialized: [160] },
+            { value: -127, serialized: [129] }
         ]
     },
     {
@@ -142,11 +142,11 @@ const testCases: TestCase<boolean | number | bigint>[] = [
             { value: 256, serialized: [1, 0] },
             { value: 1000, serialized: [3, 232] },
             { value: 32_767, serialized: [127, 255] },
-            { value: -1, serialized: [-1, -1] },
-            { value: -12, serialized: [-1, -12] },
-            { value: -42, serialized: [-1, -42] },
-            { value: -96, serialized: [-1, -96] },
-            { value: -127, serialized: [-1, -127] }
+            { value: -1, serialized: [255, 255] },
+            { value: -12, serialized: [255, 244] },
+            { value: -42, serialized: [255, 214] },
+            { value: -96, serialized: [255, 160] },
+            { value: -127, serialized: [255, 129] }
         ]
     },
     {
@@ -169,18 +169,18 @@ const testCases: TestCase<boolean | number | bigint>[] = [
             { value: 65_536, serialized: [0, 1, 0, 0] },
             { value: 1_000_000, serialized: [0, 15, 66, 64] },
             { value: 2_147_483_647, serialized: [127, 255, 255, 255] },
-            { value: -1, serialized: [-1, -1, -1, -1] },
-            { value: -12, serialized: [-1, -1, -1, -12] },
-            { value: -42, serialized: [-1, -1, -1, -42] },
-            { value: -96, serialized: [-1, -1, -1, -96] },
-            { value: -127, serialized: [-1, -1, -1, -127] },
-            { value: -128, serialized: [-1, -1, -1, -128] },
-            { value: -192, serialized: [-1, -1, -1, -192] },
-            { value: -255, serialized: [-1, -1, -1, 1] },
-            { value: -256, serialized: [-1, -1, -1, 0] },
-            { value: -1000, serialized: [-1, -1, 252, 24] },
+            { value: -1, serialized: [255, 255, 255, 255] },
+            { value: -12, serialized: [255, 255, 255, 244] },
+            { value: -42, serialized: [255, 255, 255, 214] },
+            { value: -96, serialized: [255, 255, 255, 160] },
+            { value: -127, serialized: [255, 255, 255, 129] },
+            { value: -128, serialized: [255, 255, 255, 128] },
+            { value: -192, serialized: [255, 255, 255, 64] },
+            { value: -255, serialized: [255, 255, 255, 1] },
+            { value: -256, serialized: [255, 255, 255, 0] },
+            { value: -1000, serialized: [255, 255, 252, 24] },
             { value: -2_000_000_000, serialized: [136, 202, 108, 0] },
-            { value: -2_147_483_647, serialized: [-128, 0, 0, 1] }
+            { value: -2_147_483_647, serialized: [128, 0, 0, 1] }
         ]
     },
     {

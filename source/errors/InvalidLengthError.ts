@@ -23,7 +23,7 @@ export class ByteifyDeserializationInvalidLengthError extends ByteifyDeserializa
         message = ByteifyDeserializationInvalidLengthError.DEFAULT_MESSAGE,
         nativeType?: NativeType,
         endianess?: ByteifyEndianess,
-        valueToDeserialize?: Uint8Array,
+        valueToDeserialize?: number[],
         deserializedResult?: number | bigint
     ) {
         super(message, nativeType, endianess, valueToDeserialize, deserializedResult);

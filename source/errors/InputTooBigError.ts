@@ -24,7 +24,7 @@ export class ByteifySerializationInputTooBigError extends ByteifySerializationEr
         nativeType?: NativeType,
         endianess?: ByteifyEndianess,
         valueToSerialize?: number | bigint,
-        serializedResult?: Uint8Array
+        serializedResult?: number[]
     ) {
         super(message, nativeType, endianess, valueToSerialize, serializedResult);
         this.name = 'ByteifySerializationInputTooBigError';
