@@ -34,9 +34,14 @@ export function testErrorDueToDecimalValue(
     const essence = ESSENCE[nativeType];
 
     const assertConditionally = (value: any) => {
-        essence === Essence.DECIMAL
-            ? expect(value).not.toThrowError()
-            : expect(value).toThrowError(ByteifySerializationCannotBeDecimalError);
+        switch (essence) {
+            case Essence.INT:
+                return expect(value).toThrowError(ByteifySerializationCannotBeDecimalError);
+            case Essence.BIGINT:
+                return expect(value).toThrowError(ByteifySerializationWrongTypeError);
+            case Essence.DECIMAL:
+                return expect(value).not.toThrowError();
+        }
     };
 
     assertConditionally(() => serializingFunction(23.23));
