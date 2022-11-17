@@ -1,3 +1,5 @@
+import { ByteifyDeserializationInvalidLengthError } from '../errors/InvalidLengthError';
+import { ByteifyDeserializationWrongResultError } from '../errors/WrongResultError';
 import { NativeType } from '../types';
 import { HANDLER, N_OF_BYTES } from '../values/constants';
 import { ByteifyEndianess, ByteifyOptions } from './types';
@@ -15,7 +17,13 @@ function deserialize(bytes: Uint8Array, nativeType: NativeType, options: Byteify
     const nOfBytes = N_OF_BYTES[nativeType];
 
     if (bytes.length !== nOfBytes) {
-        throw new Error(`Invalid serialized ${nativeType}: it can be deserialized only by ${nOfBytes} byte`);
+        throw new ByteifyDeserializationInvalidLengthError(
+            `Invalid serialized ${nativeType}: it can be deserialized only by ${nOfBytes} byte`,
+            nativeType,
+            options.endianess,
+            bytes,
+            undefined
+        );
     }
 
     if (options.endianess === ByteifyEndianess.BIG_ENDIAN) {
@@ -26,7 +34,13 @@ function deserialize(bytes: Uint8Array, nativeType: NativeType, options: Byteify
     const result = new DeserializationClass(bytes.buffer)[0];
 
     if (nativeType === NativeType.BOOL && result !== 0 && result !== 1) {
-        throw new Error('Invalid serialized boolean: it can be deserialized only in 1 or 0');
+        throw new ByteifyDeserializationWrongResultError(
+            'Invalid serialized boolean: it can be deserialized only in 1 or 0',
+            nativeType,
+            options.endianess,
+            bytes,
+            result
+        );
     }
 
     return result;
