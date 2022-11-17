@@ -9,6 +9,11 @@ export interface TestCase {
 
 const TEST_CASES: TestCase[] = [
     {
+        nativeType: NativeType.BOOL,
+        serialize: byteify.serializeBool,
+        deserialize: byteify.deserializeBool
+    },
+    {
         nativeType: NativeType.UINT8,
         serialize: byteify.serializeUint8,
         deserialize: byteify.deserializeUint8

@@ -108,7 +108,7 @@ export function testErrorDueToWrongResult(
             : expect(value).not.toThrowError(ByteifyDeserializationWrongResultError);
     };
 
-    assertConditionally(() => deserializingFunction(Uint8Array.from[15]));
+    assertConditionally(() => deserializingFunction(Uint8Array.from([15])));
 }
 
 export function testErrorDueToWrongArrayLength(
