@@ -5,8 +5,20 @@ import {
     ByteifySerializationInputTooBigError
 } from '../errors';
 import { Essence, NativeType } from '../types';
-import { ESSENCE, HANDLER, MAX, MIN, SUPPORTED_TYPE } from '../values';
+import { ESSENCE, HANDLER, MAX, MIN, NEGATIVE_SHOULD_BE_ADJUSTED, SUPPORTED_TYPE } from '../values';
 import { ByteifyEndianess, ByteifyOptions } from './types';
+
+/**
+ * Adjusts the result of the serialization for negative numbers
+ * @notExported
+ * @category Helper
+ * @param bytes The result of the serialization to be adjusted. It will be modified.
+ */
+function adjustNegative(bytes: number[]): void {
+    for (let i = 0; i < bytes.length; i++) {
+        bytes[i] = (bytes[i] + 256) % 256;
+    }
+}
 
 /**
  * Serializes a number into an array of bytes.
@@ -67,6 +79,9 @@ function serialize(value: number | bigint, nativeType: NativeType, options: Byte
 
     const SerializationClass = HANDLER[nativeType];
     const result = Array.from(new Uint8Array(new SerializationClass([value]).buffer));
+    if (NEGATIVE_SHOULD_BE_ADJUSTED[nativeType]) {
+        adjustNegative(result);
+    }
     return options.endianess === ByteifyEndianess.LITTLE_ENDIAN ? result : result.reverse();
 }
 

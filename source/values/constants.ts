@@ -1,8 +1,5 @@
 import { Essence, NativeType } from '../types';
 
-/**
- * The class that handles a certain native type.
- */
 export const HANDLER: Record<NativeType, any> = {
     bool: Uint8Array,
     uint8: Uint8Array,
@@ -17,9 +14,6 @@ export const HANDLER: Record<NativeType, any> = {
     float64: Float64Array
 };
 
-/**
- * The base type that a certain native type consists in.
- */
 export const ESSENCE = {
     bool: Essence.INT,
     uint8: Essence.INT,
@@ -34,11 +28,22 @@ export const ESSENCE = {
     float64: Essence.DECIMAL
 };
 
-/**
- * The supported types for a certain essence.
- */
 export const SUPPORTED_TYPE = {
     int: 'number',
     bigint: 'bigint',
     decimal: 'number'
+};
+
+export const NEGATIVE_SHOULD_BE_ADJUSTED = {
+    bool: false,
+    uint8: false,
+    uint16: false,
+    uint32: false,
+    uint64: false,
+    int8: true,
+    int16: true,
+    int32: true,
+    int64: true,
+    float32: false,
+    float64: false
 };
