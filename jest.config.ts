@@ -8,7 +8,8 @@ const config: Config.InitialOptions = {
         '^.+\\.tsx?$': ['ts-jest', {
             tsconfig: './tsconfig.json',
         }]
-    },
+    },    
+    collectCoverageFrom: ["./source/**"],
     coverageProvider: 'v8',
     transformIgnorePatterns: ['<rootDir>/node_modules/']
 };
