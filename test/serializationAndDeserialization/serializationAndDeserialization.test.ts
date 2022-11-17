@@ -1,26 +1,26 @@
 import { ByteifyEndianess, ByteifyOptions } from '../../source/modules/types';
 import { Essence, NativeType } from '../../source/types';
 import { ESSENCE } from '../../source/values/constants';
-import testCases from './test-cases';
+import testCases from './testCases';
 
 function serializeAndTest<T>(
     value: T,
     expected: number[],
-    serializeFn: (x: T, o: ByteifyOptions) => Uint8Array,
+    serializeFn: (x: T, o: ByteifyOptions) => number[],
     type: ByteifyEndianess
 ) {
-    expect(serializeFn(value, { endianess: type })).toStrictEqual(new Uint8Array(expected));
+    expect(serializeFn(value, { endianess: type })).toStrictEqual(expected);
 }
 
 function deserializeAndTest<T>(
     value: number[],
     expected: any,
-    deserializeFn: (x: Uint8Array, o: ByteifyOptions) => T,
+    deserializeFn: (x: number[], o: ByteifyOptions) => T,
     nativeType: NativeType,
     endianess: ByteifyEndianess
 ) {
     const essence = ESSENCE[nativeType];
-    const result = deserializeFn(new Uint8Array(value), { endianess: endianess });
+    const result = deserializeFn(value, { endianess: endianess });
 
     if (essence === Essence.DECIMAL) {
         expect(result).toBeCloseTo(expected, 0.01);
@@ -33,8 +33,8 @@ function deserializeAndTest<T>(
 
 function serializeDeserializeAndTest<T>(
     value: T,
-    serializeFn: (x: T, o: ByteifyOptions) => Uint8Array,
-    deserializeFn: (x: Uint8Array, o: ByteifyOptions) => T,
+    serializeFn: (x: T, o: ByteifyOptions) => number[],
+    deserializeFn: (x: number[], o: ByteifyOptions) => T,
     nativeType: NativeType,
     type: ByteifyEndianess
 ) {
@@ -52,14 +52,11 @@ function serializeDeserializeAndTest<T>(
 
 function deserializeSerializeAndTest<T>(
     value: number[],
-    serializeFn: (x: T, o: ByteifyOptions) => Uint8Array,
-    deserializeFn: (x: Uint8Array, o: ByteifyOptions) => T,
+    serializeFn: (x: T, o: ByteifyOptions) => number[],
+    deserializeFn: (x: number[], o: ByteifyOptions) => T,
     type: ByteifyEndianess
 ) {
-    const uint8ArrayValue = new Uint8Array(value);
-    expect(serializeFn(deserializeFn(uint8ArrayValue, { endianess: type }), { endianess: type })).toStrictEqual(
-        uint8ArrayValue
-    );
+    expect(serializeFn(deserializeFn(value, { endianess: type }), { endianess: type })).toStrictEqual(value);
 }
 
 describe('Test serialization and deserialization', function () {
@@ -100,7 +97,7 @@ describe('Test serialization and deserialization', function () {
                             it(`Should deserialize and serialize correctly`, function () {
                                 deserializeSerializeAndTest(
                                     expectedSerialized,
-                                    testCase.serializeFn as (x: any) => Uint8Array,
+                                    testCase.serializeFn as (x: any) => number[],
                                     testCase.deserializeFn,
                                     endianess
                                 );

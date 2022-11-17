@@ -7,11 +7,11 @@ import { NativeType } from '../../source/types';
 function testImmutabilityOfDeserializationInput(
     nativeType: NativeType,
     endianess: ByteifyEndianess,
-    deserialize: (value: Uint8Array, options?: ByteifyOptions) => any
+    deserialize: (value: number[], options?: ByteifyOptions) => any
 ): void {
     const length = N_OF_BYTES[nativeType];
-    const toDeserialize = new Uint8Array(length).fill(0).map((_, i) => i);
-    const toDeserializeInitial = new Uint8Array(toDeserialize);
+    const toDeserialize = [...new Array(length).keys()].fill(0).map((_, i) => i);
+    const toDeserializeInitial = [...toDeserialize];
     deserialize(toDeserialize, { endianess: endianess });
     expect(toDeserialize).toStrictEqual(toDeserializeInitial);
 }

@@ -26,7 +26,7 @@ export class ByteifySerializationError extends ByteifyError {
     /**
      * The serialized value
      */
-    public serializedResult: Uint8Array | null;
+    public serializedResult: number[] | null;
 
     /**
      * The constructor of the [[ByteifySerializationError]] class.
@@ -41,7 +41,7 @@ export class ByteifySerializationError extends ByteifyError {
         nativeType?: NativeType,
         endianess?: ByteifyEndianess,
         valueToSerialize?: number | bigint,
-        serializedResult?: Uint8Array
+        serializedResult?: number[]
     ) {
         super(message);
         this.name = 'ByteifySerializationError';

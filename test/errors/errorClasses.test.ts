@@ -97,14 +97,14 @@ describe('Test error classes', function () {
                 NativeType.BOOL,
                 ByteifyEndianess.BIG_ENDIAN,
                 1,
-                new Uint8Array([0])
+                []
             );
             expect(errorWithMessage).toBeInstanceOf(ByteifySerializationError);
             expect(errorWithMessage.message).toBe('Error message');
             expect(errorWithMessage.nativeType).toBe(NativeType.BOOL);
             expect(errorWithMessage.endianess).toBe(ByteifyEndianess.BIG_ENDIAN);
             expect(errorWithMessage.valueToSerialize).toBe(1);
-            expect(errorWithMessage.serializedResult).toEqual(new Uint8Array([0]));
+            expect(errorWithMessage.serializedResult).toEqual([]);
         });
 
         it('ByteifySerializationCannotBeDecimalError', function () {
@@ -120,14 +120,14 @@ describe('Test error classes', function () {
                 NativeType.BOOL,
                 ByteifyEndianess.BIG_ENDIAN,
                 1,
-                new Uint8Array([0])
+                []
             );
             expect(errorWithMessage).toBeInstanceOf(ByteifySerializationCannotBeDecimalError);
             expect(errorWithMessage.message).toBe('Error message');
             expect(errorWithMessage.nativeType).toBe(NativeType.BOOL);
             expect(errorWithMessage.endianess).toBe(ByteifyEndianess.BIG_ENDIAN);
             expect(errorWithMessage.valueToSerialize).toBe(1);
-            expect(errorWithMessage.serializedResult).toEqual(new Uint8Array([0]));
+            expect(errorWithMessage.serializedResult).toEqual([]);
         });
 
         it('ByteifySerializationInputTooBigError', function () {
@@ -143,14 +143,14 @@ describe('Test error classes', function () {
                 NativeType.BOOL,
                 ByteifyEndianess.BIG_ENDIAN,
                 1,
-                new Uint8Array([0])
+                []
             );
             expect(errorWithMessage).toBeInstanceOf(ByteifySerializationInputTooBigError);
             expect(errorWithMessage.message).toBe('Error message');
             expect(errorWithMessage.nativeType).toBe(NativeType.BOOL);
             expect(errorWithMessage.endianess).toBe(ByteifyEndianess.BIG_ENDIAN);
             expect(errorWithMessage.valueToSerialize).toBe(1);
-            expect(errorWithMessage.serializedResult).toEqual(new Uint8Array([0]));
+            expect(errorWithMessage.serializedResult).toEqual([]);
         });
 
         it('ByteifySerializationInputTooSmallError', function () {
@@ -166,14 +166,14 @@ describe('Test error classes', function () {
                 NativeType.BOOL,
                 ByteifyEndianess.BIG_ENDIAN,
                 1,
-                new Uint8Array([0])
+                []
             );
             expect(errorWithMessage).toBeInstanceOf(ByteifySerializationInputTooSmallError);
             expect(errorWithMessage.message).toBe('Error message');
             expect(errorWithMessage.nativeType).toBe(NativeType.BOOL);
             expect(errorWithMessage.endianess).toBe(ByteifyEndianess.BIG_ENDIAN);
             expect(errorWithMessage.valueToSerialize).toBe(1);
-            expect(errorWithMessage.serializedResult).toEqual(new Uint8Array([0]));
+            expect(errorWithMessage.serializedResult).toEqual([]);
         });
 
         it('ByteifySerializationWrongTypeError', function () {
@@ -189,14 +189,14 @@ describe('Test error classes', function () {
                 NativeType.BOOL,
                 ByteifyEndianess.BIG_ENDIAN,
                 1,
-                new Uint8Array([0])
+                []
             );
             expect(errorWithMessage).toBeInstanceOf(ByteifySerializationWrongTypeError);
             expect(errorWithMessage.message).toBe('Error message');
             expect(errorWithMessage.nativeType).toBe(NativeType.BOOL);
             expect(errorWithMessage.endianess).toBe(ByteifyEndianess.BIG_ENDIAN);
             expect(errorWithMessage.valueToSerialize).toBe(1);
-            expect(errorWithMessage.serializedResult).toEqual(new Uint8Array([0]));
+            expect(errorWithMessage.serializedResult).toEqual([]);
         });
 
         it('ByteifyDeserializationError', function () {
@@ -211,14 +211,14 @@ describe('Test error classes', function () {
                 'Error message',
                 NativeType.BOOL,
                 ByteifyEndianess.BIG_ENDIAN,
-                new Uint8Array([0]),
+                [],
                 1
             );
             expect(errorWithMessage).toBeInstanceOf(ByteifyDeserializationError);
             expect(errorWithMessage.message).toBe('Error message');
             expect(errorWithMessage.nativeType).toBe(NativeType.BOOL);
             expect(errorWithMessage.endianess).toBe(ByteifyEndianess.BIG_ENDIAN);
-            expect(errorWithMessage.valueToDeserialize).toEqual(new Uint8Array([0]));
+            expect(errorWithMessage.valueToDeserialize).toEqual([]);
             expect(errorWithMessage.deserializedResult).toBe(1);
         });
 
@@ -234,14 +234,14 @@ describe('Test error classes', function () {
                 'Error message',
                 NativeType.BOOL,
                 ByteifyEndianess.BIG_ENDIAN,
-                new Uint8Array([0]),
+                [],
                 1
             );
             expect(errorWithMessage).toBeInstanceOf(ByteifyDeserializationInvalidLengthError);
             expect(errorWithMessage.message).toBe('Error message');
             expect(errorWithMessage.nativeType).toBe(NativeType.BOOL);
             expect(errorWithMessage.endianess).toBe(ByteifyEndianess.BIG_ENDIAN);
-            expect(errorWithMessage.valueToDeserialize).toEqual(new Uint8Array([0]));
+            expect(errorWithMessage.valueToDeserialize).toEqual([]);
             expect(errorWithMessage.deserializedResult).toBe(1);
         });
 
@@ -257,14 +257,14 @@ describe('Test error classes', function () {
                 'Error message',
                 NativeType.BOOL,
                 ByteifyEndianess.BIG_ENDIAN,
-                new Uint8Array([0]),
+                [],
                 1
             );
             expect(errorWithMessage).toBeInstanceOf(ByteifyDeserializationWrongResultError);
             expect(errorWithMessage.message).toBe('Error message');
             expect(errorWithMessage.nativeType).toBe(NativeType.BOOL);
             expect(errorWithMessage.endianess).toBe(ByteifyEndianess.BIG_ENDIAN);
-            expect(errorWithMessage.valueToDeserialize).toEqual(new Uint8Array([0]));
+            expect(errorWithMessage.valueToDeserialize).toEqual([]);
             expect(errorWithMessage.deserializedResult).toBe(1);
         });
     });

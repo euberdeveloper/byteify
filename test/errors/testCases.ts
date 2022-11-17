@@ -3,8 +3,8 @@ import * as byteify from '../../source';
 
 export interface TestCase {
     nativeType: NativeType;
-    serialize: (value: any) => Uint8Array;
-    deserialize: (value: Uint8Array) => any;
+    serialize: (value: any) => number[];
+    deserialize: (value: number[]) => any;
 }
 
 const TEST_CASES: TestCase[] = [

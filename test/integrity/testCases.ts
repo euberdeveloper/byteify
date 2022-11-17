@@ -4,8 +4,8 @@ import { ByteifyOptions } from '../../source/modules/types';
 
 export interface TestCase {
     nativeType: NativeType;
-    serialize: (value: any) => Uint8Array;
-    deserialize: (value: Uint8Array, options?: ByteifyOptions) => any;
+    serialize: (value: any) => number[];
+    deserialize: (value: number[], options?: ByteifyOptions) => any;
 }
 
 const TEST_CASES: TestCase[] = [

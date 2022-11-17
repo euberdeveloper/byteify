@@ -22,7 +22,7 @@ export class ByteifyDeserializationError extends ByteifyError {
     /**
      * The value that was to be deserialized
      */
-    public valueToDeserialize: Uint8Array | null;
+    public valueToDeserialize: number[] | null;
     /**
      * The deserialized value
      */
@@ -40,7 +40,7 @@ export class ByteifyDeserializationError extends ByteifyError {
         message = ByteifyDeserializationError.DEFAULT_MESSAGE,
         nativeType?: NativeType,
         endianess?: ByteifyEndianess,
-        valueToDeserialize?: Uint8Array,
+        valueToDeserialize?: number[],
         deserializedResult?: number | bigint
     ) {
         super(message);

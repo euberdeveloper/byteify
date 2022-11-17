@@ -9,7 +9,7 @@ import {
     ByteifySerializationWrongTypeError
 } from '../../source/errors';
 
-export function testErrorDueToWrongType(serializingFunction: (value: any) => Uint8Array, nativeType: NativeType): void {
+export function testErrorDueToWrongType(serializingFunction: (value: any) => number[], nativeType: NativeType): void {
     const essence = ESSENCE[nativeType];
 
     const assertConditionallyBigInt = (value: any) => {
@@ -33,7 +33,7 @@ export function testErrorDueToWrongType(serializingFunction: (value: any) => Uin
 }
 
 export function testErrorDueToDecimalValue(
-    serializingFunction: (value: any) => Uint8Array,
+    serializingFunction: (value: any) => number[],
     nativeType: NativeType
 ): void {
     const essence = ESSENCE[nativeType];
@@ -54,10 +54,7 @@ export function testErrorDueToDecimalValue(
     assertConditionally(() => serializingFunction(0.0023));
 }
 
-export function testErrorDueToSmallValue(
-    serializingFunction: (value: any) => Uint8Array,
-    nativeType: NativeType
-): void {
+export function testErrorDueToSmallValue(serializingFunction: (value: any) => number[], nativeType: NativeType): void {
     const min = MIN[nativeType];
     const essence = ESSENCE[nativeType];
 
@@ -74,10 +71,7 @@ export function testErrorDueToSmallValue(
     }
 }
 
-export function testErrorDueToLargeValue(
-    serializingFunction: (value: any) => Uint8Array,
-    nativeType: NativeType
-): void {
+export function testErrorDueToLargeValue(serializingFunction: (value: any) => number[], nativeType: NativeType): void {
     const max = MAX[nativeType];
     const essence = ESSENCE[nativeType];
 
@@ -94,12 +88,12 @@ export function testErrorDueToLargeValue(
     }
 }
 
-export function testErrorDueToEmptyArray(deserializingFunction: (value: Uint8Array) => any): void {
-    expect(() => deserializingFunction(Uint8Array.from([]))).toThrowError();
+export function testErrorDueToEmptyArray(deserializingFunction: (value: number[]) => any): void {
+    expect(() => deserializingFunction([])).toThrowError();
 }
 
 export function testErrorDueToWrongResult(
-    deserializingFunction: (value: Uint8Array) => any,
+    deserializingFunction: (value: number[]) => any,
     nativeType: NativeType
 ): void {
     const assertConditionally = (value: any) => {
@@ -108,19 +102,19 @@ export function testErrorDueToWrongResult(
             : expect(value).not.toThrowError(ByteifyDeserializationWrongResultError);
     };
 
-    assertConditionally(() => deserializingFunction(Uint8Array.from([15])));
+    assertConditionally(() => deserializingFunction([15]));
 }
 
 export function testErrorDueToWrongArrayLength(
-    deserializingFunction: (value: Uint8Array) => any,
+    deserializingFunction: (value: number[]) => any,
     nativeType: NativeType
 ): void {
     const length: number = N_OF_BYTES[nativeType];
 
-    expect(() => deserializingFunction(new Uint8Array(length - 1))).toThrowError(
+    expect(() => deserializingFunction([...new Array(length - 1).keys()])).toThrowError(
         ByteifyDeserializationInvalidLengthError
     );
-    expect(() => deserializingFunction(new Uint8Array(length + 1))).toThrowError(
+    expect(() => deserializingFunction([...new Array(length + 1).keys()])).toThrowError(
         ByteifyDeserializationInvalidLengthError
     );
 }
