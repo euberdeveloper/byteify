@@ -1,6 +1,8 @@
 import { Essence, NativeType } from '../../source/types';
 import { ESSENCE, MAX, MIN, N_OF_BYTES } from '../../source/values/constants';
-import { ByteifySerializationWrongTypeError } from '../../source/errors';
+import { ByteifySerializationCannotBeDecimalError, ByteifySerializationWrongTypeError } from '../../source/errors';
+import { ByteifySerializationInputTooSmallError } from '../../source/errors/InputTooSmall';
+import { ByteifySerializationInputTooBigError } from '../../source/errors/InputTooBigError';
 
 export function testErrorDueToWrongType(serializingFunction: (value: any) => Uint8Array, nativeType: NativeType): void {
     const essence = ESSENCE[nativeType];
@@ -32,7 +34,9 @@ export function testErrorDueToDecimalValue(
     const essence = ESSENCE[nativeType];
 
     const assertConditionally = (value: any) => {
-        essence === Essence.DECIMAL ? expect(value).not.toThrowError() : expect(value).toThrowError();
+        essence === Essence.DECIMAL
+            ? expect(value).not.toThrowError()
+            : expect(value).toThrowError(ByteifySerializationCannotBeDecimalError);
     };
 
     assertConditionally(() => serializingFunction(23.23));
@@ -48,7 +52,9 @@ export function testErrorDueToSmallValue(
     const essence = ESSENCE[nativeType];
 
     const assertConditionally = (value: any) => {
-        essence === Essence.DECIMAL ? expect(value).not.toThrowError() : expect(value).toThrowError();
+        essence === Essence.DECIMAL
+            ? expect(value).not.toThrowError()
+            : expect(value).toThrowError(ByteifySerializationInputTooSmallError);
     };
 
     if (typeof min === 'number') {
@@ -66,7 +72,9 @@ export function testErrorDueToLargeValue(
     const essence = ESSENCE[nativeType];
 
     const assertConditionally = (value: any) => {
-        essence === Essence.DECIMAL ? expect(value).not.toThrowError() : expect(value).toThrowError();
+        essence === Essence.DECIMAL
+            ? expect(value).not.toThrowError()
+            : expect(value).toThrowError(ByteifySerializationInputTooBigError);
     };
 
     if (typeof max === 'number') {
