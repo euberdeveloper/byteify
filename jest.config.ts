@@ -9,7 +9,7 @@ const config: Config.InitialOptions = {
             tsconfig: './tsconfig.json',
         }]
     },    
-    collectCoverageFrom: ["./source/**"],
+    collectCoverageFrom: ["./source/**/*.ts"],
     coverageProvider: 'v8',
     transformIgnorePatterns: ['<rootDir>/node_modules/']
 };
