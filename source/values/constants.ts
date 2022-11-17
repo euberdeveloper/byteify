@@ -25,7 +25,7 @@ export const MIN = {
     uint8: 0,
     uint16: 0,
     uint32: 0,
-    uint64: 0,
+    uint64: 0n,
     int8: -128,
     int16: -32_768,
     int32: -2_147_483_648,
