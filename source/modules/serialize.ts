@@ -115,7 +115,7 @@ function purgeBoolean(value: boolean | number): number {
  */
 export function serializeBool(
     value: boolean,
-    options: ByteifyOptions = { endianess: ByteifyEndianess.BIG_ENDIAN }
+    options: ByteifyOptions = { endianess: ByteifyEndianess.LITTLE_ENDIAN }
 ): number[] {
     return serialize(purgeBoolean(value), NativeType.BOOL, options);
 }
@@ -128,7 +128,7 @@ export function serializeBool(
  */
 export function serializeUint8(
     value: number,
-    options: ByteifyOptions = { endianess: ByteifyEndianess.BIG_ENDIAN }
+    options: ByteifyOptions = { endianess: ByteifyEndianess.LITTLE_ENDIAN }
 ): number[] {
     return serialize(value, NativeType.UINT8, options);
 }
@@ -141,7 +141,7 @@ export function serializeUint8(
  */
 export function serializeUint16(
     value: number,
-    options: ByteifyOptions = { endianess: ByteifyEndianess.BIG_ENDIAN }
+    options: ByteifyOptions = { endianess: ByteifyEndianess.LITTLE_ENDIAN }
 ): number[] {
     return serialize(value, NativeType.UINT16, options);
 }
@@ -154,7 +154,7 @@ export function serializeUint16(
  */
 export function serializeUint32(
     value: number,
-    options: ByteifyOptions = { endianess: ByteifyEndianess.BIG_ENDIAN }
+    options: ByteifyOptions = { endianess: ByteifyEndianess.LITTLE_ENDIAN }
 ): number[] {
     return serialize(value, NativeType.UINT32, options);
 }
@@ -167,7 +167,7 @@ export function serializeUint32(
  */
 export function serializeUint64(
     value: bigint,
-    options: ByteifyOptions = { endianess: ByteifyEndianess.BIG_ENDIAN }
+    options: ByteifyOptions = { endianess: ByteifyEndianess.LITTLE_ENDIAN }
 ): number[] {
     return serialize(value, NativeType.UINT64, options);
 }
@@ -180,7 +180,7 @@ export function serializeUint64(
  */
 export function serializeInt8(
     value: number,
-    options: ByteifyOptions = { endianess: ByteifyEndianess.BIG_ENDIAN }
+    options: ByteifyOptions = { endianess: ByteifyEndianess.LITTLE_ENDIAN }
 ): number[] {
     return serialize(value, NativeType.INT8, options);
 }
@@ -193,7 +193,7 @@ export function serializeInt8(
  */
 export function serializeInt16(
     value: number,
-    options: ByteifyOptions = { endianess: ByteifyEndianess.BIG_ENDIAN }
+    options: ByteifyOptions = { endianess: ByteifyEndianess.LITTLE_ENDIAN }
 ): number[] {
     return serialize(value, NativeType.INT16, options);
 }
@@ -206,7 +206,7 @@ export function serializeInt16(
  */
 export function serializeInt32(
     value: number,
-    options: ByteifyOptions = { endianess: ByteifyEndianess.BIG_ENDIAN }
+    options: ByteifyOptions = { endianess: ByteifyEndianess.LITTLE_ENDIAN }
 ): number[] {
     return serialize(value, NativeType.INT32, options);
 }
@@ -219,7 +219,7 @@ export function serializeInt32(
  */
 export function serializeInt64(
     value: bigint,
-    options: ByteifyOptions = { endianess: ByteifyEndianess.BIG_ENDIAN }
+    options: ByteifyOptions = { endianess: ByteifyEndianess.LITTLE_ENDIAN }
 ): number[] {
     return serialize(value, NativeType.INT64, options);
 }
@@ -232,7 +232,7 @@ export function serializeInt64(
  */
 export function serializeFloat32(
     value: number,
-    options: ByteifyOptions = { endianess: ByteifyEndianess.BIG_ENDIAN }
+    options: ByteifyOptions = { endianess: ByteifyEndianess.LITTLE_ENDIAN }
 ): number[] {
     return serialize(value, NativeType.FLOAT32, options);
 }
@@ -245,7 +245,7 @@ export function serializeFloat32(
  */
 export function serializeFloat64(
     value: number,
-    options: ByteifyOptions = { endianess: ByteifyEndianess.BIG_ENDIAN }
+    options: ByteifyOptions = { endianess: ByteifyEndianess.LITTLE_ENDIAN }
 ): number[] {
     return serialize(value, NativeType.FLOAT64, options);
 }

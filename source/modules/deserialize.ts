@@ -51,7 +51,7 @@ function deserialize(bytes: number[], nativeType: NativeType, options: ByteifyOp
  */
 export function deserializeBool(
     bytes: number[],
-    options: ByteifyOptions = { endianess: ByteifyEndianess.BIG_ENDIAN }
+    options: ByteifyOptions = { endianess: ByteifyEndianess.LITTLE_ENDIAN }
 ): boolean {
     return deserialize(bytes, NativeType.BOOL, options) === 1;
 }
@@ -64,7 +64,7 @@ export function deserializeBool(
  */
 export function deserializeUint8(
     bytes: number[],
-    options: ByteifyOptions = { endianess: ByteifyEndianess.BIG_ENDIAN }
+    options: ByteifyOptions = { endianess: ByteifyEndianess.LITTLE_ENDIAN }
 ): number {
     return deserialize(bytes, NativeType.UINT8, options) as number;
 }
@@ -77,7 +77,7 @@ export function deserializeUint8(
  */
 export function deserializeUint16(
     bytes: number[],
-    options: ByteifyOptions = { endianess: ByteifyEndianess.BIG_ENDIAN }
+    options: ByteifyOptions = { endianess: ByteifyEndianess.LITTLE_ENDIAN }
 ): number {
     return deserialize(bytes, NativeType.UINT16, options) as number;
 }
@@ -90,7 +90,7 @@ export function deserializeUint16(
  */
 export function deserializeUint32(
     bytes: number[],
-    options: ByteifyOptions = { endianess: ByteifyEndianess.BIG_ENDIAN }
+    options: ByteifyOptions = { endianess: ByteifyEndianess.LITTLE_ENDIAN }
 ): number {
     return deserialize(bytes, NativeType.UINT32, options) as number;
 }
@@ -103,7 +103,7 @@ export function deserializeUint32(
  */
 export function deserializeUint64(
     bytes: number[],
-    options: ByteifyOptions = { endianess: ByteifyEndianess.BIG_ENDIAN }
+    options: ByteifyOptions = { endianess: ByteifyEndianess.LITTLE_ENDIAN }
 ): bigint {
     return deserialize(bytes, NativeType.UINT64, options) as bigint;
 }
@@ -116,7 +116,7 @@ export function deserializeUint64(
  */
 export function deserializeInt8(
     bytes: number[],
-    options: ByteifyOptions = { endianess: ByteifyEndianess.BIG_ENDIAN }
+    options: ByteifyOptions = { endianess: ByteifyEndianess.LITTLE_ENDIAN }
 ): number {
     return deserialize(bytes, NativeType.INT8, options) as number;
 }
@@ -129,7 +129,7 @@ export function deserializeInt8(
  */
 export function deserializeInt16(
     bytes: number[],
-    options: ByteifyOptions = { endianess: ByteifyEndianess.BIG_ENDIAN }
+    options: ByteifyOptions = { endianess: ByteifyEndianess.LITTLE_ENDIAN }
 ): number {
     return deserialize(bytes, NativeType.INT16, options) as number;
 }
@@ -142,7 +142,7 @@ export function deserializeInt16(
  */
 export function deserializeInt32(
     bytes: number[],
-    options: ByteifyOptions = { endianess: ByteifyEndianess.BIG_ENDIAN }
+    options: ByteifyOptions = { endianess: ByteifyEndianess.LITTLE_ENDIAN }
 ): number {
     return deserialize(bytes, NativeType.INT32, options) as number;
 }
@@ -155,7 +155,7 @@ export function deserializeInt32(
  */
 export function deserializeInt64(
     bytes: number[],
-    options: ByteifyOptions = { endianess: ByteifyEndianess.BIG_ENDIAN }
+    options: ByteifyOptions = { endianess: ByteifyEndianess.LITTLE_ENDIAN }
 ): bigint {
     return deserialize(bytes, NativeType.INT64, options) as bigint;
 }
@@ -168,7 +168,7 @@ export function deserializeInt64(
  */
 export function deserializeFloat32(
     bytes: number[],
-    options: ByteifyOptions = { endianess: ByteifyEndianess.BIG_ENDIAN }
+    options: ByteifyOptions = { endianess: ByteifyEndianess.LITTLE_ENDIAN }
 ): number {
     return deserialize(bytes, NativeType.FLOAT32, options) as number;
 }
@@ -181,7 +181,7 @@ export function deserializeFloat32(
  */
 export function deserializeFloat64(
     bytes: number[],
-    options: ByteifyOptions = { endianess: ByteifyEndianess.BIG_ENDIAN }
+    options: ByteifyOptions = { endianess: ByteifyEndianess.LITTLE_ENDIAN }
 ): number | bigint {
     return deserialize(bytes, NativeType.FLOAT64, options);
 }
