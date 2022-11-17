@@ -1,19 +1,8 @@
-import { N_OF_BYTES } from '../../source/values';
-import { ByteifyEndianess, ByteifyOptions, NativeType } from '../../source/types';
+import { ByteifyEndianess, NativeType } from '../../source/types';
+
+import { testImmutabilityOfDeserializationInput, testLittleEndianusedByDefault } from './utils';
 
 import testCases from './testCases';
-
-function testImmutabilityOfDeserializationInput(
-    nativeType: NativeType,
-    endianess: ByteifyEndianess,
-    deserialize: (value: number[], options?: ByteifyOptions) => any
-): void {
-    const length = N_OF_BYTES[nativeType];
-    const toDeserialize = [...new Array(length).keys()].fill(0).map((_, i) => i);
-    const toDeserializeInitial = [...toDeserialize];
-    deserialize(toDeserialize, { endianess: endianess });
-    expect(toDeserialize).toStrictEqual(toDeserializeInitial);
-}
 
 describe('Test integrity', function () {
     describe('Immutability of input for deserialization', function () {
@@ -24,6 +13,14 @@ describe('Test integrity', function () {
                         testImmutabilityOfDeserializationInput(testCase.nativeType, endianess, testCase.deserialize);
                     });
                 }
+            });
+        }
+    });
+
+    describe('Little endian is used by default', function () {
+        for (const testCase of testCases.filter(testCase => testCase.nativeType !== NativeType.BOOL)) {
+            it(testCase.nativeType, function () {
+                testLittleEndianusedByDefault(testCase.nativeType, testCase.serialize, testCase.deserialize);
             });
         }
     });
