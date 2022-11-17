@@ -1,4 +1,5 @@
 import { ByteifySerializationCannotBeDecimalError, ByteifySerializationWrongTypeError } from '../errors';
+import { ByteifySerializationInputTooBigError } from '../errors/InputTooBigError';
 import { ByteifySerializationInputTooSmallError } from '../errors/InputTooSmall';
 import { Essence, NativeType } from '../types';
 import { ESSENCE, HANDLER, MAX, MIN, SUPPORTED_TYPE } from '../values/constants';
@@ -55,7 +56,7 @@ function serialize(value: number | bigint, nativeType: NativeType, options: Byte
             );
         }
         if (value > max) {
-            throw new ByteifySerializationInputTooSmallError(
+            throw new ByteifySerializationInputTooBigError(
                 `Invalid ${nativeType}: value cannot be higher than ${max}`,
                 nativeType,
                 options.endianess,
