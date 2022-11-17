@@ -71,6 +71,29 @@ function serialize(value: number | bigint, nativeType: NativeType, options: Byte
 }
 
 /**
+ * Validates and converts a boolean into a number to be serialized.
+ * @notExported
+ * @category Helper
+ * @param value The boolean to serialize.
+ * @returns The boolean converted into a number.
+ */
+function purgeBoolean(value: boolean | number): number {
+    if (typeof value !== 'boolean' && typeof value !== 'number') {
+        throw new ByteifySerializationWrongTypeError(
+            `Invalid bool: value must be a boolean`,
+            NativeType.BOOL,
+            undefined,
+            value,
+            undefined,
+            typeof value,
+            'boolean'
+        );
+    }
+
+    return +value;
+}
+
+/**
  * Serializes a boolean into an Uint8Array.
  * @param value The boolean to serialize.
  * @param options The [[ByteifyOptions]] to use to deserialize the Uint8Array.
@@ -80,7 +103,7 @@ export function serializeBool(
     value: boolean,
     options: ByteifyOptions = { endianess: ByteifyEndianess.BIG_ENDIAN }
 ): Uint8Array {
-    return serialize(+value, NativeType.BOOL, options);
+    return serialize(purgeBoolean(value), NativeType.BOOL, options);
 }
 
 /**
