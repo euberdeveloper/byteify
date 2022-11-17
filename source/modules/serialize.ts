@@ -38,9 +38,7 @@ function serialize(value: number | bigint, nativeType: NativeType, options: Byte
                 nativeType,
                 options.endianess,
                 value,
-                undefined,
-                typeof value,
-                'integer'
+                undefined
             );
         }
 
@@ -50,9 +48,7 @@ function serialize(value: number | bigint, nativeType: NativeType, options: Byte
                 nativeType,
                 options.endianess,
                 value,
-                undefined,
-                typeof value,
-                'integer'
+                undefined
             );
         }
         if (value > max) {
@@ -61,9 +57,7 @@ function serialize(value: number | bigint, nativeType: NativeType, options: Byte
                 nativeType,
                 options.endianess,
                 value,
-                undefined,
-                typeof value,
-                'integer'
+                undefined
             );
         }
     }
