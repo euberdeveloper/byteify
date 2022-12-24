@@ -1,6 +1,6 @@
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
-const BundleDeclarationsWebpackPlugin = require('bundle-declarations-webpack-plugin');
+const { BundleDeclarationsWebpackPlugin } = require('bundle-declarations-webpack-plugin');
 
 module.exports = {
     target: 'node',
