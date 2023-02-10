@@ -1,5 +1,5 @@
-import { Essence, NativeType } from '../../source/types';
-import { ESSENCE, MAX, MIN, N_OF_BYTES } from '../../source/values';
+import { Essence, NativeType } from '@src/types/index.js';
+import { ESSENCE, MAX, MIN, N_OF_BYTES } from '@src/values/index.js';
 import {
     ByteifyDeserializationInvalidLengthError,
     ByteifyDeserializationWrongResultError,

@@ -1,4 +1,4 @@
-import { Essence, NativeType, ByteifyEndianess, ByteifyOptions } from '../../source/types';
+import { Essence, NativeType, ByteifyEndianess, ByteifyOptions } from '@src/types/index.js';
 import { ESSENCE } from '../../source/values/constants';
 import testCases from './testCases';
 

@@ -10,7 +10,7 @@ import {
     ByteifySerializationWrongTypeError,
     NativeType,
     ByteifyEndianess
-} from '../../source';
+} from '@src/index.js';
 
 describe('Test error classes', function () {
     describe('Test hierarchy', function () {

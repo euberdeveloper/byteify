@@ -1,4 +1,4 @@
-import { ByteifyEndianess, NativeType } from '../../source/types';
+import { ByteifyEndianess, NativeType } from '@src/types/index.js';
 
 import { testImmutabilityOfDeserializationInput, testLittleEndianusedByDefault } from './utils';
 
