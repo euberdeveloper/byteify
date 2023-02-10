@@ -7,7 +7,7 @@ import {
     ByteifySerializationInputTooBigError,
     ByteifySerializationInputTooSmallError,
     ByteifySerializationWrongTypeError
-} from '../../source/errors';
+} from '@src/errors/index.js';
 
 export function testErrorDueToWrongType(serializingFunction: (value: any) => number[], nativeType: NativeType): void {
     const essence = ESSENCE[nativeType];

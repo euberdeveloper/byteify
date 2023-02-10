@@ -1,8 +1,8 @@
 import { ByteifyEndianess, NativeType } from '@src/types/index.js';
 
-import { testImmutabilityOfDeserializationInput, testLittleEndianusedByDefault } from './utils';
+import { testImmutabilityOfDeserializationInput, testLittleEndianusedByDefault } from './utils.js';
 
-import testCases from './testCases';
+import testCases from './testCases.js';
 
 describe('Test integrity', function () {
     describe('Immutability of input for deserialization', function () {

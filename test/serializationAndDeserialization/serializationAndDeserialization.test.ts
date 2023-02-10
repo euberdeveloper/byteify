@@ -1,6 +1,6 @@
 import { Essence, NativeType, ByteifyEndianess, ByteifyOptions } from '@src/types/index.js';
-import { ESSENCE } from '../../source/values/constants';
-import testCases from './testCases';
+import { ESSENCE } from '@src/values/constants.js';
+import testCases from './testCases.js';
 
 function serializeAndTest<T>(
     value: T,
