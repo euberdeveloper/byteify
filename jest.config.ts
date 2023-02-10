@@ -18,14 +18,15 @@ const config: Config.InitialOptions = {
     preset: 'ts-jest/presets/default-esm',
     testEnvironment: 'node',
     verbose: true,
-    globals: {
-        'ts-jest': {
+    transform: {
+        '^.+\\.tsx?$': ['ts-jest', {
             tsconfig: './tsconfig.json',
-            useESM: true
-        }
-    },
+            useEsm: true
+        }]
+    }, 
     coverageProvider: 'v8',
+    collectCoverageFrom: ["./source/**/*.ts"],
     moduleNameMapper: manageMapper(pathsToModuleNameMapper(tsconfigJson.compilerOptions.paths, { prefix: '<rootDir>/' }) as Record<string, string>),
     transformIgnorePatterns: ['<rootDir>/node_modules/']
 };
-export default config;
+export default config;   
