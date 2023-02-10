@@ -2,8 +2,19 @@
   "name": "byteify",
   "version": "4.0.1",
   "description": "An npm module that serializes or deserializes your native types to an array of bytes.",
-  "main": "bundled/index",
-  "types": "bundled/index.d.ts",
+  "types": "./bundled/index.d.ts",
+  "main": "./bundled/commonjs/index.js",
+  "module": "./bundled/esm/index.esm.js",
+  "exports": {
+    ".": {
+      "require": "./bundled/commonjs/index.js",
+      "import": "./bundled/esm/index.esm.js"
+    }
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=14.16"
+  },
   "scripts": {
     "clean": "shx rm -rf dist bundled",
     "pretranspile:source": "npm run clean",
