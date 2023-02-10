@@ -37,31 +37,32 @@ const serializedBool = byteify.serializeBool(true);
 // The value will be: [10]
 const serializedUint8 = byteify.serializeUint8(10); 
 // The value will be: [1, 0]
-const serializedUint16 = byteify.serializeUint16(256, { endianess: ByteifyCase.BIG_ENDIAN }); 
+const serializedUint16 = byteify.serializeUint16(256, { endianess: ByteifyEndianess.BIG_ENDIAN }); 
 // The value will be: [0, 15, 66, 64]
-const serializedUint32 = byteify.serializeUint32(1000000, { endianess: ByteifyCase.BIG_ENDIAN });
-// The value will be: [5, 245, 225, 0, 5, 245, 225, 0]
-const serializedUint64 = byteify.serializeUint64(100000000n, { endianess: ByteifyCase.BIG_ENDIAN }); 
+const serializedUint32 = byteify.serializeUint32(1000000, { endianess: ByteifyEndianess.BIG_ENDIAN });
+// The value will be: [0, 0, 0, 0, 5, 245, 225, 0]
+const serializedUint64 = byteify.serializeUint64(100000000n, { endianess: ByteifyEndianess.BIG_ENDIAN }); 
 
 // The value will be: [255]
 const serializedInt8 = byteify.serializeInt8(-1);
 // The value will be: [252, 24]
-const serializedInt16 = byteify.serializeInt16(-1000, { endianess: ByteifyCase.BIG_ENDIAN });
+const serializedInt16 = byteify.serializeInt16(-1000, { endianess: ByteifyEndianess.BIG_ENDIAN });
 // The value will be: [255, 254, 121, 96]
-const serializedInt32 = byteify.serializeInt32(-100000, { endianess: ByteifyCase.BIG_ENDIAN });
+const serializedInt32 = byteify.serializeInt32(-100000, { endianess: ByteifyEndianess.BIG_ENDIAN });
 // The value will be: [255, 255, 255, 255, 255, 255, 255, 255]
-const serializedInt64 = byteify.serializeInt64(-1n, { endianess: ByteifyCase.BIG_ENDIAN });
+const serializedInt64 = byteify.serializeInt64(-1n, { endianess: ByteifyEndianess.BIG_ENDIAN });
 
 // The value will be: [10, 215, 185, 65]  
-const serializedFloat32 = byteify.serializeFloat32(23.23, { endianess: ByteifyCase.LITTLE_ENDIAN });
+const serializedFloat32 = byteify.serializeFloat32(23.23, { endianess: ByteifyEndianess.LITTLE_ENDIAN });
 // The value will be: [123, 20, 174, 71, 225, 58, 55, 64]
-const serializedFloat64 = byteify.serializeFloat64(23.23, { endianess: ByteifyCase.LITTLE_ENDIAN });
+const serializedFloat64 = byteify.serializeFloat64(23.23, { endianess: ByteifyEndianess.LITTLE_ENDIAN });
 ```
 
 ## Deserialize
 
 ```js
 const byteify = require('byteify');
+const ByteifyEndianess = byteify.ByteifyEndianess;
 
 // The value will be: true
 const deserializedBool = byteify.deserializeBool([1]);
@@ -69,25 +70,25 @@ const deserializedBool = byteify.deserializeBool([1]);
 // The value will be: 10
 const deserializedUint8 = byteify.deserializeUint8([10]);
 // The value will be: 1
-const deserializedUint16 = byteify.deserializeUint16([1, 0], { endianess: ByteifyCase.BIG_ENDIAN });
+const deserializedUint16 = byteify.deserializeUint16([1, 0], { endianess: ByteifyEndianess.BIG_ENDIAN });
 // The value will be: 0
-const deserializedUint32 = byteify.deserializeUint32([0, 15, 66, 64], { endianess: ByteifyCase.BIG_ENDIAN });
+const deserializedUint32 = byteify.deserializeUint32([0, 15, 66, 64], { endianess: ByteifyEndianess.BIG_ENDIAN });
 // The value will be: 100000000nn
-const deserializedUint64 = byteify.deserializeUint64([5, 245, 225, 0, 5, 245, 225, 0], { endianess: ByteifyCase.BIG_ENDIAN });
+const deserializedUint64 = byteify.deserializeUint64([5, 245, 225, 0, 5, 245, 225, 0], { endianess: ByteifyEndianess.BIG_ENDIAN });
 
 // The value will be: -1
 const deserializedInt8 = byteify.deserializeInt8([255]);
 // The value will be: -1000
-const deserializedInt16 = byteify.deserializeInt16([252, 24], { endianess: ByteifyCase.BIG_ENDIAN });
+const deserializedInt16 = byteify.deserializeInt16([252, 24], { endianess: ByteifyEndianess.BIG_ENDIAN });
 // The value will be: -100000
-const deserializedInt32 = byteify.deserializeInt32([255, 254, 121, 96], { endianess: ByteifyCase.BIG_ENDIAN });
+const deserializedInt32 = byteify.deserializeInt32([255, 254, 121, 96], { endianess: ByteifyEndianess.BIG_ENDIAN });
 // The value will be: -1n
-const deserializedInt64 = byteify.deserializeInt64([255, 255, 255, 255, 255, 255, 255, 255], { endianess: ByteifyCase.BIG_ENDIAN });
+const deserializedInt64 = byteify.deserializeInt64([255, 255, 255, 255, 255, 255, 255, 255], { endianess: ByteifyEndianess.BIG_ENDIAN });
 
 // The value will be: 23.23
-const deserializedFloat32 = byteify.deserializeFloat32([10, 215, 185, 65], { endianess: ByteifyCase.LITTLE_ENDIAN });
+const deserializedFloat32 = byteify.deserializeFloat32([10, 215, 185, 65], { endianess: ByteifyEndianess.LITTLE_ENDIAN });
 // The value will be: 23.23
-const deserializedFloat64 = byteify.deserializeFloat64([123, 20, 174, 71, 225, 58,  55, 64], { endianess: ByteifyCase.LITTLE_ENDIAN });
+const deserializedFloat64 = byteify.deserializeFloat64([123, 20, 174, 71, 225, 58,  55, 64], { endianess: ByteifyEndianess.LITTLE_ENDIAN });
 ```
 
 ## Endianess
@@ -96,16 +97,17 @@ By default, Little Endian is used. If you want to use Big Endian, you can pass i
 
 ```js
 const byteify = require('byteify');
+const ByteifyEndianess = byteify.ByteifyEndianess;
 
 // The value will be: 1000000
 const deserializedUint64 = byteify.deserializeUint64([64, 66, 15, 0, 0, 0, 0, 0]);
-const deserializedUint64 = byteify.deserializeUint64([64, 66, 15, 0, 0, 0, 0, 0], { endianess: ByteifyCase.LITTLE_ENDIAN });
-const deserializedUint64 = byteify.deserializeUint64([0, 0, 0, 0, 0, 15, 66, 64], { endianess: ByteifyCase.BIG_ENDIAN });
+const deserializedUint64 = byteify.deserializeUint64([64, 66, 15, 0, 0, 0, 0, 0], { endianess: ByteifyEndianess.LITTLE_ENDIAN });
+const deserializedUint64 = byteify.deserializeUint64([0, 0, 0, 0, 0, 15, 66, 64], { endianess: ByteifyEndianess.BIG_ENDIAN });
 
 // The value will be [64, 66, 15, 0, 0, 0, 0, 0]
-const serializedUint64 = byteify.serializeUint64(1000000, { endianess: ByteifyCase.LITTLE_ENDIAN });
+const serializedUint64 = byteify.serializeUint64(1000000, { endianess: ByteifyEndianess.LITTLE_ENDIAN });
 // The value will be [0, 0, 0, 0, 0, 15, 66, 64]
-const serializedUint64 = byteify.serializeUint64(1000000, { endianess: ByteifyCase.BIG_ENDIAN });
+const serializedUint64 = byteify.serializeUint64(1000000, { endianess: ByteifyEndianess.BIG_ENDIAN });
 ```
 
 ## Limits
