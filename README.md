@@ -176,7 +176,7 @@ The documentation for development site is: [byteify dev documentation](https://b
 
 To build the module make sure you have the dev dependencies installed.
 
-The project is written in `Typescript`, bundled with `Webpack`, linted with `ESLint` and tested with `Jest`.
+The project is written in `Typescript`, bundled with `esbuild`, linted with `ESLint` and tested with `Jest`.
 
 ### Lint
 
