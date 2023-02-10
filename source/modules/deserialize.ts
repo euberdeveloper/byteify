@@ -1,4 +1,4 @@
-import { ByteifyDeserializationInvalidLengthError, ByteifyDeserializationWrongResultError } from '../errors/index.js';
+import { ByteifyDeserializationInvalidLengthError, ByteifyDeserializationWrongResultError } from '@/errors/index.js';
 import { NativeType, ByteifyEndianess, ByteifyOptions } from '@/types/index.js';
 import { HANDLER, N_OF_BYTES } from '@/values/index.js';
 

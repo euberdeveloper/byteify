@@ -3,7 +3,7 @@ import {
     ByteifySerializationWrongTypeError,
     ByteifySerializationInputTooSmallError,
     ByteifySerializationInputTooBigError
-} from '../errors/index.js';
+} from '@/errors/index.js';
 import { Essence, NativeType, ByteifyEndianess, ByteifyOptions } from '@/types/index.js';
 import { ESSENCE, HANDLER, MAX, MIN, NEGATIVE_SHOULD_BE_ADJUSTED, SUPPORTED_TYPE } from '@/values/index.js';
 
