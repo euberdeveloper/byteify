@@ -1,5 +1,5 @@
-import { NativeType, ByteifyEndianess } from '../types';
-import { ByteifySerializationError } from './SerializationError';
+import { NativeType, ByteifyEndianess } from '@/types/index.js';
+import { ByteifySerializationError } from './SerializationError.js';
 
 /**
  * The [[ByteifySerializationError]] that happens because the input cannot be decimal

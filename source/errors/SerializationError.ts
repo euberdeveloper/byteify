@@ -1,4 +1,4 @@
-import { NativeType, ByteifyEndianess } from '../types';
+import { NativeType, ByteifyEndianess } from '@/types/index.js';
 import { ByteifyError } from './ByteifyError';
 
 /**

@@ -12,6 +12,7 @@ module.exports = {
     ],
     rules: {
         '@typescript-eslint/naming-convention': 'off',
-        'unicorn/prefer-spread': 'off'
+        'unicorn/prefer-spread': 'off',
+        'unicorn/import-index': 'off'
     }
 };

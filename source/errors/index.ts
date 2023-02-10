@@ -1,5 +1,5 @@
 export * from './ByteifyError';
-export * from './SerializationError';
+export * from './SerializationError.js';
 export * from './DeserializationError';
 export * from './WrongTypeError';
 export * from './CannotBeDecimalError';
