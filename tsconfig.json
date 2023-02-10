@@ -1,16 +1,44 @@
 {
     "compilerOptions": {
-        "moduleResolution": "node",
-        "module": "commonjs",
+        "moduleResolution": "Node16",
+        "module": "Node16",
         "target": "ES2020",
         "lib": [
-            "ES2020"
+            "ES2022"
         ],
         "resolveJsonModule": true,
         "strictNullChecks": true,
+        "downlevelIteration": true,
+        "skipDefaultLibCheck": true,
+        "skipLibCheck": true,
+        "esModuleInterop": true,
         "sourceMap": true,
         "declaration": false,
+        "baseUrl": ".",
+        "paths": {
+            "@/*": [
+                "./source/*"
+            ],
+            "@": [
+                "./source"
+            ],
+            "@src/*": [
+                "./source/*"
+            ],
+            "@src": [
+                "./source"
+            ],
+            "@test/*": [
+                "./test/*"
+            ],
+            "@test": [
+                "./test"
+            ]
+        },
         "outDir": "./dist"
     },
-    "include": ["source", "test"]
+    "include": [
+        "source",
+        "test"
+    ]
 }
