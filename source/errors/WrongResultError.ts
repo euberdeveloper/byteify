@@ -1,5 +1,5 @@
-import { NativeType, ByteifyEndianess } from '../types';
-import { ByteifyDeserializationError } from './DeserializationError';
+import { NativeType, ByteifyEndianess } from '@/types/index.js';
+import { ByteifyDeserializationError } from './DeserializationError.js';
 
 /**
  * The [[ByteifyDeserializationError]] that happens because the input is of wrong deserialized result

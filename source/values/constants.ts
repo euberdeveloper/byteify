@@ -1,4 +1,4 @@
-import { Essence, NativeType } from '../types';
+import { Essence, NativeType } from '@/types/index.js';
 
 export const HANDLER: Record<NativeType, any> = {
     bool: Uint8Array,

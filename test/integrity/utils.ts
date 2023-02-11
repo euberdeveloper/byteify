@@ -1,5 +1,5 @@
-import { ESSENCE, N_OF_BYTES } from '../../source/values';
-import { ByteifyEndianess, ByteifyOptions, Essence, NativeType } from '../../source/types';
+import { ESSENCE, N_OF_BYTES } from '@src/values/index.js';
+import { ByteifyEndianess, ByteifyOptions, Essence, NativeType } from '@src/types/index.js';
 
 export function testImmutabilityOfDeserializationInput(
     nativeType: NativeType,

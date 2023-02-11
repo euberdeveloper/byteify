@@ -1,6 +1,6 @@
-import { ByteifyDeserializationInvalidLengthError, ByteifyDeserializationWrongResultError } from '../errors';
-import { NativeType, ByteifyEndianess, ByteifyOptions } from '../types';
-import { HANDLER, N_OF_BYTES } from '../values';
+import { ByteifyDeserializationInvalidLengthError, ByteifyDeserializationWrongResultError } from '@/errors/index.js';
+import { NativeType, ByteifyEndianess, ByteifyOptions } from '@/types/index.js';
+import { HANDLER, N_OF_BYTES } from '@/values/index.js';
 
 /**
  * Deserializes an array of bytes representing a number.

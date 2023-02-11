@@ -3,9 +3,9 @@ import {
     ByteifySerializationWrongTypeError,
     ByteifySerializationInputTooSmallError,
     ByteifySerializationInputTooBigError
-} from '../errors';
-import { Essence, NativeType, ByteifyEndianess, ByteifyOptions } from '../types';
-import { ESSENCE, HANDLER, MAX, MIN, NEGATIVE_SHOULD_BE_ADJUSTED, SUPPORTED_TYPE } from '../values';
+} from '@/errors/index.js';
+import { Essence, NativeType, ByteifyEndianess, ByteifyOptions } from '@/types/index.js';
+import { ESSENCE, HANDLER, MAX, MIN, NEGATIVE_SHOULD_BE_ADJUSTED, SUPPORTED_TYPE } from '@/values/index.js';
 
 /**
  * Adjusts the result of the serialization for negative numbers

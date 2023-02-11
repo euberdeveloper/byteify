@@ -6,9 +6,9 @@ import {
     testErrorDueToWrongArrayLength,
     testErrorDueToWrongResult,
     testErrorDueToWrongType
-} from './utils';
+} from './utils.js';
 
-import testCases from './testCases';
+import testCases from './testCases.js';
 
 describe('Test errored cases', function () {
     for (const testCase of testCases) {
